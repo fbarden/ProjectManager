@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-4.6.dtd">
+<!-- eric4 project file for project ProjectManager -->
+<!-- Saved: 2013-05-09, 02:00:57 -->
+<!-- Copyright (C) 2013 Felipe Barden, felipebarden@gmail.com -->
+<Project version="4.6">
+  <Language></Language>
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <ProjectType>Qt4</ProjectType>
+  <Description></Description>
+  <Version>0.1</Version>
+  <Author>Felipe Barden</Author>
+  <Email>felipebarden@gmail.com</Email>
+  <Sources>
+    <Source>__init__.py</Source>
+  </Sources>
+  <Forms>
+    <Form>views/ProjectView.ui</Form>
+    <Form>views/MainWindow.ui</Form>
+    <Form>views/DocumentView.ui</Form>
+    <Form>views/ClauseView.ui</Form>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Resources>
+  </Resources>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+  </Others>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.qm" type="TRANSLATIONS" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES" />
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.ts" type="TRANSLATIONS" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+    <FiletypeAssociation pattern="*.qrc" type="RESOURCES" />
+  </FiletypeAssociations>
+</Project>
