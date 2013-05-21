@@ -1,11 +1,12 @@
 import os
 
-def class System :
+class System :
     def loadFile(self, filename) :
+        content = ""
         with open(filename, 'r') as f :
-            content f.read()
+            content = f.read()
         return content
         
-    def saveFile(self, filename, content):
-        with open(filename,  'w') as f
-            f.write(content)
+#    def saveFile(self, filename, content):
+#        with open(filename,  'w') as f
+#            f.write(content)

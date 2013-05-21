@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<document title="Documento Teste">
+    <title>Documento Teste</title>
+    <id>1</id>
+    <filename>documento_teste.xml</filename>
+    <clauses>
+        <clause id="1">
+            <title>Cláusula teste 1</title>
+            <text>Aqui fica o texto da clausula 1</text>
+            <links>
+                <link document="documento_teste" clause="2"></link>
+            </links>
+            <related_files>
+                <file filename="specs.pdf">Descrição do arquivo specs.pdf</file>
+            </related_files>
+        </clause>
+        
+        <clause id="2">
+        <title>Cláusula teste 2</title>
+            <text>Aqui fica o texto da clausula 2</text>
+            <links>
+                <link document="documento_teste" clause="1"></link>
+            </links>
+            <related_files>
+                <file filename="reqs.pdf">Descrição do arquivo reqs.pdf</file>
+                <file filename="reqs2.pdf">Descrição do outro arquivo</file>
+            </related_files>
+        </clause>
+    </clauses>
+        
+</document>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<project name ="TestProject">
+    <document id="1">
+        <title>Test Document Number 1</title>
+        <filename>"testDocument.xml"</filename>
+    </document>
+    <document id="2">
+        <title>Test Document Number 2</title>
+        <filename>test_document_number_2.xml</filename>
+    </document>
+</project>

@@ -1,0 +1,4 @@
+<project name="TestProject">
+    <document name="testDocument"></document>
+    <document name="testDocument2"></document>
+</project>
