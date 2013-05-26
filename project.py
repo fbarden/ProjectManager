@@ -1,5 +1,7 @@
 import xml.etree.ElementTree as ET
 import os
+from link import Link
+from document import Document
 
 class Project :
     def __init__(self):
@@ -8,6 +10,7 @@ class Project :
         self.XML = None
     
     def open(self,  filename):
+        resetLinksList()
         tree = ET.parse(filename)
         self.XML = tree.getroot()
         self.name = self.XML.get("name")
@@ -16,6 +19,9 @@ class Project :
             document = Document()
             document.open(document_node.get(name) +".xml")
             self.documents[filename.rstrip(".xml")]= document
+        for link in all_links_list:
+            link.consolidate(self)
+
     
     def save(self):
         project = ET.Element('project')

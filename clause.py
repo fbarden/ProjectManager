@@ -33,7 +33,6 @@ class Clause:
             newLink = link.Link()
             newLink.addParent(self.document,  self.id)
             newLink.addChild(document,  clause)
-            self.child_links += [newLink]
         for related_file in related_filesXML.findall("file") :
             self.related_files[related_file.get("filename")] = related_file.text
         self.text = self.XML.find("text").text
@@ -96,12 +95,17 @@ class Clause:
         self.title = title
     
     def addChildLink(self, link):
-        self.child_links += link
+        if (not link in self.child_links) :
+            self.child_links += [link]
     
     def removeChildLink(self, link_rem):
         if link in self.child_links :
             self.child_links.remove(link)
-            
     
     def addParentLink(self, link):
-        self.parent_links += link
+        if (not link in self.parent_links) :
+            self.parent_links += [link]
+
+    def removeParentLink(self, link_rem):
+        if link in self.parent_links :
+            self.parent_links.remove(link)

@@ -1,9 +1,17 @@
 import xml.etree.ElementTree as ET
 
+all_links_list = []
+
+def resetLinksList ():
+    all_links_list = []
+
 class Link :
     def __init__ (self):
         self.parent_node = ""
         self.child_node = ""
+        self.parent_clause = None
+        self.child_clause = None
+        all_links_list += [self]
     
     def addParent(self,  document,  clause):
         self.parent_node = document + ":" + str(clause)
@@ -34,4 +42,13 @@ class Link :
         return clause
 
     def remove(self):
-        pass
+        self.parent_clause.removeChildLink(self)
+        self.parent_clause.removeParentLink(self)
+
+    def consolidate(self,  project):
+        parent_document,  parent_clause = self.parent_node.split(":")
+        child_document, child_clause = self.child_node.split(":")
+        self.parent_clause = project.getDocument(parent_document).getClause(parent_clause)
+        self.child_clause = project.getDocument(child_document).getClause(child_clause)
+        self.parent_clause.addChildLink(self)
+        self.child_clause.addParentLink(self)

@@ -4,25 +4,27 @@ import os
 
 class Document :
     def __init__(self):
+        self.project = ""
         self.title = ""
         self.clauses = {}
-        self.filename = ""
+        self.name = ""
         self.XML = None
 
-    def open(self,  filename):
+    def open(self,  project,  filename):
+        self.project = project
         self.clauses = {}
-        self.filename = filename
-        tree = ET.parse(filename)
+        self.name = filename[0:len(filename)-4]
+        tree = ET.parse(self.project + "/" + filename)
         self.XML = tree.getroot()
         self.title = self.XML.get("title")
         clauses_node = self.XML.find("clauses")
         for item in clauses_node.findall("clause") :
             clause = Clause()
-            clause.open(filename,  item.get("id"))
+            clause.open(self.name,  item.get("id"))
             self.clauses[id] = clause
 
     def saveClause(self,  id):
-        document_tree= ET.parse(self.filename)
+        document_tree= ET.parse(self.project + "/" + self.name + ".xml")
         document_node = document_tree.getroot()
         clauses_node= document_node.find("clauses")
         for clause in clauses_node :
@@ -30,7 +32,7 @@ class Document :
                 clauses_node.remove(clause)
         clause_node = self.getUpdatedNode()
         document_node.append(clause_node)
-        document_tree.write(self.document + ".xml")
+        document_tree.write(self.name + ".xml")
         
     def getClause(self,  id):
         return self.clauses[id]
