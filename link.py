@@ -1,9 +1,9 @@
 import xml.etree.ElementTree as ET
 
-all_links_list = []
+#all_links_list = []
 
-def resetLinksList ():
-    all_links_list = []
+#def resetLinksList ():
+#    all_links_list = []
 
 class Link :
     def __init__ (self):
@@ -11,7 +11,7 @@ class Link :
         self.child_node = ""
         self.parent_clause = None
         self.child_clause = None
-        all_links_list += [self]
+#        all_links_list += [self]
     
     def addParent(self,  document,  clause):
         self.parent_node = document + ":" + str(clause)

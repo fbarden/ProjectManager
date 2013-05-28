@@ -10,17 +10,17 @@ class Document :
         self.name = ""
         self.XML = None
 
-    def open(self,  project,  filename):
-        self.project = project
+    def open(self, filename):
         self.clauses = {}
         self.name = filename[0:len(filename)-4]
-        tree = ET.parse(self.project + "/" + filename)
+        tree = ET.parse("./" + filename)
         self.XML = tree.getroot()
         self.title = self.XML.get("title")
         clauses_node = self.XML.find("clauses")
         for item in clauses_node.findall("clause") :
             clause = Clause()
-            clause.open(self.name,  item.get("id"))
+            id = item.get("id")
+            clause.open(self.name,  id)
             self.clauses[id] = clause
 
     def saveClause(self,  id):
@@ -33,6 +33,12 @@ class Document :
         clause_node = self.getUpdatedNode()
         document_node.append(clause_node)
         document_tree.write(self.name + ".xml")
+    
+    def getClausesList(self):
+        list = []
+        for clause in self.clauses :
+            list += [clause]
+        return list
         
     def getClause(self,  id):
         return self.clauses[id]

@@ -18,15 +18,19 @@ class Clause:
         self.XML = None
         self.id = str(id)
         self.document = filename.strip(".xml")
-        tree = ET.parse(filename)
+        tree = ET.parse(filename + ".xml")
         root = tree.getroot()
         for item in root.find("clauses").findall("clause") :
             if item.get("id") == self.id :
                 self.XML = item
         if (self.XML is None) :
             return False
+        titleXML = self.XML.find("title")
+        textXML = self.XML.find("text")
         linksXML = self.XML.find("links")
         related_filesXML = self.XML.find("related_files")
+        self.title = titleXML.text
+        self.text = textXML.text
         for child_link in linksXML.findall("link") :
             document  = child_link.get("document")
             clause = child_link.get("clause")
@@ -93,6 +97,12 @@ class Clause:
     
     def setTitle(self, title):
         self.title = title
+
+    def getText(self): 
+        return self.text
+    
+    def setText(self, text):
+        self.text = text
     
     def addChildLink(self, link):
         if (not link in self.child_links) :

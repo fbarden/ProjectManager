@@ -10,17 +10,20 @@ class Project :
         self.XML = None
     
     def open(self,  filename):
-        resetLinksList()
+#        resetLinksList()
         tree = ET.parse(filename)
         self.XML = tree.getroot()
         self.name = self.XML.get("name")
         self.documents = {}
         for document_node in self.XML.findall("document") :
             document = Document()
-            document.open(document_node.get(name) +".xml")
-            self.documents[filename.rstrip(".xml")]= document
-        for link in all_links_list:
-            link.consolidate(self)
+            document_name = document_node.get("name")
+            document.open(document_name +".xml")
+            self.documents[document_name] = document
+        
+#        for link in all_links_list:
+#            link.consolidate(self)
+        
 
     
     def save(self):
@@ -41,6 +44,12 @@ class Project :
 
     def getDocument(self, name):
         return self.documents[name]
+    
+    def getDocumentsList(self):
+        list = []
+        for document in self.documents :
+            list += [document]
+        return list
     
     def addDocument(self,  document):
         self.documents[document.getName] = document
