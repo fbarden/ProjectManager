@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>projectViewWidget</class>
+ <widget class="QWidget" name="projectViewWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTreeWidget" name="treeWidget">
+    <widget class="QTreeWidget" name="documentsListWidget">
      <column>
       <property name="text">
        <string>Documents</string>
