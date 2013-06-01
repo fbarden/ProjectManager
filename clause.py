@@ -119,3 +119,6 @@ class Clause:
     def removeParentLink(self, link_rem):
         if link in self.parent_links :
             self.parent_links.remove(link)
+
+    def getRelatedFilesList(self):
+        return self.related_files

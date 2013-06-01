@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project ProjectManager -->
-<!-- Saved: 2013-05-26, 11:55:42 -->
+<!-- Saved: 2013-05-27, 09:29:18 -->
 <!-- Copyright (C) 2013 Felipe Barden, felipebarden@gmail.com -->
 <Project version="4.6">
   <Language></Language>
@@ -18,12 +18,25 @@
     <Source>system.py</Source>
     <Source>clause.py</Source>
     <Source>project.py</Source>
+    <Source>views/MainWindow.py</Source>
+    <Source>views/__init__.py</Source>
+    <Source>views/UI/Ui_DocumentView.py</Source>
+    <Source>views/UI/Ui_ClauseView.py</Source>
+    <Source>views/UI/Ui_ClauseView_v2.py</Source>
+    <Source>views/UI/Ui_MainWindow.py</Source>
+    <Source>views/UI/Ui_ProjectView.py</Source>
+    <Source>views/UI/Ui_NewProject.py</Source>
+    <Source>views/UI/__init__.py</Source>
+    <Source>views/UI/Ui_NewProjectWindow.py</Source>
+    <Source>views/UI/Ui_NewProjectDialog.py</Source>
   </Sources>
   <Forms>
-    <Form>views/ProjectView.ui</Form>
-    <Form>views/MainWindow.ui</Form>
-    <Form>views/DocumentView.ui</Form>
-    <Form>views/ClauseView.ui</Form>
+    <Form>views/UI/ProjectView.ui</Form>
+    <Form>views/UI/ClauseView_v2.ui</Form>
+    <Form>views/UI/MainWindow.ui</Form>
+    <Form>views/UI/DocumentView.ui</Form>
+    <Form>views/UI/ClauseView.ui</Form>
+    <Form>views/UI/NewProjectDialog.ui</Form>
   </Forms>
   <Translations>
   </Translations>

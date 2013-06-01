@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/MainWindow.ui'
 #
-# Created: Tue May 28 02:22:42 2013
+# Created: Sat Jun  1 13:24:02 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,11 +17,12 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(626, 479)
-        self.centralwidget = CentralWidget(MainWindow)
+        MainWindow.resize(965, 643)
+        self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+        MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 626, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 965, 25))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuProject = QtGui.QMenu(self.menubar)
         self.menuProject.setObjectName(_fromUtf8("menuProject"))
@@ -66,7 +67,6 @@ class Ui_MainWindow(object):
         self.actionSaveProject_as.setText(QtGui.QApplication.translate("MainWindow", "Save as...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
 
-from views.centralWidget import CentralWidget
 
 if __name__ == "__main__":
     import sys

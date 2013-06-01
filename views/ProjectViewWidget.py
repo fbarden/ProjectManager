@@ -6,15 +6,18 @@ from PyQt4.QtCore import *
 from project import Project
 
 class ProjectViewWidget(QWidget):
-    def __init__(self,  parent,  project = None):
+
+    openDocumentSignal = pyqtSignal(str);
+    openClauseSignal = pyqtSignal(str, str);
+
+    def __init__(self, project = None):
         super(ProjectViewWidget, self).__init__()
-        self.parent = parent
         self.ui = Ui_ProjectView.Ui_projectViewWidget()
-        self.ui.setupUi(self.parent)
-        self.ui.documentsListWidget.itemActivated.connect(self.parent.openSelect)
+        self.ui.setupUi(self)
+        self.ui.documentsListWidget.itemActivated.connect(self.openSelect)
         if (project is not None) :
             self.loadProject(project)
-    
+
     def loadProject(self,  project):
         documentsList = project.getDocumentsList()
         widgetList = []
@@ -30,3 +33,9 @@ class ProjectViewWidget(QWidget):
                 clauseWidgetItem.setText(0,  clause.getTitle())
                 widgetList += [clauseWidgetItem]
         self.ui.documentsListWidget.addTopLevelItems(widgetList)
+
+    def openSelect(self, selectedItem, column):
+        if (selectedItem.parent() is None) :
+            self.openDocumentSignal.emit(selectedItem.text(0))
+        else :
+            self.openClauseSignal.emit(selectedItem.parent().text(0),  "1")

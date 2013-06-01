@@ -5,7 +5,7 @@
     <filename>documento_teste.xml</filename>
     <clauses>
         <clause id="1">
-            <title>Cláusula teste 1</title>
+            <title>Clausula teste 1</title>
             <text>Aqui fica o texto da clausula 1</text>
             <links>
                 <link document="documento_teste" clause="2"></link>
@@ -16,7 +16,7 @@
         </clause>
         
         <clause id="2">
-        <title>Cláusula teste 2</title>
+            <title>Clausula teste 2</title>
             <text>Aqui fica o texto da clausula 2</text>
             <links>
                 <link document="documento_teste" clause="1"></link>
