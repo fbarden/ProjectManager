@@ -9,5 +9,5 @@ globalProject = None
 
 app = QApplication(sys.argv)
 f = MainWindow()
-f.show()
+f.showMaximized()
 app.exec_()

@@ -1,54 +1,58 @@
 import xml.etree.ElementTree as ET
 
-#all_links_list = []
-
-#def resetLinksList ():
-#    all_links_list = []
-
 class Link :
     def __init__ (self):
-        self.parent_node = ""
-        self.child_node = ""
-        self.parent_clause = None
-        self.child_clause = None
-#        all_links_list += [self]
+        self.parent_id = ""
+        self.child_id = ""
+        self.parent = None
+        self.child = None
     
-    def addParent(self,  document,  clause):
-        self.parent_node = document + ":" + str(clause)
+    def addParent(self,  document,  clause,  object = None):
+        self.parent_id = document + ":" + str(clause)
+        if (object is not None) :
+            self.parent = object
+            self.parent.addChildLink(self)
     
-    def addChild(self,  document,  clause):
-        self.child_node = document + ":" + str(clause)
+    def addChild(self,  document,  clause,  object = None):
+        self.child_id = document + ":" + str(clause)
+        if (object is not None) :
+            self.child = object
+            self.child.addParentLink(self)
     
-    def getChild(self):
-        return self.child_node
+    def getChildID(self):
+        return self.child_id
 
-    def getParent(self):
-        return self.parent_node
+    def getParentID(self):
+        return self.parent_id
 
-    def getParentDocument(self):
-        document,  clause = self.parent_node.split(":")
+    def getParentDocumentID(self):
+        document,  clause = self.parent_id.split(":")
         return document
-        
-    def getParentClause(self):
-        document,  clause = self.parent_node.split(":")
+
+    def getParentClauseID(self):
+        document,  clause = self.parent_id.split(":")
         return clause
     
-    def getChildDocument(self):
-        document,  clause = self.child_node.split(":")
+    def getChildDocumentID(self):
+        document,  clause = self.child_id.split(":")
         return document
     
-    def getChildClause(self):
-        document,  clause = self.child_node.split(":")
+    def getChildClauseID(self):
+        document,  clause = self.child_id.split(":")
         return clause
 
     def remove(self):
-        self.parent_clause.removeChildLink(self)
-        self.parent_clause.removeParentLink(self)
+        self.parent.removeChildLink(self)
+        self.parent.removeParentLink(self)
 
-    def consolidate(self,  project):
-        parent_document,  parent_clause = self.parent_node.split(":")
-        child_document, child_clause = self.child_node.split(":")
-        self.parent_clause = project.getDocument(parent_document).getClause(parent_clause)
-        self.child_clause = project.getDocument(child_document).getClause(child_clause)
-        self.parent_clause.addChildLink(self)
-        self.child_clause.addParentLink(self)
+    def consolidateParent(self,  project):
+        if self.parent is None:
+            parent_document,  parent = self.parent_id.split(":")
+            self.parent = project.getDocument(parent_document).getClause(parent)
+            self.parent.addChildLink(self)
+
+    def consolidateChild(self,  project):
+        if self.child is None:
+            child_document, child = self.child_id.split(":")
+            self.child = project.getDocument(child_document).getClause(child)
+            self.child.addParentLink(self)

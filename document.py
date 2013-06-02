@@ -44,8 +44,8 @@ class Document :
         return self.clauses[id]
     
     def addClause(self,  clause):
-        self.clauses[clause.getId] = clause
+        self.clauses[clause.getID] = clause
     
     def removeClause(self, clause):
-        del self.clauses[clause.getId()]
+        del self.clauses[clause.getID()]
         clause.remove()

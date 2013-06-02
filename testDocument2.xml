@@ -1,25 +1,26 @@
 <?xml version="1.0"?>
 <document title="Documento Teste">
-    <title>Documento Teste</title>
+    <title>Documento Teste 2</title>
     <id>2</id>
-    <filename>documento_teste.xml</filename>
+    <filename>testDocument2.xml</filename>
     <clauses>
-        <clause id="1">
-            <title>Clausula teste 5</title>
-            <text>Aqui fica o texto da clausula 5</text>
+
+        <clause id="3">
+            <title>Clausula teste 3</title>
+            <text>Aqui fica o texto da clausula 3</text>
             <links>
-                <link document="documento_teste" clause="2"></link>
+                <link document="testDocument2" clause="4"></link>
             </links>
             <related_files>
                 <file filename="specs.pdf">Descrição do arquivo specs.pdf</file>
             </related_files>
         </clause>
         
-        <clause id="2">
-            <title>Clausula teste 2</title>
-            <text>Aqui fica o texto da clausula 6</text>
+        <clause id="4">
+            <title>Clausula teste 4</title>
+            <text>Aqui fica o texto da clausula 4</text>
             <links>
-                <link document="documento_teste" clause="1"></link>
+                <link document="testDocument" clause="1"></link>
             </links>
             <related_files>
                 <file filename="reqs.pdf">Descrição do arquivo reqs.pdf</file>

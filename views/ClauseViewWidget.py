@@ -22,6 +22,7 @@ class ClauseViewWidget(QWidget):
         self.loadDownlinks()
         self.loadHistory()
         self.loadRelatedDocs()
+        
 
     def loadText(self):
         self.ui.textEdit.setText(self.clause.getText())
@@ -31,14 +32,33 @@ class ClauseViewWidget(QWidget):
         self.ui.titleEdit.setText(self.clause.getTitle())
     
     def loadUplinks(self):
-        pass
+        linksDict = self.clause.getParentLinksDict()
+        widgetList = []
+        for document in linksDict :
+            documentWidgetItem = QTreeWidgetItem()
+            documentWidgetItem.setText(0,  document)
+            widgetList += [documentWidgetItem]
+            for clause in linksDict[document] :
+                clauseWidgetItem = QTreeWidgetItem(documentWidgetItem)
+                clauseWidgetItem.setText(0,  clause)
+                widgetList += [clauseWidgetItem]
+        self.ui.uplinksTreeWidget.addTopLevelItems(widgetList)
 
     def loadDownlinks(self):
-        pass
+        linksDict = self.clause.getChildLinksDict()
+        widgetList = []
+        for document in linksDict :
+            documentWidgetItem = QTreeWidgetItem()
+            documentWidgetItem.setText(0,  document)
+            widgetList += [documentWidgetItem]
+            for clause in linksDict[document] :
+                clauseWidgetItem = QTreeWidgetItem(documentWidgetItem)
+                clauseWidgetItem.setText(0,  clause)
+                widgetList += [clauseWidgetItem]
+        self.ui.downlinksTreeWidget.addTopLevelItems(widgetList)
 
     def loadHistory(self):
         pass
    
     def loadRelatedDocs(self):
-        
         pass

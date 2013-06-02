@@ -193,14 +193,21 @@
               <string>Uplinks</string>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignHCenter|Qt::AlignTop</set>
              </property>
             </widget>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="QTreeWidget" name="uplinksTreeWidget"/>
+          <widget class="QTreeWidget" name="uplinksTreeWidget">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -281,6 +288,16 @@
         <layout class="QVBoxLayout" name="downlinksLayout">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="downlinksLabel">
+             <property name="text">
+              <string>Downlinks</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignHCenter|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
            <item alignment="Qt::AlignTop">
             <widget class="QCheckBox" name="downlinksCheckBox">
              <property name="sizePolicy">
@@ -297,20 +314,17 @@
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QLabel" name="downlinksLabel">
-             <property name="text">
-              <string>Downlinks</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
          <item>
-          <widget class="QTreeWidget" name="downlinksTreeWidget"/>
+          <widget class="QTreeWidget" name="downlinksTreeWidget">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="editDownlinksButton">
@@ -378,12 +392,60 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>29</x>
-     <y>113</y>
+     <x>39</x>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>28</x>
      <y>167</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>downlinksCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>downlinksTreeWidget</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>967</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>838</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>downlinksCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>editDownlinksButton</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>967</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>905</x>
+     <y>692</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>downlinksCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>downlinksLabel</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>967</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>895</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -400,54 +462,6 @@
     <hint type="destinationlabel">
      <x>123</x>
      <y>104</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>downlinksCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>downlinksTreeWidget</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>836</x>
-     <y>105</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>838</x>
-     <y>157</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>downlinksCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>downlinksLabel</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>845</x>
-     <y>89</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>895</x>
-     <y>89</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>downlinksCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>editDownlinksButton</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>836</x>
-     <y>107</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>905</x>
-     <y>692</y>
     </hint>
    </hints>
   </connection>

@@ -6,6 +6,6 @@
     </document>
     <document id="2">
         <title>Test Document Number 2</title>
-        <filename>test_document_number_2.xml</filename>
+        <filename>testDocument2.xml</filename>
     </document>
 </project>

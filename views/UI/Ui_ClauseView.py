@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ClauseView.ui'
 #
-# Created: Sat Jun  1 13:24:03 2013
+# Created: Sun Jun  2 10:00:33 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_clauseViewWidget(object):
     def setupUi(self, clauseViewWidget):
         clauseViewWidget.setObjectName(_fromUtf8("clauseViewWidget"))
-        clauseViewWidget.resize(1025, 713)
+        clauseViewWidget.resize(988, 713)
         self.verticalLayout_4 = QtGui.QVBoxLayout(clauseViewWidget)
         self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -97,11 +97,6 @@ class Ui_clauseViewWidget(object):
         self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
         self.uplinksLayout = QtGui.QVBoxLayout()
         self.uplinksLayout.setObjectName(_fromUtf8("uplinksLayout"))
-        self.line = QtGui.QFrame(self.editTab)
-        self.line.setFrameShape(QtGui.QFrame.HLine)
-        self.line.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line.setObjectName(_fromUtf8("line"))
-        self.uplinksLayout.addWidget(self.line)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.showUplinksCheckBox = QtGui.QCheckBox(self.editTab)
@@ -121,13 +116,17 @@ class Ui_clauseViewWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.uplinksLabel.sizePolicy().hasHeightForWidth())
         self.uplinksLabel.setSizePolicy(sizePolicy)
-        self.uplinksLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.uplinksLabel.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.uplinksLabel.setObjectName(_fromUtf8("uplinksLabel"))
         self.horizontalLayout_2.addWidget(self.uplinksLabel)
         self.uplinksLayout.addLayout(self.horizontalLayout_2)
         self.uplinksTreeWidget = QtGui.QTreeWidget(self.editTab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.uplinksTreeWidget.sizePolicy().hasHeightForWidth())
+        self.uplinksTreeWidget.setSizePolicy(sizePolicy)
         self.uplinksTreeWidget.setObjectName(_fromUtf8("uplinksTreeWidget"))
-        self.uplinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.uplinksLayout.addWidget(self.uplinksTreeWidget)
         self.horizontalLayout_6.addLayout(self.uplinksLayout)
         self.verticalLayout_3 = QtGui.QVBoxLayout()
@@ -138,6 +137,7 @@ class Ui_clauseViewWidget(object):
         self.fontComboBox.setObjectName(_fromUtf8("fontComboBox"))
         self.horizontalLayout_4.addWidget(self.fontComboBox)
         self.fontSizeComboBox = QtGui.QComboBox(self.editTab)
+        self.fontSizeComboBox.setEditable(True)
         self.fontSizeComboBox.setObjectName(_fromUtf8("fontSizeComboBox"))
         self.horizontalLayout_4.addWidget(self.fontSizeComboBox)
         self.boldButton = QtGui.QToolButton(self.editTab)
@@ -172,6 +172,10 @@ class Ui_clauseViewWidget(object):
         self.downlinksLayout.setObjectName(_fromUtf8("downlinksLayout"))
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.downlinksLabel = QtGui.QLabel(self.editTab)
+        self.downlinksLabel.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.downlinksLabel.setObjectName(_fromUtf8("downlinksLabel"))
+        self.horizontalLayout_3.addWidget(self.downlinksLabel)
         self.downlinksCheckBox = QtGui.QCheckBox(self.editTab)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -182,14 +186,14 @@ class Ui_clauseViewWidget(object):
         self.downlinksCheckBox.setChecked(True)
         self.downlinksCheckBox.setObjectName(_fromUtf8("downlinksCheckBox"))
         self.horizontalLayout_3.addWidget(self.downlinksCheckBox)
-        self.downlinksLabel = QtGui.QLabel(self.editTab)
-        self.downlinksLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.downlinksLabel.setObjectName(_fromUtf8("downlinksLabel"))
-        self.horizontalLayout_3.addWidget(self.downlinksLabel)
         self.downlinksLayout.addLayout(self.horizontalLayout_3)
         self.downlinksTreeWidget = QtGui.QTreeWidget(self.editTab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.downlinksTreeWidget.sizePolicy().hasHeightForWidth())
+        self.downlinksTreeWidget.setSizePolicy(sizePolicy)
         self.downlinksTreeWidget.setObjectName(_fromUtf8("downlinksTreeWidget"))
-        self.downlinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.downlinksLayout.addWidget(self.downlinksTreeWidget)
         self.editDownlinksButton = QtGui.QPushButton(self.editTab)
         self.editDownlinksButton.setObjectName(_fromUtf8("editDownlinksButton"))
@@ -201,6 +205,11 @@ class Ui_clauseViewWidget(object):
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName(_fromUtf8("tab_3"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.tab_3)
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.treeWidget = QtGui.QTreeWidget(self.tab_3)
+        self.treeWidget.setObjectName(_fromUtf8("treeWidget"))
+        self.verticalLayout.addWidget(self.treeWidget)
         self.tabWidget.addTab(self.tab_3, _fromUtf8(""))
         self.verticalLayout_4.addWidget(self.tabWidget)
 
@@ -208,6 +217,9 @@ class Ui_clauseViewWidget(object):
         self.tabWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.titleCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.titleEdit.setEnabled)
         QtCore.QObject.connect(self.showUplinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.uplinksTreeWidget.setVisible)
+        QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.downlinksTreeWidget.setVisible)
+        QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.editDownlinksButton.setVisible)
+        QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.downlinksLabel.setVisible)
         QtCore.QObject.connect(self.showUplinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.uplinksLabel.setVisible)
         QtCore.QMetaObject.connectSlotsByName(clauseViewWidget)
 
@@ -230,7 +242,9 @@ class Ui_clauseViewWidget(object):
         self.editDownlinksButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.editTab), QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("clauseViewWidget", "Histórico", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("clauseViewWidget", "Documentos Relacionados", None, QtGui.QApplication.UnicodeUTF8))
+        self.treeWidget.headerItem().setText(0, QtGui.QApplication.translate("clauseViewWidget", "Nome", None, QtGui.QApplication.UnicodeUTF8))
+        self.treeWidget.headerItem().setText(1, QtGui.QApplication.translate("clauseViewWidget", "Descrição", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("clauseViewWidget", "Arquivos Relacionados", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":

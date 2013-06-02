@@ -35,7 +35,7 @@ class Clause:
             document  = child_link.get("document")
             clause = child_link.get("clause")
             newLink = link.Link()
-            newLink.addParent(self.document,  self.id)
+            newLink.addParent(self.document,  self.id,  self)
             newLink.addChild(document,  clause)
         for related_file in related_filesXML.findall("file") :
             self.related_files[related_file.get("filename")] = related_file.text
@@ -89,7 +89,7 @@ class Clause:
         for link in self.child_links :
             link.remove()
     
-    def getId(self):
+    def getID(self):
         return self.id
     
     def getTitle(self): 
@@ -107,6 +107,7 @@ class Clause:
     def addChildLink(self, link):
         if (not link in self.child_links) :
             self.child_links += [link]
+            print self.document + ":" + self.id + " adicionando link filho " + link.getChildID()
     
     def removeChildLink(self, link_rem):
         if link in self.child_links :
@@ -115,6 +116,7 @@ class Clause:
     def addParentLink(self, link):
         if (not link in self.parent_links) :
             self.parent_links += [link]
+            print self.document + ":" + self.id + " adicionando link pai " + link.getParentID()
 
     def removeParentLink(self, link_rem):
         if link in self.parent_links :
@@ -122,3 +124,25 @@ class Clause:
 
     def getRelatedFilesList(self):
         return self.related_files
+
+    def getChildLinksList(self):
+        return self.child_links
+    
+    def getParentLinksList(self):
+        return self.parent_links
+    
+    def getParentLinksDict(self):
+        documentsList = {}
+        for link in self.getParentLinksList() :
+            documentsList[link.getParentDocumentID()] = []
+        for link in self.getParentLinksList() :
+            documentsList[link.getParentDocumentID()] += link.getParentClauseID()
+        return documentsList
+    
+    def getChildLinksDict(self):
+        documentsList = {}
+        for link in self.getChildLinksList() :
+            documentsList[link.getChildDocumentID()] = []
+        for link in self.getChildLinksList() :
+            documentsList[link.getChildDocumentID()] += link.getChildClauseID()
+        return documentsList

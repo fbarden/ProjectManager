@@ -10,7 +10,6 @@ class Project :
         self.XML = None
     
     def open(self,  filename):
-#        resetLinksList()
         tree = ET.parse(filename)
         self.XML = tree.getroot()
         self.name = self.XML.get("name")
@@ -20,12 +19,12 @@ class Project :
             document_name = document_node.get("name")
             document.open(document_name +".xml")
             self.documents[document_name] = document
-        
-#        for link in all_links_list:
-#            link.consolidate(self)
-        
+        linksList = self.getAllLinks()
+        for link in linksList :
+            link.consolidateChild(self)
+        for link in linksList :
+            print link.getParentID() + " --> " + link.getChildID()
 
-    
     def save(self):
         project = ET.Element('project')
         project.set('name',  self.name)
@@ -62,3 +61,12 @@ class Project :
 
     def setName(self,  name):
         self.name = name
+
+    def getAllLinks(self):
+        linksList = []
+        for documentName in self.getDocumentsList() :
+            documentObj = self.getDocument(documentName)
+            for clauseName in documentObj.getClausesList() :
+                clauseObj = documentObj.getClause(clauseName)
+                linksList += clauseObj.getChildLinksList()
+        return linksList
