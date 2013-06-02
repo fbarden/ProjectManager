@@ -104,6 +104,9 @@ class Clause:
     def setText(self, text):
         self.text = text
     
+    def getDocumentName(self):
+        return self.document
+        
     def addChildLink(self, link):
         if (not link in self.child_links) :
             self.child_links += [link]

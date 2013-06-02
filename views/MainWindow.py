@@ -48,12 +48,13 @@ class MainWindow(QMainWindow):
         self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
 
     def openDocumentWidget(self, document):
-        documentViewWidget = DocumentViewWidget(self, document)
+        documentViewWidget = DocumentViewWidget(self, self.project, document)
         documentViewWidget.show()
 #    
     def openClauseWidget(self, document,  clause):
+        print "passou pelo openClauseWidget"
         clauseObj = self.project.getDocument(str(document)).getClause(str(clause))
-        clauseViewWidget = ClauseViewWidget(clauseObj)
+        clauseViewWidget = ClauseViewWidget(self.project, clauseObj)
         self.setCentralWidget(clauseViewWidget)
         self.ui.centralwidget = clauseViewWidget
     
