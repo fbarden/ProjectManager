@@ -24,6 +24,8 @@ class Project :
             link.consolidateChild(self)
         for link in linksList :
             print link.getParentID() + " --> " + link.getChildID()
+#        print self.documents
+#        print sorted(set(self.documents))
 
     def save(self):
         project = ET.Element('project')
@@ -45,10 +47,7 @@ class Project :
         return self.documents[name]
     
     def getDocumentsList(self):
-        list = []
-        for document in self.documents :
-            list += [document]
-        return list
+        return sorted(set(self.documents))
     
     def addDocument(self,  document):
         self.documents[document.getName] = document

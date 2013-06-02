@@ -35,10 +35,7 @@ class Document :
         document_tree.write(self.name + ".xml")
     
     def getClausesList(self):
-        list = []
-        for clause in self.clauses :
-            list += [clause]
-        return list
+        return sorted(set(self.clauses))
         
     def getClause(self,  id):
         return self.clauses[id]
