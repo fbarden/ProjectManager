@@ -38,6 +38,6 @@ class ProjectViewWidget(QWidget):
 
     def openSelect(self, selectedItem, column):
         if (selectedItem.parent() is None) :
-            self.openDocumentSignal.emit(selectedItem.text(0))
+            self.openDocumentSignal.emit(str(selectedItem.text(0)))
         else :
             self.openClauseSignal.emit(selectedItem.parent().text(0),  self.clausesDict[str(selectedItem.parent().text(0) + selectedItem.text(0))])

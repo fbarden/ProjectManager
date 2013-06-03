@@ -1,6 +1,7 @@
 from UI import Ui_MainWindow
 from NewProjectDialog import NewProjectDialog
 from ProjectViewWidget import ProjectViewWidget
+from DocumentViewWidget import DocumentViewWidget
 from ClauseViewWidget import ClauseViewWidget
 import sys
 from PyQt4.QtGui import *
@@ -48,8 +49,10 @@ class MainWindow(QMainWindow):
         self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
 
     def openDocumentWidget(self, document):
-        documentViewWidget = DocumentViewWidget(self, document)
-        documentViewWidget.show()
+        documentObj = self.project.getDocument(str(document))
+        documentViewWidget = DocumentViewWidget(documentObj)
+        self.setCentralWidget(documentViewWidget)
+        self.ui.centralwidget = documentViewWidget
 
     def openClauseWidget(self, document,  clause):
         print "passou pelo openClauseWidget"

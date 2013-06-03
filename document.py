@@ -49,3 +49,6 @@ class Document :
     
     def getName(self):
         return self.name
+
+    def getTitle(self):
+        return self.title
