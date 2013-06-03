@@ -7,23 +7,30 @@ class Link :
         self.parent = None
         self.child = None
     
-    def addParent(self,  document,  clause,  object = None):
+    def addParent(self,  document,  clause):
         self.parent_id = document + ":" + str(clause)
-        if (object is not None) :
-            self.parent = object
-            self.parent.addChildLink(self)
+#        if (object is not None) :
+#            self.parent = object
+#            self.parent.addChildLink(self)
+#            print "Adicionado link PAI com " + self.parent_id
     
-    def addChild(self,  document,  clause,  object = None):
+    def addChild(self,  document,  clause):
         self.child_id = document + ":" + str(clause)
-        if (object is not None) :
-            self.child = object
-            self.child.addParentLink(self)
+#        if (object is not None) :
+#            self.child = object
+#            self.child.addParentLink(self)
     
     def getChildID(self):
         return self.child_id
 
     def getParentID(self):
         return self.parent_id
+    
+    def getParent(self):
+        return self.parent
+    
+    def getChild(self):
+        return self.child
 
     def getParentDocumentID(self):
         document,  clause = self.parent_id.split(":")

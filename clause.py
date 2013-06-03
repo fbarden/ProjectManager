@@ -2,29 +2,21 @@ import xml.etree.ElementTree as ET
 import link
 
 class Clause:
-    def __init__(self):
-        self.document = ""
+    def __init__(self,  document):
+        self.document = document
         self.id = "-1"
         self.title = ""
-        self.child_links = []
-        self.parent_links= []
+        self.child_links = {}
+        self.parent_links= {}
         self.related_files = {}
         self.XML = None
 
-    def open(self,  filename,  id):
-        self.child_links = []
-        self.parent_links= []
+    def open(self,  clauseXML):
+        self.child_links = {}
+        self.parent_links= {}
         self.related_files = {}
-        self.XML = None
-        self.id = str(id)
-        self.document = filename.strip(".xml")
-        tree = ET.parse(filename + ".xml")
-        root = tree.getroot()
-        for item in root.find("clauses").findall("clause") :
-            if item.get("id") == self.id :
-                self.XML = item
-        if (self.XML is None) :
-            return False
+        self.XML = clauseXML
+        self.id = self.XML .get("id")
         titleXML = self.XML.find("title")
         textXML = self.XML.find("text")
         linksXML = self.XML.find("links")
@@ -35,11 +27,15 @@ class Clause:
             document  = child_link.get("document")
             clause = child_link.get("clause")
             newLink = link.Link()
-            newLink.addParent(self.document,  self.id,  self)
+            newLink.addParent(self.document.getName(),  self.id)
             newLink.addChild(document,  clause)
+            self.child_links[newLink.getChildID()] = newLink
         for related_file in related_filesXML.findall("file") :
             self.related_files[related_file.get("filename")] = related_file.text
         self.text = self.XML.find("text").text
+        print "Terminou o coarregamento da clausula"
+        print self.parent_links
+        print self.child_links
 
     def getUpdatedNode(self):
         clause_node = ET.Element("clause")
@@ -104,37 +100,37 @@ class Clause:
     def setText(self, text):
         self.text = text
     
-    def getDocumentName(self):
+    def getDocument(self):
         return self.document
-        
+
     def addChildLink(self, link):
-        if (not link in self.child_links) :
-            self.child_links += [link]
-            print self.document + ":" + self.id + " adicionando link filho " + link.getChildID()
+        if (not link in self.child_links.values()) :
+            self.child_links[link.getChildID()] = link
+            print self.document.getName() + ":" + self.id + " adicionando link filho " + link.getChildID()
     
     def removeChildLink(self, link_rem):
-        if link in self.child_links :
-            self.child_links.remove(link)
+        if link in self.child_links.values() :
+            self.child_links.remove(link.getChildID())
     
     def addParentLink(self, link):
-        if (not link in self.parent_links) :
-            self.parent_links += [link]
-            print self.document + ":" + self.id + " adicionando link pai " + link.getParentID()
+        if (not link in self.parent_links.values()) :
+            self.parent_links[link.getParentID()] = link
+            print self.document.getName() + ":" + self.id + " adicionando link pai " + link.getParentID()
 
     def removeParentLink(self, link_rem):
-        if link in self.parent_links :
-            self.parent_links.remove(link)
+        if link in self.parent_links.values() :
+            del self.parent_links[link.getParentID()]
 
     def getRelatedFilesList(self):
         return self.related_files
 
     def getChildLinksList(self):
-        return self.child_links
+        return self.child_links.values()
     
     def getParentLinksList(self):
-        return self.parent_links
+        return self.parent_links.values()
     
-    def getParentLinksDict(self):
+    def getParentLinksDoc2Clause(self):
         documentsList = {}
         for link in self.getParentLinksList() :
             documentsList[link.getParentDocumentID()] = []
@@ -142,10 +138,19 @@ class Clause:
             documentsList[link.getParentDocumentID()] += link.getParentClauseID()
         return documentsList
     
-    def getChildLinksDict(self):
+    def getChildLinksDoc2Clause(self):
         documentsList = {}
         for link in self.getChildLinksList() :
             documentsList[link.getChildDocumentID()] = []
         for link in self.getChildLinksList() :
             documentsList[link.getChildDocumentID()] += link.getChildClauseID()
         return documentsList
+
+    def getParentLinkClause(self,  document,  clause):
+        ID = document + ":" + clause
+        return self.parent_links[ID].getParent()
+        
+    def getChildLinkClause(self,  document,  clause):
+        ID = document + ":" + clause
+        return self.child_links[ID].getChild()
+        

@@ -18,9 +18,9 @@ class Document :
         self.title = self.XML.get("title")
         clauses_node = self.XML.find("clauses")
         for item in clauses_node.findall("clause") :
-            clause = Clause()
+            clause = Clause(self)
             id = item.get("id")
-            clause.open(self.name,  id)
+            clause.open(item)
             self.clauses[id] = clause
 
     def saveClause(self,  id):
@@ -46,3 +46,6 @@ class Document :
     def removeClause(self, clause):
         del self.clauses[clause.getID()]
         clause.remove()
+    
+    def getName(self):
+        return self.name

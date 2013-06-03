@@ -6,9 +6,8 @@ from PyQt4.QtCore import *
 from project import Project
 
 class ClauseViewWidget(QWidget):
-    def __init__(self, project,  clause=None):
+    def __init__(self, clause=None):
         super(ClauseViewWidget, self).__init__()
-        self.project = project
         self.clause = None
         self.ui = Ui_ClauseView.Ui_clauseViewWidget()
         self.ui.setupUi(self)
@@ -17,7 +16,7 @@ class ClauseViewWidget(QWidget):
         self.ui.previousButton.clicked.connect(self.previousClause)
         self.ui.nextButton.clicked.connect(self.nextClause)
         self.ui.uplinksTreeWidget.itemActivated.connect(self.loadUplink)
-        self.ui.downlinksTreeWidget.itemActivated.connect(self.loadLink)
+        self.ui.downlinksTreeWidget.itemActivated.connect(self.loadDownlink)
 #        self.ui.returnButton.triggered.connect(self.returnClause)
 #        self.ui.topButton.triggered.connect(self.upToDocument)
 
@@ -26,12 +25,18 @@ class ClauseViewWidget(QWidget):
         self.ui.downlinksTreeWidget.clear()
 #        self.ui.relatedFilesTreeWidget.clear()
 
-    def loadLink(self, selectedItem, column):
+    def loadUplink(self, selectedItem, column):
         if (selectedItem.parent() is not None) :
-            self.loadClause(selectedItem.parent().text(0),  self.clausesDict[str(selectedItem.parent().text(0) + selectedItem.text(0))])
+            newClause = self.clause.getParentLinkClause(str(selectedItem.parent().text(0)),  str(selectedItem.text(0)))
+            self.loadClause(newClause)
+
+    def loadDownlink(self, selectedItem, column):
+        if (selectedItem.parent() is not None) :
+            newClause = self.clause.getChildLinkClause(str(selectedItem.parent().text(0)),  str(selectedItem.text(0)))
+            self.loadClause(newClause)
 
     def changeClause(self,  step):
-        document = self.project.getDocument(self.clause.getDocumentName())
+        document = self.clause.getDocument()
         clausesList = document.getClausesList()
         index = clausesList.index(self.clause.getID()) + step
         if (index > (-1)) and (index < len(clausesList)):
@@ -57,11 +62,11 @@ class ClauseViewWidget(QWidget):
         self.ui.textEdit.setText(self.clause.getText())
 
     def loadTitle(self):
-        self.ui.titleLabel.setText(self.clause.document + ": " + self.clause.getTitle())
+        self.ui.titleLabel.setText(self.clause.getDocument().getName() + ": " + self.clause.getTitle())
         self.ui.titleEdit.setText(self.clause.getTitle())
     
     def loadUplinks(self):
-        linksDict = self.clause.getParentLinksDict()
+        linksDict = self.clause.getParentLinksDoc2Clause()
         widgetList = []
         for document in linksDict :
             documentWidgetItem = QTreeWidgetItem()
@@ -74,7 +79,7 @@ class ClauseViewWidget(QWidget):
         self.ui.uplinksTreeWidget.addTopLevelItems(widgetList)
 
     def loadDownlinks(self):
-        linksDict = self.clause.getChildLinksDict()
+        linksDict = self.clause.getChildLinksDoc2Clause()
         widgetList = []
         for document in linksDict :
             documentWidgetItem = QTreeWidgetItem()
