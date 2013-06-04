@@ -6,6 +6,9 @@ from PyQt4.QtCore import *
 from project import Project
 
 class ClauseViewWidget(QWidget):
+
+    openDocumentSignal = pyqtSignal(str);
+    
     def __init__(self, clause=None):
         super(ClauseViewWidget, self).__init__()
         self.clause = None
@@ -18,7 +21,10 @@ class ClauseViewWidget(QWidget):
         self.ui.uplinksTreeWidget.itemActivated.connect(self.loadUplink)
         self.ui.downlinksTreeWidget.itemActivated.connect(self.loadDownlink)
 #        self.ui.returnButton.triggered.connect(self.returnClause)
-#        self.ui.topButton.triggered.connect(self.upToDocument)
+        self.ui.upButton.clicked.connect(self.upToDocument)
+
+    def upToDocument(self):
+        self.openDocumentSignal.emit(self.clause.getDocument().getName())
 
     def clearWidget(self):
         self.ui.uplinksTreeWidget.clear()

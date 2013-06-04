@@ -22,6 +22,7 @@ class Project :
         linksList = self.getAllLinks()
         for link in linksList :
             link.consolidateChild(self)
+            link.consolidateParent(self)
         for link in linksList :
             print link.getParentID() + " --> " + link.getChildID()
 #        print self.documents

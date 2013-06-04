@@ -52,3 +52,6 @@ class Document :
 
     def getTitle(self):
         return self.title
+
+    def setTitle(self, newTitle):
+        self.title = newTitle

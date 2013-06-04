@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/DocumentView.ui'
 #
-# Created: Mon Jun  3 07:32:33 2013
+# Created: Mon Jun  3 19:40:19 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,7 +20,29 @@ class Ui_documentViewWidget(object):
         documentViewWidget.resize(610, 580)
         self.verticalLayout = QtGui.QVBoxLayout(documentViewWidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        self.titleLabel = QtGui.QLabel(documentViewWidget)
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.titleLabel.setFont(font)
+        self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.titleLabel.setObjectName(_fromUtf8("titleLabel"))
+        self.horizontalLayout.addWidget(self.titleLabel)
+        self.titleButton = QtGui.QPushButton(documentViewWidget)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.titleButton.sizePolicy().hasHeightForWidth())
+        self.titleButton.setSizePolicy(sizePolicy)
+        self.titleButton.setObjectName(_fromUtf8("titleButton"))
+        self.horizontalLayout.addWidget(self.titleButton)
+        self.verticalLayout.addLayout(self.horizontalLayout)
         self.textBrowser = QtGui.QTextBrowser(documentViewWidget)
+        self.textBrowser.setOpenLinks(False)
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
         self.verticalLayout.addWidget(self.textBrowser)
 
@@ -29,6 +51,8 @@ class Ui_documentViewWidget(object):
 
     def retranslateUi(self, documentViewWidget):
         documentViewWidget.setWindowTitle(QtGui.QApplication.translate("documentViewWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        self.titleLabel.setText(QtGui.QApplication.translate("documentViewWidget", "Document Title", None, QtGui.QApplication.UnicodeUTF8))
+        self.titleButton.setText(QtGui.QApplication.translate("documentViewWidget", "Change Title", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":

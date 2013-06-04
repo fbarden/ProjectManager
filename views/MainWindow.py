@@ -26,6 +26,9 @@ class MainWindow(QMainWindow):
             self.trUtf8("Novo Projeto..."),
             self.trUtf8("Nome do projeto"),
             QLineEdit.Normal)
+        self.project = Project()
+        self.project.setName(projectName)
+        self.openProjectWidget(self.project)
 
     def openProject(self):
         projectPath = QFileDialog.getOpenFileName(\
@@ -53,11 +56,12 @@ class MainWindow(QMainWindow):
         documentViewWidget = DocumentViewWidget(documentObj)
         self.setCentralWidget(documentViewWidget)
         self.ui.centralwidget = documentViewWidget
+        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
+        self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
 
     def openClauseWidget(self, document,  clause):
-        print "passou pelo openClauseWidget"
         clauseObj = self.project.getDocument(str(document)).getClause(str(clause))
         clauseViewWidget = ClauseViewWidget(clauseObj)
         self.setCentralWidget(clauseViewWidget)
         self.ui.centralwidget = clauseViewWidget
-    
+        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)

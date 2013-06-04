@@ -18,16 +18,28 @@ class DocumentViewWidget(QWidget):
         self.clausesDict  = {}
         if (document is not None) :
             self.loadDocument(document)
+        self.ui.textBrowser.anchorClicked.connect(self.linkSelected)
+        self.ui.titleButton.clicked.connect(self.changeTitle)
     
+    def changeTitle(self):
+        newTitle, returnOK = QInputDialog.getText(\
+            None,
+            self.trUtf8("Change Title"),
+            self.trUtf8("Change Title:"),
+            QLineEdit.Normal)
+        if returnOK :
+            self.document.setTitle(newTitle)
+            self.ui.titleLabel.setText(newTitle)
+
     def loadDocument(self,  document):
         self.document = document
-        cursor = self.ui.textBrowser.textCursor()
+        self.ui.textBrowser.clear()
+        self.ui.titleLabel.clear()
         self.loadTitle()
         self.loadClauses()
     
     def loadTitle(self):
-        cursor = self.ui.textBrowser.textCursor()
-        cursor.insertText(self.document.getTitle())
+        self.ui.titleLabel.setText(self.document.getTitle())
 
     def loadClauses(self):
         clausesList = self.document.getClausesList();
@@ -45,7 +57,7 @@ class DocumentViewWidget(QWidget):
         table = cursor.insertTable(2,  3)
         table.mergeCells(0, 0, 1, 3)
         cursor = table.cellAt(0, 0).firstCursorPosition()
-	link = '<a href="clause:' + clause.getID() + '">' + clause.getTitle() + '</a>'
+        link = '<a href="clause:' + clause.getID() + '">' + clause.getTitle() + '</a>'
         cursor.insertHtml(link)
         cursor = table.cellAt(1, 1).firstCursorPosition()
         cursor.insertText(clause.getText())
@@ -59,3 +71,11 @@ class DocumentViewWidget(QWidget):
         for linkDoc in downlinks.keys() :
             link = '<a href="document:' + linkDoc + '">' + linkDoc + '</a>'
             cursor.insertHtml(link)
+    
+    def linkSelected(self,  url):
+        link = url.toString()
+        type,  ID = link.split(":")
+        if (type == "clause") :
+            self.openClauseSignal.emit(self.document.getName(), ID)
+        if (type == "document") :
+            self.openDocumentSignal.emit(ID)

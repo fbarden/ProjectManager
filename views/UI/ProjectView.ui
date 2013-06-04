@@ -21,6 +21,11 @@
        <string>Documents</string>
       </property>
      </column>
+     <item>
+      <property name="text">
+       <string>New Document...</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>
