@@ -41,7 +41,13 @@ class Document :
         return self.clauses[id]
     
     def addClause(self,  clause):
-        self.clauses[clause.getID] = clause
+        list = self.getClausesList()
+        if (list == []) :
+            newID = '1'
+        else :
+            newID = clause.setID(max(list)+1)
+        clause.setID(newID)
+        self.clauses[clause.getID()] = clause
     
     def removeClause(self, clause):
         del self.clauses[clause.getID()]
@@ -49,6 +55,9 @@ class Document :
     
     def getName(self):
         return self.name
+    
+    def setName(self, name):
+        self.name = name
 
     def getTitle(self):
         return self.title

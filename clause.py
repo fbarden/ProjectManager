@@ -6,10 +6,13 @@ class Clause:
         self.document = document
         self.id = "-1"
         self.title = ""
+        self.text = ""
         self.child_links = {}
         self.parent_links= {}
         self.related_files = {}
         self.XML = None
+        self.type = None
+        self.tags = []
 
     def open(self,  clauseXML):
         self.child_links = {}
@@ -88,6 +91,9 @@ class Clause:
     def getID(self):
         return self.id
     
+    def setID(self,  id):
+        self.id = id
+    
     def getTitle(self): 
         return self.title
     
@@ -153,4 +159,9 @@ class Clause:
     def getChildLinkClause(self,  document,  clause):
         ID = document + ":" + clause
         return self.child_links[ID].getChild()
-        
+
+    def getType(self):
+        return self.type
+    
+    def setType(self,  type):
+        self.type = type

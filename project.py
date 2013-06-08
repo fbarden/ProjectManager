@@ -8,6 +8,7 @@ class Project :
         self.name = ""
         self.documents = {}
         self.XML = None
+        self.filepath = ""
     
     def open(self,  filename):
         tree = ET.parse(filename)
@@ -52,7 +53,7 @@ class Project :
     
     def addDocument(self,  document):
         self.documents[document.getName] = document
-    
+
     def removeDocument(self,  document):
         del self.documents[document.getName]
     
@@ -61,6 +62,9 @@ class Project :
 
     def setName(self,  name):
         self.name = name
+    
+    def addDocument(self, document):
+        self.documents[document.getName()] = document
 
     def getAllLinks(self):
         linksList = []

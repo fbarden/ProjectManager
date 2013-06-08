@@ -10,6 +10,7 @@ class DocumentViewWidget(QWidget):
 
     openDocumentSignal = pyqtSignal(str);
     openClauseSignal = pyqtSignal(str, str);
+    newClauseSignal = pyqtSignal(str);
 
     def __init__(self, document = None):
         super(DocumentViewWidget, self).__init__()
@@ -37,6 +38,7 @@ class DocumentViewWidget(QWidget):
         self.ui.titleLabel.clear()
         self.loadTitle()
         self.loadClauses()
+        self.loadAddClause()
     
     def loadTitle(self):
         self.ui.titleLabel.setText(self.document.getTitle())
@@ -77,5 +79,15 @@ class DocumentViewWidget(QWidget):
         type,  ID = link.split(":")
         if (type == "clause") :
             self.openClauseSignal.emit(self.document.getName(), ID)
-        if (type == "document") :
+        elif (type == "document") :
             self.openDocumentSignal.emit(ID)
+        elif (type == "newClause") :
+            self.newClauseSignal.emit(self.document.getName())
+
+    def loadAddClause(self):
+        cursor = self.ui.textBrowser.textCursor()
+        cursor.movePosition(QTextCursor.End)
+        cursor.insertBlock()
+        cursor.insertBlock()
+        link = '<a href="newClause:newClause">Add new clause...</a>'
+        cursor.insertHtml(link)
