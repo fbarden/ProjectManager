@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addTIMTypesDialog</class>
- <widget class="QDialog" name="addTIMTypesDialog">
+ <class>orgTIMDialog</class>
+ <widget class="QDialog" name="orgTIMDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>555</width>
+    <height>563</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Criando TIM</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="addTIMTypesLabel">
+    <widget class="QLabel" name="orgTIMLabel">
      <property name="text">
-      <string>Liste os tipos de cláusulas:</string>
+      <string>Crie o TIM:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="TIMListWidget">
+    <widget class="QTreeWidget" name="TIMTreeWidget">
+     <column>
+      <property name="text">
+       <string>TIM</string>
+      </property>
+     </column>
      <item>
       <property name="text">
-       <string>Adicione novo tipo...</string>
+       <string>Adicionar tipo...</string>
       </property>
      </item>
     </widget>
@@ -47,7 +52,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>addTIMTypesDialog</receiver>
+   <receiver>orgTIMDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -63,7 +68,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>addTIMTypesDialog</receiver>
+   <receiver>orgTIMDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

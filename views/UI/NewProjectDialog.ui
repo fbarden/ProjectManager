@@ -64,7 +64,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="searchBrowser">
+        <widget class="QPushButton" name="searchButton">
          <property name="text">
           <string>Procurar</string>
          </property>

@@ -23,12 +23,9 @@ class MainWindow(QMainWindow):
 #        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
 
     def newProject(self):
-        projectName, returnOK = QInputDialog.getText(\
-            None,
-            self.trUtf8("Novo Projeto..."),
-            self.trUtf8("Nome do projeto"),
-            QLineEdit.Normal)
         self.project = Project()
+        newProjectDialog = NewProjectDialog(project)
+        newProjectDialog.show()
         self.project.setName(str(projectName))
         self.openProjectWidget(self.project)
     
