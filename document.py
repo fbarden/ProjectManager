@@ -8,6 +8,7 @@ class Document :
         self.title = ""
         self.clauses = {}
         self.name = ""
+        self.initials = ""
         self.XML = None
 
     def open(self, filename):
@@ -64,3 +65,9 @@ class Document :
 
     def setTitle(self, newTitle):
         self.title = newTitle
+
+    def getInitials(self):
+        return self.initials
+
+    def setInitials(self, initials):
+        self.initials = initials

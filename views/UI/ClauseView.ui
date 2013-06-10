@@ -148,7 +148,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -207,6 +207,11 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
           </widget>
          </item>
         </layout>
@@ -324,6 +329,11 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
           </widget>
          </item>
          <item>
@@ -342,13 +352,13 @@
        <string>Histórico</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="tab_3">
+     <widget class="QWidget" name="importedFileTab">
       <attribute name="title">
        <string>Arquivos Relacionados</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QTreeWidget" name="treeWidget">
+        <widget class="QTreeWidget" name="relatedFilesTreeWidget">
          <column>
           <property name="text">
            <string>Nome</string>
@@ -359,7 +369,43 @@
            <string>Descrição</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>Observações</string>
+          </property>
+         </column>
         </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="addFileButton">
+           <property name="text">
+            <string>Adicionar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="importFileButton">
+           <property name="text">
+            <string>Importar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

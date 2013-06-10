@@ -130,6 +130,12 @@ class Clause:
     def getRelatedFilesList(self):
         return self.related_files
 
+    def addRelatedFile(self, file, observation):
+        self.related_files[file] = observation
+
+    def getRelatedFileObservation(self, file):
+        return self.related_files[file]
+
     def getChildLinksList(self):
         return self.child_links.values()
     

@@ -1,11 +1,12 @@
 from UI import Ui_MainWindow
 from NewProjectDialog import NewProjectDialog
+from NewDocumentDialog import NewDocumentDialog
 from ProjectViewWidget import ProjectViewWidget
 from DocumentViewWidget import DocumentViewWidget
 from ClauseViewWidget import ClauseViewWidget
 import sys
 from PyQt4.QtGui import *
-from PyQt4 import QtCore
+from PyQt4.QtCore import *
 
 from project import Project
 from document import Document
@@ -24,16 +25,16 @@ class MainWindow(QMainWindow):
 
     def newProject(self):
         self.project = Project()
-        newProjectDialog = NewProjectDialog(project)
-        newProjectDialog.show()
-        self.project.setName(str(projectName))
-        self.openProjectWidget(self.project)
-    
-    def newDocument(self,  documentName):
+        newProjectDialog = NewProjectDialog(self,  self.project)
+        newProjectDialog .show()
+        newProjectDialog.openProjectSignal.connect(self.openProjectWidget)
+
+    def newDocument(self):
         document = Document()
-        document.setName(str(documentName))
-        self.project.addDocument(document)
-        self.openDocumentWidget(document.getName())
+        newDocumentDialog = NewDocumentDialog(self,  self.project, document)
+        newDocumentDialog .show()
+        newDocumentDialog.openDocumentSignal.connect(self.openDocumentWidget)
+#        self.project.addDocument(document)
     
     def newClause(self, documentName):
         document = self.project.getDocument(str(documentName))
@@ -44,18 +45,19 @@ class MainWindow(QMainWindow):
     def openProject(self):
         projectPath = QFileDialog.getOpenFileName(\
             None,
-            self.trUtf8("Open File..."),
+            self.trUtf8("Abrir arquivo..."),
             self.trUtf8("."),
             self.trUtf8("*.xml"),
             None)
         self.project = Project()
         self.project.open(str(projectPath))
-        self.openProjectWidget(self.project)
+        self.openProjectWidget()
     
     def saveProject(self):
         pass
 
-    def openProjectWidget(self,  project):
+    def openProjectWidget(self):
+        project = self.project
         projectViewWidget = ProjectViewWidget(project)
         self.setCentralWidget(projectViewWidget)
         self.ui.centralwidget = projectViewWidget
@@ -71,13 +73,14 @@ class MainWindow(QMainWindow):
         documentViewWidget = DocumentViewWidget(documentObj)
         self.setCentralWidget(documentViewWidget)
         self.ui.centralwidget = documentViewWidget
+        self.ui.centralwidget.openProjectSignal.connect(self.openProjectWidget)
         self.ui.centralwidget.newClauseSignal.connect(self.newClause)
         self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
         self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
 
     def openClauseWidget(self, document,  clause):
         clauseObj = self.project.getDocument(str(document)).getClause(str(clause))
-        clauseViewWidget = ClauseViewWidget(clauseObj)
+        clauseViewWidget = ClauseViewWidget(self.project, clauseObj)
         self.setCentralWidget(clauseViewWidget)
         self.ui.centralwidget = clauseViewWidget
         self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)

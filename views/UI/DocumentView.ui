@@ -17,6 +17,25 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QToolButton" name="upButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>î</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="titleLabel">
        <property name="font">
         <font>
@@ -35,6 +54,25 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="showLinksButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Links</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="titleButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -43,7 +81,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Change Title</string>
+        <string>Alt. Título</string>
        </property>
       </widget>
      </item>
@@ -57,6 +95,8 @@
     </widget>
    </item>
   </layout>
+  <zorder>textBrowser</zorder>
+  <zorder>titleButton</zorder>
  </widget>
  <resources/>
  <connections/>

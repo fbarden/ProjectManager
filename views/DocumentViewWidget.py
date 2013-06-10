@@ -8,6 +8,7 @@ from clause import Clause
 
 class DocumentViewWidget(QWidget):
 
+    openProjectSignal = pyqtSignal()
     openDocumentSignal = pyqtSignal(str);
     openClauseSignal = pyqtSignal(str, str);
     newClauseSignal = pyqtSignal(str);
@@ -21,12 +22,17 @@ class DocumentViewWidget(QWidget):
             self.loadDocument(document)
         self.ui.textBrowser.anchorClicked.connect(self.linkSelected)
         self.ui.titleButton.clicked.connect(self.changeTitle)
-    
+        self.ui.upButton.clicked.connect(self.upToProject)
+        self.ui.showLinksButton.clicked.connect(self.showLinksAction)
+
+    def showLinksAction(self):
+        self.loadDocument(self.document)
+
     def changeTitle(self):
         newTitle, returnOK = QInputDialog.getText(\
             None,
-            self.trUtf8("Change Title"),
-            self.trUtf8("Change Title:"),
+            self.trUtf8("Alterar Titulo"),
+            self.trUtf8("Alterar Titulo:"),
             QLineEdit.Normal)
         if returnOK :
             self.document.setTitle(newTitle)
@@ -56,6 +62,7 @@ class DocumentViewWidget(QWidget):
         clause = self.document.getClause(clauseID)
         cursor = self.ui.textBrowser.textCursor()
         cursor.movePosition(QTextCursor.End)
+        
         table = cursor.insertTable(2,  3)
         table.mergeCells(0, 0, 1, 3)
         cursor = table.cellAt(0, 0).firstCursorPosition()
@@ -63,16 +70,19 @@ class DocumentViewWidget(QWidget):
         cursor.insertHtml(link)
         cursor = table.cellAt(1, 1).firstCursorPosition()
         cursor.insertText(clause.getText())
-        uplinks = clause.getParentLinksDoc2Clause()
-        cursor = table.cellAt(1, 0).lastCursorPosition()
-        for linkDoc in uplinks.keys() :
-            link = '<a href="document:' + linkDoc + '">' + linkDoc + '</a>'
-            cursor.insertHtml(link)
-        cursor = table.cellAt(1, 2).lastCursorPosition()
-        downlinks = clause.getChildLinksDoc2Clause()
-        for linkDoc in downlinks.keys() :
-            link = '<a href="document:' + linkDoc + '">' + linkDoc + '</a>'
-            cursor.insertHtml(link)
+        if (self.ui.showLinksButton.isChecked()):
+            uplinks = clause.getParentLinksDoc2Clause()
+            cursor = table.cellAt(1, 0).lastCursorPosition()
+            for linkDoc in uplinks.keys() :
+                link = '<a href="document:' + linkDoc + '">' + linkDoc + '</a>'
+                cursor.insertHtml(link)
+            cursor = table.cellAt(1, 2).lastCursorPosition()
+            downlinks = clause.getChildLinksDoc2Clause()
+            for linkDoc in downlinks.keys() :
+                link = '<a href="document:' + linkDoc + '">' + linkDoc + '</a>'
+                cursor.insertHtml(link)
+        else:
+            table.mergeCells(1, 0, 1, 3)
     
     def linkSelected(self,  url):
         link = url.toString()
@@ -89,5 +99,8 @@ class DocumentViewWidget(QWidget):
         cursor.movePosition(QTextCursor.End)
         cursor.insertBlock()
         cursor.insertBlock()
-        link = '<a href="newClause:newClause">Add new clause...</a>'
+        link = '<a href="newClause:newClause">Adicionar nova clausula...</a>'
         cursor.insertHtml(link)
+
+    def upToProject(self):
+        self.openProjectSignal.emit()

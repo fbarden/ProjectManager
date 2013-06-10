@@ -1,37 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AddTIMTypesDialog</class>
- <widget class="QDialog" name="AddTIMTypesDialog">
-  <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
-  </property>
+ <class>AddRelatedFileDialog</class>
+ <widget class="QDialog" name="AddRelatedFileDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>463</height>
+    <width>530</width>
+    <height>509</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Adicionando tipos</string>
+   <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="addTIMTypesLabel">
+    <widget class="QLabel" name="titleLabel">
      <property name="text">
-      <string>Liste os tipos de cláusulas:</string>
+      <string>TextLabel</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="TIMListWidget">
-     <item>
+    <widget class="QTreeWidget" name="filesTreeWidget">
+     <column>
       <property name="text">
-       <string>Adicionar novo tipo...</string>
+       <string>Arquivo</string>
       </property>
-     </item>
+     </column>
+     <column>
+      <property name="text">
+       <string>Descrição</string>
+      </property>
+     </column>
     </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="observationLabel">
+       <property name="text">
+        <string>Observação:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="observationEdit"/>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -50,12 +69,12 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>AddTIMTypesDialog</receiver>
+   <receiver>AddRelatedFileDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>257</x>
-     <y>453</y>
+     <x>248</x>
+     <y>254</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -66,12 +85,12 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>AddTIMTypesDialog</receiver>
+   <receiver>AddRelatedFileDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>325</x>
-     <y>453</y>
+     <x>316</x>
+     <y>260</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

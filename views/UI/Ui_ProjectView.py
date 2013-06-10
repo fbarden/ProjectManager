@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ProjectView.ui'
 #
-# Created: Mon Jun  3 19:40:17 2013
+# Created: Mon Jun 10 01:33:37 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,10 +30,10 @@ class Ui_projectViewWidget(object):
 
     def retranslateUi(self, projectViewWidget):
         projectViewWidget.setWindowTitle(QtGui.QApplication.translate("projectViewWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.documentsListWidget.headerItem().setText(0, QtGui.QApplication.translate("projectViewWidget", "Documents", None, QtGui.QApplication.UnicodeUTF8))
+        self.documentsListWidget.headerItem().setText(0, QtGui.QApplication.translate("projectViewWidget", "Documentos", None, QtGui.QApplication.UnicodeUTF8))
         __sortingEnabled = self.documentsListWidget.isSortingEnabled()
         self.documentsListWidget.setSortingEnabled(False)
-        self.documentsListWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("projectViewWidget", "New Document...", None, QtGui.QApplication.UnicodeUTF8))
+        self.documentsListWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("projectViewWidget", "Novo documento...", None, QtGui.QApplication.UnicodeUTF8))
         self.documentsListWidget.setSortingEnabled(__sortingEnabled)
 
 

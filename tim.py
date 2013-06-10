@@ -11,11 +11,12 @@ class Type():
     def setName(self,  name):
         self.name = name
     
-    def addPossibleChid(self,  typeName):
-        self.possibles += typeName
+    def addPossibleChild(self,  typeName):
+        if typeName not in self.possibles :
+            self.possibles += [typeName]
     
     def removePossibleChild(self,  typeName):
-        self.possibles.temove(typeName)
+        self.possibles.remove(typeName)
     
     def getPossibleChildrenList(self):
         return self.possibles
@@ -30,6 +31,7 @@ class Type():
 class TIM():
     def __init__(self):
         self.types = {}
+        self.roots = []
     
     def loadXML(self,  XML):
         for typeXML in XML.findall("type") :
@@ -39,14 +41,30 @@ class TIM():
     
     def addType(self,  type):
         self.types[type.getName()] = type
+        print "Adicionando tipo " + type.getName()
+        print "Lista total: "
+        print self.getTypesList()
     
     def removeType(self,  typeName):
         del self.types[typeName]
     
     def getTypesList(self):
-        return self.types.keys()
+        return sorted(set(self.types.keys()))
+
+    def clearTypesList(self):
+        for type in self.getTypesList() :
+            self.removeType(type)
 
     def getType(self,  typeName):
-        return self.type[typeName]
+        print "Lista"
+        print self.types
+        print "Tipo Desejado"
+        print typeName
+        return self.types[typeName]
 
-    
+    def addRoot(self, typeName):
+        if (typeName not in self.roots) :
+            self.roots += [typeName]
+
+    def getRootsList(self):
+        return self.roots

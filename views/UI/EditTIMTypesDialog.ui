@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>orgTIMDialog</class>
- <widget class="QDialog" name="orgTIMDialog">
+ <class>AddTIMTypesDialog</class>
+ <widget class="QDialog" name="AddTIMTypesDialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>555</width>
-    <height>563</height>
+    <width>400</width>
+    <height>463</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Editar TIM</string>
+   <string>Editar tipos</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="orgTIMLabel">
+    <widget class="QLabel" name="addTIMTypesLabel">
      <property name="text">
-      <string>Crie o TIM:</string>
+      <string>Liste os tipos de cláusulas:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QTreeWidget" name="TIMTreeWidget">
-     <column>
-      <property name="text">
-       <string>TIM</string>
-      </property>
-     </column>
+    <widget class="QListWidget" name="TIMListWidget">
      <item>
       <property name="text">
-       <string>Adicionar tipo...</string>
+       <string>Adicionar novo tipo...</string>
       </property>
      </item>
     </widget>
@@ -52,12 +50,12 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>orgTIMDialog</receiver>
+   <receiver>AddTIMTypesDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>257</x>
+     <y>453</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -68,12 +66,12 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>orgTIMDialog</receiver>
+   <receiver>AddTIMTypesDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>325</x>
+     <y>453</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

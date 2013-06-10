@@ -1,39 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>orgTIMDialog</class>
- <widget class="QDialog" name="orgTIMDialog">
+ <class>NewClauseDialog</class>
+ <widget class="QDialog" name="NewClauseDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>555</width>
-    <height>563</height>
+    <width>400</width>
+    <height>136</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Editar TIM</string>
+   <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="orgTIMLabel">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Crie o TIM:</string>
+      <string>Nova Cláusula</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QTreeWidget" name="TIMTreeWidget">
-     <column>
-      <property name="text">
-       <string>TIM</string>
-      </property>
-     </column>
-     <item>
-      <property name="text">
-       <string>Adicionar tipo...</string>
-      </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Título</string>
+       </property>
+      </widget>
      </item>
-    </widget>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Cláusula Pai:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="comboBox"/>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -52,7 +65,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>orgTIMDialog</receiver>
+   <receiver>NewClauseDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -68,7 +81,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>orgTIMDialog</receiver>
+   <receiver>NewClauseDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -7,7 +7,7 @@ from project import Project
 
 class ProjectViewWidget(QWidget):
 
-    newDocumentSignal = pyqtSignal(str);
+    newDocumentSignal = pyqtSignal();
     openDocumentSignal = pyqtSignal(str);
     openClauseSignal = pyqtSignal(str, str);
 
@@ -47,10 +47,4 @@ class ProjectViewWidget(QWidget):
             self.openClauseSignal.emit(selectedItem.parent().text(0),  self.clausesDict[str(selectedItem.parent().text(0) + selectedItem.text(0))])
 
     def newDocument(self):
-        document,  returnOK = QInputDialog.getText(\
-            None,
-            self.trUtf8("Novo Document..."),
-            self.trUtf8("Nome do documento:"),
-            QLineEdit.Normal)
-        if (document != "") :
-            self.newDocumentSignal.emit(str(document))
+        self.newDocumentSignal.emit()

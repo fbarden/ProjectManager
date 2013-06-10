@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project ProjectManager -->
-<!-- Saved: 2013-06-04, 01:07:41 -->
+<!-- Saved: 2013-06-09, 02:39:50 -->
 <!-- Copyright (C) 2013 Felipe Barden, felipebarden@gmail.com -->
 <Project version="4.6">
   <Language></Language>
@@ -32,6 +32,9 @@
     <Source>views/DocumentViewWidget.py</Source>
     <Source>views/ProjectViewWidget.py</Source>
     <Source>views/NewProjectDialog.py</Source>
+    <Source>tim.py</Source>
+    <Source>views/UI/Ui_OrgProjectTIM.py</Source>
+    <Source>views/UI/Ui_AddProjectTypes.py</Source>
   </Sources>
   <Forms>
     <Form>views/UI/ProjectView.ui</Form>
@@ -40,6 +43,8 @@
     <Form>views/UI/DocumentView.ui</Form>
     <Form>views/UI/ClauseView.ui</Form>
     <Form>views/UI/NewProjectDialog.ui</Form>
+    <Form>views/UI/OrgProjectTIM.ui</Form>
+    <Form>views/UI/AddProjectTypes.ui</Form>
   </Forms>
   <Translations>
   </Translations>

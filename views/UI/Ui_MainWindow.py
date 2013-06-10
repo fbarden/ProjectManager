@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/MainWindow.ui'
 #
-# Created: Mon Jun  3 19:40:18 2013
+# Created: Mon Jun 10 01:33:38 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,6 +26,12 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuProject = QtGui.QMenu(self.menubar)
         self.menuProject.setObjectName(_fromUtf8("menuProject"))
+        self.menuTIM = QtGui.QMenu(self.menubar)
+        self.menuTIM.setObjectName(_fromUtf8("menuTIM"))
+        self.menuDocumento = QtGui.QMenu(self.menubar)
+        self.menuDocumento.setObjectName(_fromUtf8("menuDocumento"))
+        self.menuCl_usula = QtGui.QMenu(self.menubar)
+        self.menuCl_usula.setObjectName(_fromUtf8("menuCl_usula"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -43,29 +49,43 @@ class Ui_MainWindow(object):
         self.actionSaveProject_as.setObjectName(_fromUtf8("actionSaveProject_as"))
         self.actionExit = QtGui.QAction(MainWindow)
         self.actionExit.setObjectName(_fromUtf8("actionExit"))
+        self.actionEditar = QtGui.QAction(MainWindow)
+        self.actionEditar.setObjectName(_fromUtf8("actionEditar"))
+        self.actionVer_diagrama = QtGui.QAction(MainWindow)
+        self.actionVer_diagrama.setObjectName(_fromUtf8("actionVer_diagrama"))
         self.menuProject.addAction(self.actionNewProject)
         self.menuProject.addAction(self.actionOpenProject)
         self.menuProject.addAction(self.actionSaveProject)
         self.menuProject.addAction(self.actionSaveProject_as)
         self.menuProject.addSeparator()
         self.menuProject.addAction(self.actionExit)
+        self.menuTIM.addAction(self.actionEditar)
+        self.menuTIM.addAction(self.actionVer_diagrama)
         self.menubar.addAction(self.menuProject.menuAction())
+        self.menubar.addAction(self.menuDocumento.menuAction())
+        self.menubar.addAction(self.menuCl_usula.menuAction())
+        self.menubar.addAction(self.menuTIM.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuProject.setTitle(QtGui.QApplication.translate("MainWindow", "Project", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuProject.setTitle(QtGui.QApplication.translate("MainWindow", "Projeto", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuTIM.setTitle(QtGui.QApplication.translate("MainWindow", "TIM", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuDocumento.setTitle(QtGui.QApplication.translate("MainWindow", "Documento", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuCl_usula.setTitle(QtGui.QApplication.translate("MainWindow", "Cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar.setWindowTitle(QtGui.QApplication.translate("MainWindow", "toolBar", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionNewProject.setText(QtGui.QApplication.translate("MainWindow", "New...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionNewProject.setText(QtGui.QApplication.translate("MainWindow", "Novo...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNewProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+N", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOpenProject.setText(QtGui.QApplication.translate("MainWindow", "Open...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOpenProject.setText(QtGui.QApplication.translate("MainWindow", "Abrir...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpenProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+O", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSaveProject.setText(QtGui.QApplication.translate("MainWindow", "Save", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSaveProject.setText(QtGui.QApplication.translate("MainWindow", "Salvar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSaveProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSaveProject_as.setText(QtGui.QApplication.translate("MainWindow", "Save as...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSaveProject_as.setText(QtGui.QApplication.translate("MainWindow", "Salvar como...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionEditar.setText(QtGui.QApplication.translate("MainWindow", "Editar", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionVer_diagrama.setText(QtGui.QApplication.translate("MainWindow", "Ver diagrama", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":

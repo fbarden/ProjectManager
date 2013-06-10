@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ClauseView.ui'
 #
-# Created: Mon Jun  3 19:40:20 2013
+# Created: Mon Jun 10 01:33:40 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -127,6 +127,7 @@ class Ui_clauseViewWidget(object):
         sizePolicy.setHeightForWidth(self.uplinksTreeWidget.sizePolicy().hasHeightForWidth())
         self.uplinksTreeWidget.setSizePolicy(sizePolicy)
         self.uplinksTreeWidget.setObjectName(_fromUtf8("uplinksTreeWidget"))
+        self.uplinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.uplinksLayout.addWidget(self.uplinksTreeWidget)
         self.horizontalLayout_6.addLayout(self.uplinksLayout)
         self.verticalLayout_3 = QtGui.QVBoxLayout()
@@ -194,6 +195,7 @@ class Ui_clauseViewWidget(object):
         sizePolicy.setHeightForWidth(self.downlinksTreeWidget.sizePolicy().hasHeightForWidth())
         self.downlinksTreeWidget.setSizePolicy(sizePolicy)
         self.downlinksTreeWidget.setObjectName(_fromUtf8("downlinksTreeWidget"))
+        self.downlinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.downlinksLayout.addWidget(self.downlinksTreeWidget)
         self.editDownlinksButton = QtGui.QPushButton(self.editTab)
         self.editDownlinksButton.setObjectName(_fromUtf8("editDownlinksButton"))
@@ -203,18 +205,29 @@ class Ui_clauseViewWidget(object):
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
-        self.tab_3 = QtGui.QWidget()
-        self.tab_3.setObjectName(_fromUtf8("tab_3"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.tab_3)
+        self.importedFileTab = QtGui.QWidget()
+        self.importedFileTab.setObjectName(_fromUtf8("importedFileTab"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.importedFileTab)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.treeWidget = QtGui.QTreeWidget(self.tab_3)
-        self.treeWidget.setObjectName(_fromUtf8("treeWidget"))
-        self.verticalLayout.addWidget(self.treeWidget)
-        self.tabWidget.addTab(self.tab_3, _fromUtf8(""))
+        self.relatedFilesTreeWidget = QtGui.QTreeWidget(self.importedFileTab)
+        self.relatedFilesTreeWidget.setObjectName(_fromUtf8("relatedFilesTreeWidget"))
+        self.verticalLayout.addWidget(self.relatedFilesTreeWidget)
+        self.horizontalLayout_7 = QtGui.QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem)
+        self.addFileButton = QtGui.QPushButton(self.importedFileTab)
+        self.addFileButton.setObjectName(_fromUtf8("addFileButton"))
+        self.horizontalLayout_7.addWidget(self.addFileButton)
+        self.importFileButton = QtGui.QPushButton(self.importedFileTab)
+        self.importFileButton.setObjectName(_fromUtf8("importFileButton"))
+        self.horizontalLayout_7.addWidget(self.importFileButton)
+        self.verticalLayout.addLayout(self.horizontalLayout_7)
+        self.tabWidget.addTab(self.importedFileTab, _fromUtf8(""))
         self.verticalLayout_4.addWidget(self.tabWidget)
 
         self.retranslateUi(clauseViewWidget)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QObject.connect(self.titleCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.titleEdit.setEnabled)
         QtCore.QObject.connect(self.showUplinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.uplinksTreeWidget.setVisible)
         QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.downlinksTreeWidget.setVisible)
@@ -242,9 +255,12 @@ class Ui_clauseViewWidget(object):
         self.editDownlinksButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.editTab), QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("clauseViewWidget", "Histórico", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.headerItem().setText(0, QtGui.QApplication.translate("clauseViewWidget", "Nome", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.headerItem().setText(1, QtGui.QApplication.translate("clauseViewWidget", "Descrição", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("clauseViewWidget", "Arquivos Relacionados", None, QtGui.QApplication.UnicodeUTF8))
+        self.relatedFilesTreeWidget.headerItem().setText(0, QtGui.QApplication.translate("clauseViewWidget", "Nome", None, QtGui.QApplication.UnicodeUTF8))
+        self.relatedFilesTreeWidget.headerItem().setText(1, QtGui.QApplication.translate("clauseViewWidget", "Descrição", None, QtGui.QApplication.UnicodeUTF8))
+        self.relatedFilesTreeWidget.headerItem().setText(2, QtGui.QApplication.translate("clauseViewWidget", "Observações", None, QtGui.QApplication.UnicodeUTF8))
+        self.addFileButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Adicionar", None, QtGui.QApplication.UnicodeUTF8))
+        self.importFileButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Importar", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.importedFileTab), QtGui.QApplication.translate("clauseViewWidget", "Arquivos Relacionados", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":

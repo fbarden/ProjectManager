@@ -18,12 +18,12 @@
     <widget class="QTreeWidget" name="documentsListWidget">
      <column>
       <property name="text">
-       <string>Documents</string>
+       <string>Documentos</string>
       </property>
      </column>
      <item>
       <property name="text">
-       <string>New Document...</string>
+       <string>Novo documento...</string>
       </property>
      </item>
     </widget>
