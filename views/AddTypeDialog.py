@@ -29,18 +29,12 @@ class AddTypeDialog(QDialog):
             typeName = str(self.ui.newTypeEdit.text())
             type.setName(typeName)
             self.TIM.addType(type)
-        print "--------------------------"
         if (self.item.parent() is None) :
             self.TIM.addRoot(typeName)
         else :
             parentName = str(self.item.parent().text(0))
             parentType = self.TIM.getType(parentName)
             parentType.addPossibleChild(typeName)
-            print parentType.getName()
-            print parentType.getPossibleChildrenList()
-        print type.getName()
-        print type.getPossibleChildrenList()
-        print "--------------------------"
         self.addTypeSignal.emit(type.getName(),  self.item)
 
     def loadTypes(self):

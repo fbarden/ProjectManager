@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ClauseView.ui'
 #
-# Created: Mon Jun 10 01:33:40 2013
+# Created: Tue Jun 11 13:03:26 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -227,7 +227,7 @@ class Ui_clauseViewWidget(object):
         self.verticalLayout_4.addWidget(self.tabWidget)
 
         self.retranslateUi(clauseViewWidget)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.titleCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.titleEdit.setEnabled)
         QtCore.QObject.connect(self.showUplinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.uplinksTreeWidget.setVisible)
         QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.downlinksTreeWidget.setVisible)

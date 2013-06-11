@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/MainWindow.ui'
 #
-# Created: Mon Jun 10 01:33:38 2013
+# Created: Tue Jun 11 13:03:25 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,6 +32,8 @@ class Ui_MainWindow(object):
         self.menuDocumento.setObjectName(_fromUtf8("menuDocumento"))
         self.menuCl_usula = QtGui.QMenu(self.menubar)
         self.menuCl_usula.setObjectName(_fromUtf8("menuCl_usula"))
+        self.menuImportedFiles = QtGui.QMenu(self.menubar)
+        self.menuImportedFiles.setObjectName(_fromUtf8("menuImportedFiles"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -53,6 +55,8 @@ class Ui_MainWindow(object):
         self.actionEditar.setObjectName(_fromUtf8("actionEditar"))
         self.actionVer_diagrama = QtGui.QAction(MainWindow)
         self.actionVer_diagrama.setObjectName(_fromUtf8("actionVer_diagrama"))
+        self.actionManageFiles = QtGui.QAction(MainWindow)
+        self.actionManageFiles.setObjectName(_fromUtf8("actionManageFiles"))
         self.menuProject.addAction(self.actionNewProject)
         self.menuProject.addAction(self.actionOpenProject)
         self.menuProject.addAction(self.actionSaveProject)
@@ -61,10 +65,12 @@ class Ui_MainWindow(object):
         self.menuProject.addAction(self.actionExit)
         self.menuTIM.addAction(self.actionEditar)
         self.menuTIM.addAction(self.actionVer_diagrama)
+        self.menuImportedFiles.addAction(self.actionManageFiles)
         self.menubar.addAction(self.menuProject.menuAction())
         self.menubar.addAction(self.menuDocumento.menuAction())
         self.menubar.addAction(self.menuCl_usula.menuAction())
         self.menubar.addAction(self.menuTIM.menuAction())
+        self.menubar.addAction(self.menuImportedFiles.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -75,6 +81,7 @@ class Ui_MainWindow(object):
         self.menuTIM.setTitle(QtGui.QApplication.translate("MainWindow", "TIM", None, QtGui.QApplication.UnicodeUTF8))
         self.menuDocumento.setTitle(QtGui.QApplication.translate("MainWindow", "Documento", None, QtGui.QApplication.UnicodeUTF8))
         self.menuCl_usula.setTitle(QtGui.QApplication.translate("MainWindow", "Cláusula", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuImportedFiles.setTitle(QtGui.QApplication.translate("MainWindow", "Arq. Importados", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar.setWindowTitle(QtGui.QApplication.translate("MainWindow", "toolBar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNewProject.setText(QtGui.QApplication.translate("MainWindow", "Novo...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNewProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+N", None, QtGui.QApplication.UnicodeUTF8))
@@ -86,6 +93,7 @@ class Ui_MainWindow(object):
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
         self.actionEditar.setText(QtGui.QApplication.translate("MainWindow", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionVer_diagrama.setText(QtGui.QApplication.translate("MainWindow", "Ver diagrama", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionManageFiles.setText(QtGui.QApplication.translate("MainWindow", "Gerenciar arquivos", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":

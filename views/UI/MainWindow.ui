@@ -51,10 +51,17 @@
      <string>Cláusula</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuImportedFiles">
+    <property name="title">
+     <string>Arq. Importados</string>
+    </property>
+    <addaction name="actionManageFiles"/>
+   </widget>
    <addaction name="menuProject"/>
    <addaction name="menuDocumento"/>
    <addaction name="menuCl_usula"/>
    <addaction name="menuTIM"/>
+   <addaction name="menuImportedFiles"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -110,6 +117,11 @@
   <action name="actionVer_diagrama">
    <property name="text">
     <string>Ver diagrama</string>
+   </property>
+  </action>
+  <action name="actionManageFiles">
+   <property name="text">
+    <string>Gerenciar arquivos</string>
    </property>
   </action>
  </widget>

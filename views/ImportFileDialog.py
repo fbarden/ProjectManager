@@ -6,6 +6,9 @@ from PyQt4.QtCore import *
 from UI import Ui_ImportFileDialog
 
 class ImportFileDialog(QDialog):
+    
+    fileImportedSignal = pyqtSignal(str)
+    
     def __init__(self, parent, project):
         super(ImportFileDialog, self).__init__(parent)
         self.project = project
@@ -29,3 +32,4 @@ class ImportFileDialog(QDialog):
         filepath = str(self.ui.fileEdit.text())
         self.project.addImportedFile(os.path.basename(filepath), description)
         shutil.copy(filepath, ".")
+        self.fileImportedSignal.emit(os.path.basename(filepath))

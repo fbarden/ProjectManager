@@ -1,9 +1,11 @@
 from UI import Ui_MainWindow
 from NewProjectDialog import NewProjectDialog
 from NewDocumentDialog import NewDocumentDialog
+from NewClauseDialog import NewClauseDialog
 from ProjectViewWidget import ProjectViewWidget
 from DocumentViewWidget import DocumentViewWidget
 from ClauseViewWidget import ClauseViewWidget
+from EditImportedFilesDialog import EditImportedFilesDialog
 import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -21,6 +23,7 @@ class MainWindow(QMainWindow):
         self.ui.actionNewProject.triggered.connect(self.newProject)
         self.ui.actionOpenProject.triggered.connect(self.openProject)
         self.ui.actionSaveProject.triggered.connect(self.saveProject)
+        self.ui.actionManageFiles.triggered.connect(self.manageImportedFiles)
 #        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
 
     def newProject(self):
@@ -30,31 +33,30 @@ class MainWindow(QMainWindow):
         newProjectDialog.openProjectSignal.connect(self.openProjectWidget)
 
     def newDocument(self):
-        document = Document()
-        newDocumentDialog = NewDocumentDialog(self,  self.project, document)
+        newDocumentDialog = NewDocumentDialog(self,  self.project)
         newDocumentDialog .show()
         newDocumentDialog.openDocumentSignal.connect(self.openDocumentWidget)
 #        self.project.addDocument(document)
     
     def newClause(self, documentName):
         document = self.project.getDocument(str(documentName))
-        clause = Clause(document)
-        document.addClause(clause)
-        self.openClauseWidget(documentName,  clause.getID())
+        newClauseDialog = NewClauseDialog(self, self.project, document)
+        newClauseDialog.show()
+        newClauseDialog.openClauseSignal.connect(self.openClauseWidget)
 
     def openProject(self):
         projectPath = QFileDialog.getOpenFileName(\
             None,
             self.trUtf8("Abrir arquivo..."),
             self.trUtf8("."),
-            self.trUtf8("*.xml"),
+            self.trUtf8("*.prj"),
             None)
         self.project = Project()
-        self.project.open(str(projectPath))
+        self.project.loadXML(str(projectPath))
         self.openProjectWidget()
     
     def saveProject(self):
-        pass
+        self.project.saveAll()
 
     def openProjectWidget(self):
         project = self.project
@@ -84,3 +86,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(clauseViewWidget)
         self.ui.centralwidget = clauseViewWidget
         self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
+
+    def manageImportedFiles(self):
+        if (self.project is not None):
+            editImportedFilesDialog = EditImportedFilesDialog(self, self.project)
+            editImportedFilesDialog.show()

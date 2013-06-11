@@ -1,3 +1,4 @@
+import xml.etree.ElementTree as ET
 import os
 
 class Type():
@@ -22,11 +23,20 @@ class Type():
         return self.possibles
 
     def loadXML(self,  XML):
+        self.name = XML.get('name')
+        print "Carregando Type: " + self.name
         for child in XML.findall("child"):
-            addPossibleChild(child.text())
+            print "         - " + child.text
+            self.addPossibleChild(child.text)
 
-    def getXML(self):
-        pass
+    def save(self, typesNode, root):
+        typeNode = ET.SubElement(typesNode , 'type')
+        typeNode.set('name', self.getName())
+        if root :
+            typeNode.set('root', 'yes')
+        for child in self.getPossibleChildrenList() :
+            childNode = ET.SubElement(typeNode , 'child')
+            childNode.text = child
 
 class TIM():
     def __init__(self):
@@ -34,16 +44,24 @@ class TIM():
         self.roots = []
     
     def loadXML(self,  XML):
+        print "Carregando TIM"
         for typeXML in XML.findall("type") :
             type = Type()
             type.loadXML(typeXML)
+            if typeXML.get('root', 'no') == 'yes':
+                self.addRoot(type.getName())
             self.addType(type)
+
+    def save(self, TIMNode):
+        for typeName in self.getTypesList() :
+            root = False
+            type = self.getType(typeName)
+            if typeName in self.getRootsList():
+                root = True
+            type.save(TIMNode, root)
     
     def addType(self,  type):
         self.types[type.getName()] = type
-        print "Adicionando tipo " + type.getName()
-        print "Lista total: "
-        print self.getTypesList()
     
     def removeType(self,  typeName):
         del self.types[typeName]
@@ -56,10 +74,6 @@ class TIM():
             self.removeType(type)
 
     def getType(self,  typeName):
-        print "Lista"
-        print self.types
-        print "Tipo Desejado"
-        print typeName
         return self.types[typeName]
 
     def addRoot(self, typeName):
@@ -68,3 +82,16 @@ class TIM():
 
     def getRootsList(self):
         return self.roots
+
+    def getPossibleParentsList(self, type):
+        parentsList = []
+        print "*** getPossibleParentsList ***" + type.getName()
+        for candidateType in self.getTypesList() :
+            print "+ Candidato: " + candidateType
+            print "Possible Children"
+            print self.getType(candidateType).getPossibleChildrenList()
+            if type.getName() in self.getType(candidateType).getPossibleChildrenList():
+                parentsList += [candidateType]
+        print "ParentList:"
+        print parentsList
+        return parentsList

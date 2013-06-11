@@ -22,9 +22,9 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QRadioButton" name="existingTypeButton">
+        <widget class="QRadioButton" name="newTypeButton">
          <property name="text">
-          <string>Selecionar tipo existente</string>
+          <string>Criar novo tipo</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -32,9 +32,12 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="newTypeButton">
+        <widget class="QRadioButton" name="existingTypeButton">
          <property name="text">
-          <string>Criar novo tipo</string>
+          <string>Selecionar tipo existente</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -50,14 +53,18 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="existingTypeLabel">
+        <widget class="QLabel" name="newTypeLabel">
          <property name="text">
-          <string>Selecione tipo existente:</string>
+          <string>Insira nome do novo tipo:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="typeComboBox"/>
+        <widget class="QLineEdit" name="newTypeEdit">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="Line" name="line_2">
@@ -67,14 +74,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="newTypeLabel">
+        <widget class="QLabel" name="existingTypeLabel">
          <property name="text">
-          <string>Insira nome do novo tipo:</string>
+          <string>Selecione tipo existente:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="newTypeEdit">
+        <widget class="QComboBox" name="typeComboBox">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -96,6 +103,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>newTypeButton</tabstop>
+  <tabstop>existingTypeButton</tabstop>
+  <tabstop>newTypeEdit</tabstop>
+  <tabstop>typeComboBox</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

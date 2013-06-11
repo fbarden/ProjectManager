@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import os
 from link import Link
+from tim import TIM, Type
 from document import Document
 
 class Project :
@@ -11,31 +12,67 @@ class Project :
         self.imported_files = {}
         self.TIM = None
     
-    def open(self,  filename):
+    def loadXML(self,  filename):
+        self.location = os.path.dirname(filename) + '/'
         tree = ET.parse(filename)
         XML = tree.getroot()
         self.name = XML.get("name")
         self.documents = {}
-        for document_node in XML.findall("document") :
-            document = Document()
-            document_name = document_node.get("name")
-            document.open(document_name +".xml")
-            self.documents[document_name] = document
+        self.loadDocuments(XML)
+        importedFilesNode = XML.find('imported_files')
+        self.loadImportedFiles(importedFilesNode)
+        TIMNode= XML.find('tim')
+        self.loadTIM(TIMNode)
         linksList = self.getAllLinks()
         for link in linksList :
             link.consolidateChild(self)
             link.consolidateParent(self)
+    
+    def loadDocuments(self, documentsNode):
+        for document_node in documentsNode.findall("document") :
+            document = Document()
+            document_name = document_node.get("name")
+            document.loadXML(self, document_name +".xml")
+            self.documents[document_name] = document
+
+    def loadImportedFiles(self, importedFilesNode):
+        for fileNode in importedFilesNode.findall('file'):
+            self.imported_files[fileNode.get('name')] = fileNode.text
+
+    def loadTIM(self, TIMNode):
+        self.TIM = TIM()
+        self.TIM.loadXML(TIMNode)
+#        for typeNode in TIMNode.findall('type'):
+#            type = Type()
+#            type.setName(typeNode.get('name'))
+#            for childNode in typeNode.findall('child'):
+#                type.addPossibleChild(childNode.get('name'))
+#            self.TIM.addType(type)
+#            if (typeNode.get('root', 'no') == 'yes'):
+#                self.TIM.addRoot(type.getName())
+
+    def saveDocuments(self, documentsNode):
+        for documentName in self.getDocumentsList():
+            documentNode = ET.SubElement(documentsNode, 'document')
+            documentNode.set('name', documentName)
+
+    def saveImportedFiles(self, importedFilesNode):
+        for file in self.imported_files.keys() :
+            fileNode= ET.SubElement(importedFilesNode , 'file')
+            fileNode.set('name', file)
+            fileNode.text = self.imported_files[file]
 
     def save(self):
-        project = ET.Element('project')
-        project.set('name',  self.name)
-        project.tail = "\n"
-        tree = ET.ElementTree(element=project)
-        try :
-            os.mkdir(name)
-        except :
-            pass
-        tree.write(self.name + "/" + self.name + "Project.xml")
+        projectNode = ET.Element('project')
+        projectNode.set('name',  self.name)
+        self.saveDocuments(projectNode)
+        importedFilesNode = ET.SubElement(projectNode, 'imported_files')
+        self.saveImportedFiles(importedFilesNode)
+        TIMNode= ET.SubElement(projectNode, 'tim')
+        self.TIM.save(TIMNode)
+        projectNode.tail = "\n"
+        tree = ET.ElementTree(element=projectNode)
+        tree.write(self.getLocation()+ self.getName() + ".prj")
         
     def saveAll(self):
         self.save()
@@ -50,6 +87,7 @@ class Project :
     
     def addDocument(self,  document):
         self.documents[document.getName] = document
+        document.setProject(self)
 
     def removeDocument(self,  document):
         del self.documents[document.getName]
@@ -78,6 +116,13 @@ class Project :
                 linksList += clauseObj.getChildLinksList()
         return linksList
 
+    def getAllDocument2Clauses(self):
+        list = {}
+        for documentName in self.getDocumentsList() :
+            documentObj = self.getDocument(documentName)
+            list[documentName] = documentObj.getClausesList()
+        return list
+
     def setTIM(self, TIM):
         self.TIM = TIM
     
@@ -85,13 +130,17 @@ class Project :
         return self.TIM
 
     def getImportedFilesList(self):
-        return self.imported_files.keys()
+        return sorted(set(self.imported_files.keys()))
 
     def addImportedFile(self, file, description):
         self.imported_files[file] = description
 
     def getImportedFileDescription(self, file):
+        print [file]
         if file in self.imported_files:
             return self.imported_files[file]
         else:
             return ""
+
+    def setImportedFileDescription(self, file, description):
+        self.imported_files[str(file)] = description

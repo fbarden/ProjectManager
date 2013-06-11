@@ -35,7 +35,7 @@ class DocumentViewWidget(QWidget):
             self.trUtf8("Alterar Titulo:"),
             QLineEdit.Normal)
         if returnOK :
-            self.document.setTitle(newTitle)
+            self.document.setTitle(str(newTitle))
             self.ui.titleLabel.setText(newTitle)
 
     def loadDocument(self,  document):

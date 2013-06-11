@@ -12,9 +12,10 @@ class NewProjectDialog(QWizard):
     
     openProjectSignal = pyqtSignal()
     
-    def __init__(self,  parent,  project):
+    def __init__(self,  parent,  project=None):
         super(NewProjectDialog, self).__init__(parent)
         self.project = project
+        self.parent = parent
         self.TIM = TIM()
         self.ui = Ui_NewProjectDialog.Ui_NewProjectDialog()
         self.ui.setupUi(self)
@@ -50,11 +51,7 @@ class NewProjectDialog(QWizard):
 #        type = self.TIM.getType(str(typeName))
 #        childrenList = type.getPossibleChildrenList()
 #        childrenItems = []
-#        print "Lista de filhos de " + str(typeName)
-#        print childrenList
 #        for child in childrenList :
-#            print "Filhos de " + typeName
-#            print childrenList
 #            childItem = QTreeWidgetItem(typeItem)
 #            childItem.setText(0, child)
 #            childrenItems += [childItem]
@@ -69,9 +66,12 @@ class NewProjectDialog(QWizard):
 #            item.parent().insertChild(itemCount-1,  typeItem)
 
     def setProject(self):
+        if (self.project is None) :
+            self.project = None
         self.project.setName(str(self.ui.projectNameEdit.text()))
-        self.project.setLocation(str(self.ui.folderEdit))
+        self.project.setLocation(os.path.normpath(str(self.ui.folderEdit.text())) + '/')
         self.project.TIM = self.TIM
+        self.parent.project = self.project
         self.openProjectSignal.emit()
 
     def updatePages(self, page):
