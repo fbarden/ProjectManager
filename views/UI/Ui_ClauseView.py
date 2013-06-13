@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ClauseView.ui'
 #
-# Created: Tue Jun 11 13:03:26 2013
+# Created: Thu Jun 13 00:17:07 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,6 +55,15 @@ class Ui_clauseViewWidget(object):
         self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.titleLabel.setObjectName(_fromUtf8("titleLabel"))
         self.horizontalLayout.addWidget(self.titleLabel)
+        self.saveButton = QtGui.QPushButton(clauseViewWidget)
+        self.saveButton.setEnabled(False)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.saveButton.sizePolicy().hasHeightForWidth())
+        self.saveButton.setSizePolicy(sizePolicy)
+        self.saveButton.setObjectName(_fromUtf8("saveButton"))
+        self.horizontalLayout.addWidget(self.saveButton)
         self.upButton = QtGui.QToolButton(clauseViewWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -128,6 +137,7 @@ class Ui_clauseViewWidget(object):
         self.uplinksTreeWidget.setSizePolicy(sizePolicy)
         self.uplinksTreeWidget.setObjectName(_fromUtf8("uplinksTreeWidget"))
         self.uplinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
+        self.uplinksTreeWidget.header().setVisible(False)
         self.uplinksLayout.addWidget(self.uplinksTreeWidget)
         self.horizontalLayout_6.addLayout(self.uplinksLayout)
         self.verticalLayout_3 = QtGui.QVBoxLayout()
@@ -196,6 +206,7 @@ class Ui_clauseViewWidget(object):
         self.downlinksTreeWidget.setSizePolicy(sizePolicy)
         self.downlinksTreeWidget.setObjectName(_fromUtf8("downlinksTreeWidget"))
         self.downlinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
+        self.downlinksTreeWidget.header().setVisible(False)
         self.downlinksLayout.addWidget(self.downlinksTreeWidget)
         self.editDownlinksButton = QtGui.QPushButton(self.editTab)
         self.editDownlinksButton.setObjectName(_fromUtf8("editDownlinksButton"))
@@ -241,6 +252,7 @@ class Ui_clauseViewWidget(object):
         self.previousButton.setText(QtGui.QApplication.translate("clauseViewWidget", "<--", None, QtGui.QApplication.UnicodeUTF8))
         self.returnButton.setText(QtGui.QApplication.translate("clauseViewWidget", "<]", None, QtGui.QApplication.UnicodeUTF8))
         self.titleLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Documento: Título da Cláusula", None, QtGui.QApplication.UnicodeUTF8))
+        self.saveButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Salvar", None, QtGui.QApplication.UnicodeUTF8))
         self.upButton.setText(QtGui.QApplication.translate("clauseViewWidget", "î", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("clauseViewWidget", "X", None, QtGui.QApplication.UnicodeUTF8))
         self.nextButton.setText(QtGui.QApplication.translate("clauseViewWidget", "-->", None, QtGui.QApplication.UnicodeUTF8))

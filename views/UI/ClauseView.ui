@@ -80,6 +80,22 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Salvar</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QToolButton" name="upButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -207,6 +223,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <attribute name="headerVisible">
+            <bool>false</bool>
+           </attribute>
            <column>
             <property name="text">
              <string notr="true">1</string>
@@ -329,6 +348,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <attribute name="headerVisible">
+            <bool>false</bool>
+           </attribute>
            <column>
             <property name="text">
              <string notr="true">1</string>

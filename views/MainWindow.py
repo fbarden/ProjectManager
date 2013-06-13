@@ -45,15 +45,16 @@ class MainWindow(QMainWindow):
         newClauseDialog.openClauseSignal.connect(self.openClauseWidget)
 
     def openProject(self):
-        projectPath = QFileDialog.getOpenFileName(\
+        projectPath = str(QFileDialog.getOpenFileName(\
             None,
             self.trUtf8("Abrir arquivo..."),
             self.trUtf8("."),
             self.trUtf8("*.prj"),
-            None)
-        self.project = Project()
-        self.project.loadXML(str(projectPath))
-        self.openProjectWidget()
+            None))
+        if (projectPath != ""):
+            self.project = Project()
+            self.project.loadXML(str(projectPath))
+            self.openProjectWidget()
     
     def saveProject(self):
         self.project.saveAll()

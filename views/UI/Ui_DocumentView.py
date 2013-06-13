@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/DocumentView.ui'
 #
-# Created: Tue Jun 11 13:03:25 2013
+# Created: Thu Jun 13 00:17:07 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,25 +22,6 @@ class Ui_documentViewWidget(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.upButton = QtGui.QToolButton(documentViewWidget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.upButton.sizePolicy().hasHeightForWidth())
-        self.upButton.setSizePolicy(sizePolicy)
-        self.upButton.setMaximumSize(QtCore.QSize(50, 50))
-        self.upButton.setObjectName(_fromUtf8("upButton"))
-        self.horizontalLayout.addWidget(self.upButton)
-        self.titleLabel = QtGui.QLabel(documentViewWidget)
-        font = QtGui.QFont()
-        font.setPointSize(20)
-        font.setBold(True)
-        font.setItalic(True)
-        font.setWeight(75)
-        self.titleLabel.setFont(font)
-        self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.titleLabel.setObjectName(_fromUtf8("titleLabel"))
-        self.horizontalLayout.addWidget(self.titleLabel)
         self.showLinksButton = QtGui.QPushButton(documentViewWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -51,6 +32,25 @@ class Ui_documentViewWidget(object):
         self.showLinksButton.setChecked(True)
         self.showLinksButton.setObjectName(_fromUtf8("showLinksButton"))
         self.horizontalLayout.addWidget(self.showLinksButton)
+        self.titleLabel = QtGui.QLabel(documentViewWidget)
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.titleLabel.setFont(font)
+        self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.titleLabel.setObjectName(_fromUtf8("titleLabel"))
+        self.horizontalLayout.addWidget(self.titleLabel)
+        self.upButton = QtGui.QToolButton(documentViewWidget)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.upButton.sizePolicy().hasHeightForWidth())
+        self.upButton.setSizePolicy(sizePolicy)
+        self.upButton.setMaximumSize(QtCore.QSize(50, 50))
+        self.upButton.setObjectName(_fromUtf8("upButton"))
+        self.horizontalLayout.addWidget(self.upButton)
         self.titleButton = QtGui.QPushButton(documentViewWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -70,9 +70,9 @@ class Ui_documentViewWidget(object):
 
     def retranslateUi(self, documentViewWidget):
         documentViewWidget.setWindowTitle(QtGui.QApplication.translate("documentViewWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.upButton.setText(QtGui.QApplication.translate("documentViewWidget", "î", None, QtGui.QApplication.UnicodeUTF8))
-        self.titleLabel.setText(QtGui.QApplication.translate("documentViewWidget", "Document Title", None, QtGui.QApplication.UnicodeUTF8))
         self.showLinksButton.setText(QtGui.QApplication.translate("documentViewWidget", "Links", None, QtGui.QApplication.UnicodeUTF8))
+        self.titleLabel.setText(QtGui.QApplication.translate("documentViewWidget", "Document Title", None, QtGui.QApplication.UnicodeUTF8))
+        self.upButton.setText(QtGui.QApplication.translate("documentViewWidget", "î", None, QtGui.QApplication.UnicodeUTF8))
         self.titleButton.setText(QtGui.QApplication.translate("documentViewWidget", "Alt. Título", None, QtGui.QApplication.UnicodeUTF8))
 
 

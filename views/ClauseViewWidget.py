@@ -28,6 +28,12 @@ class ClauseViewWidget(QWidget):
         self.ui.titleEdit.textChanged.connect(self.changeTitle)
         self.ui.importFileButton.clicked.connect(self.importFile)
         self.ui.addFileButton.clicked.connect(self.addFile)
+        self.ui.textEdit.textChanged.connect(self.enableSave)
+        self.ui.titleEdit.textChanged.connect(self.enableSave)
+        self.ui.saveButton.clicked.connect(self.saveClause)
+
+    def enableSave(self):
+        self.ui.saveButton.setEnabled(True)
 
     def importFile(self):
         importFileDialog = ImportFileDialog(self, self.project)
@@ -37,6 +43,7 @@ class ClauseViewWidget(QWidget):
         addRelatedFileDialog = AddRelatedFileDialog(self, self.project, self.clause)
         addRelatedFileDialog.show()
         addRelatedFileDialog.updateFileTreeSignal.connect(self.loadRelatedDocs)
+        self.enableSave()
 
     def changeTitle(self, text):
         self.ui.titleLabel.setText(self.clause.getDocument().getName() + ": " + text)
@@ -126,3 +133,9 @@ class ClauseViewWidget(QWidget):
             item.setText(0, file)
             item.setText(1, self.project.getImportedFileDescription(file))
             item.setText(2, self.clause.getRelatedFileObservation(file))
+
+    def saveClause(self):
+        self.clause.setTitle(str(self.ui.titleEdit.text()))
+        self.clause.setText(str(self.ui.textEdit.toHtml()))
+        self.ui.saveButton.setEnabled(False)
+        

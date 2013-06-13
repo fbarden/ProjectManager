@@ -69,7 +69,7 @@ class DocumentViewWidget(QWidget):
         link = '<a href="clause:' + clause.getID() + '">' + clause.getTitle() + '</a>'
         cursor.insertHtml(link)
         cursor = table.cellAt(1, 1).firstCursorPosition()
-        cursor.insertText(clause.getText())
+        cursor.insertHtml(clause.getText())
         if (self.ui.showLinksButton.isChecked()):
             uplinks = clause.getParentLinksDoc2Clause()
             cursor = table.cellAt(1, 0).lastCursorPosition()
