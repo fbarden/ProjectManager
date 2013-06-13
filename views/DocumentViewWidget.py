@@ -11,7 +11,7 @@ class DocumentViewWidget(QWidget):
     openProjectSignal = pyqtSignal()
     openDocumentSignal = pyqtSignal(str);
     openClauseSignal = pyqtSignal(str, str);
-    newClauseSignal = pyqtSignal(str);
+    newClauseSignal = pyqtSignal(dict);
 
     def __init__(self, document = None):
         super(DocumentViewWidget, self).__init__()
@@ -22,8 +22,14 @@ class DocumentViewWidget(QWidget):
             self.loadDocument(document)
         self.ui.textBrowser.anchorClicked.connect(self.linkSelected)
         self.ui.titleButton.clicked.connect(self.changeTitle)
+        self.closeDocumentShortcut = QShortcut('CTRL+W', self)
+        self.closeDocumentShortcut.activated.connect(self.upToProject)
         self.ui.upButton.clicked.connect(self.upToProject)
+        self.showLinksShortcut = QShortcut('CTRL+L', self)
+        self.showLinksShortcut.activated.connect(self.ui.showLinksButton.click)
         self.ui.showLinksButton.clicked.connect(self.showLinksAction)
+        self.newClauseShortcut = QShortcut('CTRL+T', self)
+        self.newClauseShortcut.activated.connect(self.newClause)
 
     def showLinksAction(self):
         self.loadDocument(self.document)
@@ -92,7 +98,12 @@ class DocumentViewWidget(QWidget):
         elif (type == "document") :
             self.openDocumentSignal.emit(ID)
         elif (type == "newClause") :
-            self.newClauseSignal.emit(self.document.getName())
+            self.newClause()
+
+    def newClause(self):
+        param = {}
+        param['document'] = self.document.getName()
+        self.newClauseSignal.emit(param)
 
     def loadAddClause(self):
         cursor = self.ui.textBrowser.textCursor()

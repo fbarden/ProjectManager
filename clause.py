@@ -53,7 +53,7 @@ class Clause:
         linksNode.text = "\n"
         for childLink in self.getChildLinksList() :
             linkNode = ET.SubElement(linksNode,  "link")
-            documentLink,  clauseLink = childLink.getChild().split(":")
+            documentLink,  clauseLink = childLink.getChildID().split(":")
             linkNode.set("document",  documentLink)
             linkNode.set("clause",  clauseLink)
             linkNode.tail = "\n"

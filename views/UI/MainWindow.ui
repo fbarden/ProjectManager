@@ -30,7 +30,6 @@
     <addaction name="actionNewProject"/>
     <addaction name="actionOpenProject"/>
     <addaction name="actionSaveProject"/>
-    <addaction name="actionSaveProject_as"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -77,7 +76,7 @@
   </widget>
   <action name="actionNewProject">
    <property name="text">
-    <string>Novo...</string>
+    <string>Novo</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -85,7 +84,7 @@
   </action>
   <action name="actionOpenProject">
    <property name="text">
-    <string>Abrir...</string>
+    <string>Abrir</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>

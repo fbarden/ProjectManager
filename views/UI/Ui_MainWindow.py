@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/MainWindow.ui'
 #
-# Created: Thu Jun 13 00:17:06 2013
+# Created: Thu Jun 13 02:44:45 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -60,7 +60,6 @@ class Ui_MainWindow(object):
         self.menuProject.addAction(self.actionNewProject)
         self.menuProject.addAction(self.actionOpenProject)
         self.menuProject.addAction(self.actionSaveProject)
-        self.menuProject.addAction(self.actionSaveProject_as)
         self.menuProject.addSeparator()
         self.menuProject.addAction(self.actionExit)
         self.menuTIM.addAction(self.actionEditar)
@@ -83,9 +82,9 @@ class Ui_MainWindow(object):
         self.menuCl_usula.setTitle(QtGui.QApplication.translate("MainWindow", "Cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.menuImportedFiles.setTitle(QtGui.QApplication.translate("MainWindow", "Arq. Importados", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar.setWindowTitle(QtGui.QApplication.translate("MainWindow", "toolBar", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionNewProject.setText(QtGui.QApplication.translate("MainWindow", "Novo...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionNewProject.setText(QtGui.QApplication.translate("MainWindow", "Novo", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNewProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+N", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOpenProject.setText(QtGui.QApplication.translate("MainWindow", "Abrir...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOpenProject.setText(QtGui.QApplication.translate("MainWindow", "Abrir", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpenProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+O", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSaveProject.setText(QtGui.QApplication.translate("MainWindow", "Salvar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSaveProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))

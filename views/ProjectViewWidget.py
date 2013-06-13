@@ -10,15 +10,21 @@ class ProjectViewWidget(QWidget):
     newDocumentSignal = pyqtSignal();
     openDocumentSignal = pyqtSignal(str);
     openClauseSignal = pyqtSignal(str, str);
+    closeProjectSignal = pyqtSignal();
 
     def __init__(self, project = None):
         super(ProjectViewWidget, self).__init__()
         self.ui = Ui_ProjectView.Ui_projectViewWidget()
         self.ui.setupUi(self)
         self.ui.documentsListWidget.itemActivated.connect(self.openSelect)
+        self.closeProjectShortcut = QShortcut('CTRL+W', self)
+        self.closeProjectShortcut.activated.connect(self.closeProject)
         self.clausesDict  = {}
         if (project is not None) :
             self.loadProject(project)
+
+    def closeProject(self):
+        self.closeProjectSignal.emit()
 
     def loadProject(self,  project):
         documentsList = project.getDocumentsList()

@@ -10,6 +10,7 @@ from project import Project
 class ClauseViewWidget(QWidget):
 
     openDocumentSignal = pyqtSignal(str);
+    newClauseSignal = pyqtSignal(dict);
     
     def __init__(self, project, clause=None):
         super(ClauseViewWidget, self).__init__()
@@ -19,11 +20,17 @@ class ClauseViewWidget(QWidget):
         self.ui.setupUi(self)
         if (clause is not None) :
             self.loadClause(clause)
+        self.ui.previousClauseShortcut = QShortcut('ALT+Left', self)
         self.ui.previousButton.clicked.connect(self.previousClause)
+        self.ui.previousClauseShortcut.activated.connect(self.previousClause)
+        self.ui.nextClauseShortcut = QShortcut('ALT+Right', self)
+        self.ui.nextClauseShortcut.activated.connect(self.nextClause)
         self.ui.nextButton.clicked.connect(self.nextClause)
         self.ui.uplinksTreeWidget.itemActivated.connect(self.loadUplink)
         self.ui.downlinksTreeWidget.itemActivated.connect(self.loadDownlink)
 #        self.ui.returnButton.triggered.connect(self.returnClause)
+        self.closeClauseShortcut = QShortcut('CTRL+W', self)
+        self.closeClauseShortcut.activated.connect(self.upToDocument)
         self.ui.upButton.clicked.connect(self.upToDocument)
         self.ui.titleEdit.textChanged.connect(self.changeTitle)
         self.ui.importFileButton.clicked.connect(self.importFile)
@@ -31,6 +38,13 @@ class ClauseViewWidget(QWidget):
         self.ui.textEdit.textChanged.connect(self.enableSave)
         self.ui.titleEdit.textChanged.connect(self.enableSave)
         self.ui.saveButton.clicked.connect(self.saveClause)
+        self.ui.createChildClauseButton.clicked.connect(self.createClause)
+
+    def createClause(self):
+        param = {}
+        param['parentClause'] = self.clause
+        print "Enviando Sinal"
+        self.newClauseSignal.emit(param)
 
     def enableSave(self):
         self.ui.saveButton.setEnabled(True)
@@ -67,11 +81,13 @@ class ClauseViewWidget(QWidget):
             self.loadClause(newClause)
 
     def changeClause(self,  step):
-        document = self.clause.getDocument()
-        clausesList = document.getClausesList()
-        index = clausesList.index(self.clause.getID()) + step
-        if (index > (-1)) and (index < len(clausesList)):
-            self.loadClause(document.getClause(clausesList[index]))
+        print "Passou pelo changeclause"
+        if (self.askSave()) :
+            document = self.clause.getDocument()
+            clausesList = document.getClausesList()
+            index = clausesList.index(self.clause.getID()) + step
+            if (index > (-1)) and (index < len(clausesList)):
+                self.loadClause(document.getClause(clausesList[index]))
 
     def nextClause(self):
         self.changeClause(+1)
@@ -88,6 +104,7 @@ class ClauseViewWidget(QWidget):
         self.loadDownlinks()
         self.loadHistory()
         self.loadRelatedDocs()
+        self.ui.saveButton.setEnabled(False)
 
     def loadText(self):
         self.ui.textEdit.setText(self.clause.getText())
@@ -133,6 +150,25 @@ class ClauseViewWidget(QWidget):
             item.setText(0, file)
             item.setText(1, self.project.getImportedFileDescription(file))
             item.setText(2, self.clause.getRelatedFileObservation(file))
+
+    def askSave(self):
+        print self.ui.saveButton.isEnabled()
+        if (self.ui.saveButton.isEnabled()):
+            answer = QMessageBox.question(None,
+                self.trUtf8("Salvar Alteracoes"),
+                self.trUtf8("""Existem alteracoes nao salvas. Deseja salvar alteracoes?"""),
+                QMessageBox.StandardButtons(\
+                    QMessageBox.Cancel | \
+                    QMessageBox.No | \
+                    QMessageBox.Yes),
+                QMessageBox.Yes)
+            if (answer == QMessageBox.Cancel) :
+                return False
+            elif (answer == QMessageBox.Yes) :
+                self.saveClause()
+        return True
+        
+
 
     def saveClause(self):
         self.clause.setTitle(str(self.ui.titleEdit.text()))

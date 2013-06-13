@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/EditTIMTypesDialog.ui'
 #
-# Created: Thu Jun 13 00:17:09 2013
+# Created: Thu Jun 13 02:44:48 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!

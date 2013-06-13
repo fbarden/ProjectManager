@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ClauseView.ui'
 #
-# Created: Thu Jun 13 00:17:07 2013
+# Created: Thu Jun 13 02:44:46 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_clauseViewWidget(object):
     def setupUi(self, clauseViewWidget):
         clauseViewWidget.setObjectName(_fromUtf8("clauseViewWidget"))
-        clauseViewWidget.resize(988, 713)
+        clauseViewWidget.resize(864, 353)
         self.verticalLayout_4 = QtGui.QVBoxLayout(clauseViewWidget)
         self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -208,9 +208,9 @@ class Ui_clauseViewWidget(object):
         self.downlinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.downlinksTreeWidget.header().setVisible(False)
         self.downlinksLayout.addWidget(self.downlinksTreeWidget)
-        self.editDownlinksButton = QtGui.QPushButton(self.editTab)
-        self.editDownlinksButton.setObjectName(_fromUtf8("editDownlinksButton"))
-        self.downlinksLayout.addWidget(self.editDownlinksButton)
+        self.createChildClauseButton = QtGui.QPushButton(self.editTab)
+        self.createChildClauseButton.setObjectName(_fromUtf8("createChildClauseButton"))
+        self.downlinksLayout.addWidget(self.createChildClauseButton)
         self.horizontalLayout_6.addLayout(self.downlinksLayout)
         self.tabWidget.addTab(self.editTab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
@@ -242,7 +242,7 @@ class Ui_clauseViewWidget(object):
         QtCore.QObject.connect(self.titleCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.titleEdit.setEnabled)
         QtCore.QObject.connect(self.showUplinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.uplinksTreeWidget.setVisible)
         QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.downlinksTreeWidget.setVisible)
-        QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.editDownlinksButton.setVisible)
+        QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.createChildClauseButton.setVisible)
         QtCore.QObject.connect(self.downlinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.downlinksLabel.setVisible)
         QtCore.QObject.connect(self.showUplinksCheckBox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.uplinksLabel.setVisible)
         QtCore.QMetaObject.connectSlotsByName(clauseViewWidget)
@@ -264,7 +264,7 @@ class Ui_clauseViewWidget(object):
         self.titleEdit.setText(QtGui.QApplication.translate("clauseViewWidget", "Título da Cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.titleCheckBox.setText(QtGui.QApplication.translate("clauseViewWidget", "Alt. Título", None, QtGui.QApplication.UnicodeUTF8))
         self.downlinksLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Downlinks", None, QtGui.QApplication.UnicodeUTF8))
-        self.editDownlinksButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
+        self.createChildClauseButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Criar cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.editTab), QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("clauseViewWidget", "Histórico", None, QtGui.QApplication.UnicodeUTF8))
         self.relatedFilesTreeWidget.headerItem().setText(0, QtGui.QApplication.translate("clauseViewWidget", "Nome", None, QtGui.QApplication.UnicodeUTF8))

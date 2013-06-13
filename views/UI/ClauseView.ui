@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>988</width>
-    <height>713</height>
+    <width>864</width>
+    <height>353</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -359,9 +359,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="editDownlinksButton">
+          <widget class="QPushButton" name="createChildClauseButton">
            <property name="text">
-            <string>Editar</string>
+            <string>Criar cláusula</string>
            </property>
           </widget>
          </item>
@@ -488,7 +488,7 @@
   <connection>
    <sender>downlinksCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>editDownlinksButton</receiver>
+   <receiver>createChildClauseButton</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">

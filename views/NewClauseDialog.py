@@ -10,21 +10,27 @@ class NewClauseDialog(QDialog):
     
     openClauseSignal = pyqtSignal(str, str)
     
-    def __init__(self,  parent,  project, document=None, clause=None):
+    def __init__(self,  parent,  project, document=None, parentClause=None):
         super(NewClauseDialog, self).__init__(parent)
         self.project = project
         self.document = document
-        self.clause = clause
         self.ui = Ui_NewClauseDialog.Ui_NewClauseDialog()
         self.ui.setupUi(self)
         documentList = self.project.getDocumentsList()
         self.ui.documentBox.addItems(documentList)
         if (self.document is not None):
             self.ui.documentBox.setCurrentIndex(self.ui.documentBox.findText(self.document.getName()))
-        typeList = self.project.getTIM().getTypesList()
+        if (parentClause is not None):
+            type = parentClause.getType()
+            typeList = self.project.getTIM().getType(type).getPossibleChildrenList()
+        else :
+            typeList = self.project.getTIM().getTypesList()
         self.ui.typeBox.addItems(typeList)
         currentType = self.ui.typeBox.currentText()
         self.updateParentClauses()
+        if (parentClause is not None):
+            parentClauseName = parentClause.getDocument().getName() + ":" + parentClause.getID()
+            self.ui.parentBox.setCurrentIndex(self.ui.parentBox.findText(parentClauseName))
         self.accepted.connect(self.setClause)
         self.ui.typeBox.currentIndexChanged.connect(self.updateParentClauses)
 
@@ -72,8 +78,7 @@ class NewClauseDialog(QDialog):
     def setClause(self):
         title = str(self.ui.titleEdit.text())
         parent = str(self.ui.parentBox.currentText())
-        if (self.clause is None):
-            self.clause = Clause()
+        self.clause = Clause()
         self.clause.setTitle(title)
         self.clause.setType(str(self.ui.typeBox.currentText()))
         self.document = self.project.getDocument(str(self.ui.documentBox.currentText()))

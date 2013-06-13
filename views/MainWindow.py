@@ -38,9 +38,18 @@ class MainWindow(QMainWindow):
         newDocumentDialog.openDocumentSignal.connect(self.openDocumentWidget)
 #        self.project.addDocument(document)
     
-    def newClause(self, documentName):
-        document = self.project.getDocument(str(documentName))
-        newClauseDialog = NewClauseDialog(self, self.project, document)
+    def newClause(self, paramDict):
+        document = None
+        parentClause = None
+        type = None
+        for param in paramDict:
+            print param
+            if (param is 'document'):
+                documentName = paramDict['document']
+                document = self.project.getDocument(documentName)
+            elif (param is 'parentClause'):
+                parentClause = paramDict['parentClause']
+        newClauseDialog = NewClauseDialog(self, self.project, document, parentClause)
         newClauseDialog.show()
         newClauseDialog.openClauseSignal.connect(self.openClauseWidget)
 
@@ -67,6 +76,12 @@ class MainWindow(QMainWindow):
         self.ui.centralwidget.newDocumentSignal.connect(self.newDocument)
         self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
         self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
+        self.ui.centralwidget.closeProjectSignal.connect(self.closeProject)
+
+    def closeProject(self):
+        self.project = None
+        self.centralwidget = None
+        self.setCentralWidget(self.centralwidget)
 
     def openDocumentWidget(self, document):
         if (document == None) :
@@ -87,6 +102,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(clauseViewWidget)
         self.ui.centralwidget = clauseViewWidget
         self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
+        self.ui.centralwidget.newClauseSignal.connect(self.newClause)
 
     def manageImportedFiles(self):
         if (self.project is not None):
