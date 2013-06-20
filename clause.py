@@ -14,6 +14,18 @@ class Clause:
         self.type = None
         self.tags = []
 
+    def destroy(self):
+        for link in parent_links:
+            self.removeParentLink(link)
+        for child in child_links:
+            self.removeChildLink(link)
+
+    def removeParentLink(self, link):
+        del parent_links[link]
+
+    def removeChildLink(self, link):
+        del child_links[link]
+
     def loadXML(self,  clauseXML):
         self.child_links = {}
         self.parent_links= {}

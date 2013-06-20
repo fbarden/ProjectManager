@@ -31,5 +31,5 @@ class ImportFileDialog(QDialog):
         description = str(self.ui.descriptionEdit.text())
         filepath = str(self.ui.fileEdit.text())
         self.project.addImportedFile(os.path.basename(filepath), description)
-        shutil.copy(filepath, ".")
+        shutil.copy(filepath, self.project.getLocation() + 'imported/')
         self.fileImportedSignal.emit(os.path.basename(filepath))

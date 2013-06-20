@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/EditTIMTypesDialog.ui'
+# Form implementation generated from reading ui file 'EditTIMTypesDialog.ui'
 #
-# Created: Thu Jun 13 02:44:48 2013
+# Created: Sat Jun 15 01:47:47 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -48,14 +48,4 @@ class Ui_AddTIMTypesDialog(object):
         item = self.TIMListWidget.item(0)
         item.setText(QtGui.QApplication.translate("AddTIMTypesDialog", "Adicionar novo tipo...", None, QtGui.QApplication.UnicodeUTF8))
         self.TIMListWidget.setSortingEnabled(__sortingEnabled)
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    AddTIMTypesDialog = QtGui.QDialog()
-    ui = Ui_AddTIMTypesDialog()
-    ui.setupUi(AddTIMTypesDialog)
-    AddTIMTypesDialog.show()
-    sys.exit(app.exec_())
 

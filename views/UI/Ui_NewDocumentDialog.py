@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/NewDocumentDialog.ui'
+# Form implementation generated from reading ui file 'NewDocumentDialog.ui'
 #
-# Created: Thu Jun 13 02:44:51 2013
+# Created: Sat Jun 15 01:47:47 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -65,14 +65,4 @@ class Ui_NewDocumentDialog(object):
         self.titleLabel.setText(QtGui.QApplication.translate("NewDocumentDialog", "Título:", None, QtGui.QApplication.UnicodeUTF8))
         self.initialsLabel.setText(QtGui.QApplication.translate("NewDocumentDialog", "Sigla:", None, QtGui.QApplication.UnicodeUTF8))
         self.nameLabel.setText(QtGui.QApplication.translate("NewDocumentDialog", "Nome do arquivo:", None, QtGui.QApplication.UnicodeUTF8))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    NewDocumentDialog = QtGui.QDialog()
-    ui = Ui_NewDocumentDialog()
-    ui.setupUi(NewDocumentDialog)
-    NewDocumentDialog.show()
-    sys.exit(app.exec_())
 

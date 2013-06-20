@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/DocumentView.ui'
+# Form implementation generated from reading ui file 'DocumentView.ui'
 #
-# Created: Thu Jun 13 02:44:46 2013
+# Created: Sat Jun 15 01:47:47 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,14 +74,4 @@ class Ui_documentViewWidget(object):
         self.titleLabel.setText(QtGui.QApplication.translate("documentViewWidget", "Document Title", None, QtGui.QApplication.UnicodeUTF8))
         self.upButton.setText(QtGui.QApplication.translate("documentViewWidget", "î", None, QtGui.QApplication.UnicodeUTF8))
         self.titleButton.setText(QtGui.QApplication.translate("documentViewWidget", "Alt. Título", None, QtGui.QApplication.UnicodeUTF8))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    documentViewWidget = QtGui.QWidget()
-    ui = Ui_documentViewWidget()
-    ui.setupUi(documentViewWidget)
-    documentViewWidget.show()
-    sys.exit(app.exec_())
 

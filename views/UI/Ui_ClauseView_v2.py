@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ClauseView_v2.ui'
+# Form implementation generated from reading ui file 'ClauseView_v2.ui'
 #
-# Created: Thu Jun 13 02:44:44 2013
+# Created: Sat Jun 15 01:47:47 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -228,13 +228,3 @@ class Ui_Dialog(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("Dialog", "Documentos Relacionados", None, QtGui.QApplication.UnicodeUTF8))
 
 from kcolorcombo import KColorCombo
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    Dialog = QtGui.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
-

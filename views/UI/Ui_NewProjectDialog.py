@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/NewProjectDialog.ui'
+# Form implementation generated from reading ui file 'NewProjectDialog.ui'
 #
-# Created: Thu Jun 13 02:44:47 2013
+# Created: Sat Jun 15 01:47:46 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -128,14 +128,4 @@ class Ui_NewProjectDialog(object):
         self.projectNameLabel_2.setText(QtGui.QApplication.translate("NewProjectDialog", "Nome do Projeto:", None, QtGui.QApplication.UnicodeUTF8))
         self.locationLabel.setText(QtGui.QApplication.translate("NewProjectDialog", "Localização:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("NewProjectDialog", "TIM (Traceability Information Model)", None, QtGui.QApplication.UnicodeUTF8))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    NewProjectDialog = QtGui.QWizard()
-    ui = Ui_NewProjectDialog()
-    ui.setupUi(NewProjectDialog)
-    NewProjectDialog.show()
-    sys.exit(app.exec_())
 

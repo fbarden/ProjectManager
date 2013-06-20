@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ProjectView.ui'
+# Form implementation generated from reading ui file 'ProjectView.ui'
 #
-# Created: Thu Jun 13 02:44:44 2013
+# Created: Sat Jun 15 01:47:46 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,14 +35,4 @@ class Ui_projectViewWidget(object):
         self.documentsListWidget.setSortingEnabled(False)
         self.documentsListWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("projectViewWidget", "Novo documento...", None, QtGui.QApplication.UnicodeUTF8))
         self.documentsListWidget.setSortingEnabled(__sortingEnabled)
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    projectViewWidget = QtGui.QWidget()
-    ui = Ui_projectViewWidget()
-    ui.setupUi(projectViewWidget)
-    projectViewWidget.show()
-    sys.exit(app.exec_())
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/EditTIMDialog.ui'
+# Form implementation generated from reading ui file 'EditTIMDialog.ui'
 #
-# Created: Thu Jun 13 02:44:51 2013
+# Created: Sat Jun 15 01:47:47 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -46,14 +46,4 @@ class Ui_orgTIMDialog(object):
         self.TIMTreeWidget.setSortingEnabled(False)
         self.TIMTreeWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("orgTIMDialog", "Adicionar tipo...", None, QtGui.QApplication.UnicodeUTF8))
         self.TIMTreeWidget.setSortingEnabled(__sortingEnabled)
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    orgTIMDialog = QtGui.QDialog()
-    ui = Ui_orgTIMDialog()
-    ui.setupUi(orgTIMDialog)
-    orgTIMDialog.show()
-    sys.exit(app.exec_())
 

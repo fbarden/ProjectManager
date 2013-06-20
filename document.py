@@ -69,6 +69,16 @@ class Document :
         clause.setID(newID)
         clause.setDocument(self)
         self.clauses[clause.getID()] = clause
+
+    def removeClause(self, clause):
+        self.clauses.pop(clause.getID())
+        clause.destroy()
+
+    def destroy(self):
+        for clauseID in self.clauses:
+            clause = self.clauses.pop(clauseID)
+            clause.destroy()
+        os.remove(self.project.getLocation() + self.name + ".xml")
     
     def removeClause(self, clause):
         del self.clauses[clause.getID()]

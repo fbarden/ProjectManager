@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/NewClauseDialog.ui'
+# Form implementation generated from reading ui file 'NewClauseDialog.ui'
 #
-# Created: Thu Jun 13 02:44:50 2013
+# Created: Sat Jun 15 01:47:47 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -70,14 +70,4 @@ class Ui_NewClauseDialog(object):
         self.documentLabel.setText(QtGui.QApplication.translate("NewClauseDialog", "Documento:", None, QtGui.QApplication.UnicodeUTF8))
         self.typeLabel.setText(QtGui.QApplication.translate("NewClauseDialog", "Tipo:", None, QtGui.QApplication.UnicodeUTF8))
         self.parentLabel.setText(QtGui.QApplication.translate("NewClauseDialog", "Cláusula Pai:", None, QtGui.QApplication.UnicodeUTF8))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    NewClauseDialog = QtGui.QDialog()
-    ui = Ui_NewClauseDialog()
-    ui.setupUi(NewClauseDialog)
-    NewClauseDialog.show()
-    sys.exit(app.exec_())
 

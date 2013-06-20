@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/AddTypeDialog.ui'
+# Form implementation generated from reading ui file 'AddTypeDialog.ui'
 #
-# Created: Thu Jun 13 02:44:47 2013
+# Created: Sat Jun 15 01:47:46 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -83,14 +83,4 @@ class Ui_AddTypeDialog(object):
         self.existingTypeButton.setText(QtGui.QApplication.translate("AddTypeDialog", "Selecionar tipo existente", None, QtGui.QApplication.UnicodeUTF8))
         self.newTypeLabel.setText(QtGui.QApplication.translate("AddTypeDialog", "Insira nome do novo tipo:", None, QtGui.QApplication.UnicodeUTF8))
         self.existingTypeLabel.setText(QtGui.QApplication.translate("AddTypeDialog", "Selecione tipo existente:", None, QtGui.QApplication.UnicodeUTF8))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    AddTypeDialog = QtGui.QDialog()
-    ui = Ui_AddTypeDialog()
-    ui.setupUi(AddTypeDialog)
-    AddTypeDialog.show()
-    sys.exit(app.exec_())
 

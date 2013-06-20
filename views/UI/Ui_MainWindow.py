@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/MainWindow.ui'
+# Form implementation generated from reading ui file 'MainWindow.ui'
 #
-# Created: Thu Jun 13 02:44:45 2013
+# Created: Sat Jun 15 01:47:47 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -93,14 +93,4 @@ class Ui_MainWindow(object):
         self.actionEditar.setText(QtGui.QApplication.translate("MainWindow", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionVer_diagrama.setText(QtGui.QApplication.translate("MainWindow", "Ver diagrama", None, QtGui.QApplication.UnicodeUTF8))
         self.actionManageFiles.setText(QtGui.QApplication.translate("MainWindow", "Gerenciar arquivos", None, QtGui.QApplication.UnicodeUTF8))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
 

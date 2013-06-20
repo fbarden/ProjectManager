@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ClauseView.ui'
+# Form implementation generated from reading ui file 'ClauseView.ui'
 #
-# Created: Thu Jun 13 02:44:46 2013
+# Created: Sat Jun 15 01:47:48 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -273,14 +273,4 @@ class Ui_clauseViewWidget(object):
         self.addFileButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Adicionar", None, QtGui.QApplication.UnicodeUTF8))
         self.importFileButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Importar", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.importedFileTab), QtGui.QApplication.translate("clauseViewWidget", "Arquivos Relacionados", None, QtGui.QApplication.UnicodeUTF8))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    clauseViewWidget = QtGui.QWidget()
-    ui = Ui_clauseViewWidget()
-    ui.setupUi(clauseViewWidget)
-    clauseViewWidget.show()
-    sys.exit(app.exec_())
 

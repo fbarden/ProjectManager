@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/ImportFileDialog.ui'
+# Form implementation generated from reading ui file 'ImportFileDialog.ui'
 #
-# Created: Thu Jun 13 02:44:49 2013
+# Created: Sat Jun 15 01:47:47 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -71,14 +71,4 @@ class Ui_ImportFileDialog(object):
         self.fileLabel.setText(QtGui.QApplication.translate("ImportFileDialog", "Arquivo:", None, QtGui.QApplication.UnicodeUTF8))
         self.descriptionLabel.setText(QtGui.QApplication.translate("ImportFileDialog", "Descrição:", None, QtGui.QApplication.UnicodeUTF8))
         self.searchButton.setText(QtGui.QApplication.translate("ImportFileDialog", "Procurar", None, QtGui.QApplication.UnicodeUTF8))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    ImportFileDialog = QtGui.QDialog()
-    ui = Ui_ImportFileDialog()
-    ui.setupUi(ImportFileDialog)
-    ImportFileDialog.show()
-    sys.exit(app.exec_())
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/fbarden/Documents/ProjectManager/views/UI/EditImportedFilesDialog.ui'
+# Form implementation generated from reading ui file 'EditImportedFilesDialog.ui'
 #
-# Created: Thu Jun 13 02:44:52 2013
+# Created: Sat Jun 15 01:47:48 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -48,14 +48,4 @@ class Ui_EditImportedFilesDialog(object):
         self.filesTree.setSortingEnabled(False)
         self.filesTree.topLevelItem(0).setText(1, QtGui.QApplication.translate("EditImportedFilesDialog", "Importar novo arquivo...", None, QtGui.QApplication.UnicodeUTF8))
         self.filesTree.setSortingEnabled(__sortingEnabled)
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    EditImportedFilesDialog = QtGui.QDialog()
-    ui = Ui_EditImportedFilesDialog()
-    ui.setupUi(EditImportedFilesDialog)
-    EditImportedFilesDialog.show()
-    sys.exit(app.exec_())
 
