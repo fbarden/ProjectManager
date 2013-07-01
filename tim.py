@@ -4,7 +4,21 @@ import os
 class Type():
     def __init__(self):
         self.name = ""
+        self.prefix = ""
+        self.description = ""
         self.possibles = []
+
+    def getPrefix(self):
+        return self.prefix
+
+    def getDescription(self):
+        return self.description
+
+    def setPrefix(self, value):
+        self.prefix = value
+
+    def setDescription(self, value):
+        self.description = value
     
     def getName(self):
         return self.name

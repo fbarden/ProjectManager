@@ -195,6 +195,9 @@
       <property name="enabled">
        <bool>true</bool>
       </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
       <property name="interactive">
        <bool>false</bool>
       </property>

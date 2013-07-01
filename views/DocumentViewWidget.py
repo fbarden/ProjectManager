@@ -64,29 +64,51 @@ class DocumentViewWidget(QWidget):
             cursor.insertBlock()
             self.loadClause(clause)
 
+
+    def addLinkDoc(self, cursor, linkDoc):
+        linkCharFormat = QTextCharFormat()
+        linkCharFormat.setFontPointSize(10)
+        linkCharFormat.setFontItalic(True)
+        linkCharFormat.setAnchor(True)
+        linkCharFormat.setAnchorHref("document:" + linkDoc)
+        cursor.mergeCharFormat(linkCharFormat)
+        cursor.insertText(linkDoc + "\n")
+
     def loadClause(self,  clauseID):
         clause = self.document.getClause(clauseID)
         cursor = self.ui.textBrowser.textCursor()
         cursor.movePosition(QTextCursor.End)
-        
         table = cursor.insertTable(2,  3)
+        tableFormat = QTextTableFormat()
+        textLength = QTextLength(QTextLength.FixedLength, 800)
+        linkLength = QTextLength(QTextLength.FixedLength, 200)
+        tableFormat.setColumnWidthConstraints([linkLength, textLength, linkLength])
         table.mergeCells(0, 0, 1, 3)
+        table.setFormat(tableFormat)
         cursor = table.cellAt(0, 0).firstCursorPosition()
-        link = '<a href="clause:' + clause.getID() + '">' + clause.getTitle() + '</a>'
-        cursor.insertHtml(link)
+        titleBlockFormat = QTextBlockFormat()
+        titleBlockFormat.setAlignment(Qt.AlignCenter)
+        cursor.mergeBlockFormat(titleBlockFormat)
+        titleCharFormat = QTextCharFormat()
+        titleCharFormat.setFontPointSize(17)
+        titleCharFormat.setFontWeight(QFont.Bold)
+        titleCharFormat.setAnchor(True)
+        titleCharFormat.setAnchorHref("clause:" + clause.getID())
+        cursor.mergeCharFormat(titleCharFormat)
+        cursor.insertText(clause.getTitle())
         cursor = table.cellAt(1, 1).firstCursorPosition()
         cursor.insertHtml(clause.getText())
         if (self.ui.showLinksButton.isChecked()):
             uplinks = clause.getParentLinksDoc2Clause()
             cursor = table.cellAt(1, 0).lastCursorPosition()
             for linkDoc in uplinks.keys() :
-                link = '<a href="document:' + linkDoc + '">' + linkDoc + '</a>'
-                cursor.insertHtml(link)
+                self.addLinkDoc(cursor, linkDoc)
+            cursor.deletePreviousChar()
             cursor = table.cellAt(1, 2).lastCursorPosition()
             downlinks = clause.getChildLinksDoc2Clause()
             for linkDoc in downlinks.keys() :
-                link = '<a href="document:' + linkDoc + '">' + linkDoc + '</a>'
-                cursor.insertHtml(link)
+                self.addLinkDoc(cursor, linkDoc)
+            cursor.deletePreviousChar()
         else:
             table.mergeCells(1, 0, 1, 3)
     

@@ -5,6 +5,9 @@ from PyQt4.QtCore import *
 
 from tim import *
 from project import Project
+from NodeGraphicItem import NodeGraphicItem
+from LineGraphicItem import LineGraphicItem
+from TIMDiagramScene import TIMDiagramScene
 
 from AddTypeDialog import AddTypeDialog
 
@@ -29,6 +32,9 @@ class NewProjectDialog(QWizard):
         self.currentIdChanged.connect(self.updatePages)
         self.ui.TIMTreeWidget.itemActivated.connect(self.typeTreeAction)
         self.ui.searchButton.clicked.connect(self.openSearchFolder)
+        self.scene = TIMDiagramScene(self.ui.graphicsView, self.TIM)
+        self.scene.setBackgroundBrush(Qt.lightGray)
+        self.ui.graphicsView.setScene(self.scene)
 
     def openSearchFolder(self):
         location = QFileDialog.getExistingDirectory(\
@@ -45,26 +51,6 @@ class NewProjectDialog(QWizard):
             addTypeDialog.show()
             addTypeDialog.addTypeSignal.connect(self.updateTIMTree)
 
-#    def addType(self, typeName, item):
-#        typeItem = QTreeWidgetItem()
-#        typeItem.setText(0, str(typeName))
-#        type = self.TIM.getType(str(typeName))
-#        childrenList = type.getPossibleChildrenList()
-#        childrenItems = []
-#        for child in childrenList :
-#            childItem = QTreeWidgetItem(typeItem)
-#            childItem.setText(0, child)
-#            childrenItems += [childItem]
-#        addItem = QTreeWidgetItem()
-#        addItem.setText(0, "<adicionar tipo>")
-#        typeItem.addChild(addItem)
-#        if (item.parent() is None) :
-#            itemCount = self.ui.TIMTreeWidget.topLevelItemCount()
-#            self.ui.TIMTreeWidget.insertTopLevelItem(itemCount-1,  typeItem)
-#        else:
-#            itemCount = item.parent().childCount()
-#            item.parent().insertChild(itemCount-1,  typeItem)
-
     def setProject(self):
         if (self.project is None) :
             self.project = None
@@ -76,15 +62,26 @@ class NewProjectDialog(QWizard):
 
     def updatePages(self, page):
         if (page == 2):
-            self.updateTypeTree()
-        elif (page == 3):
-            self.updateTIMImage()
-
-    def updateTypeTree(self):
-        pass
+            self.scene.updateTIMImage()
 
     def updateTIMImage(self):
-        pass
+        rootsList = self.TIM.getRootsList()
+        offset = 0
+        for rootName in rootsList :
+            self.drawTIMNode(rootName, 0, offset)
+            offset += 1
+    
+    def drawTIMNode(self, nodeName, level, offset):
+        node = self.TIM.getType(nodeName)
+        nodeItem = NodeGraphicItem(50, 30)
+        nodeItem.setText(node.getPrefix())
+        nodeItem.setTitle(node.getName())
+        nodeItem.moveBy(-220+level*70, -150 + offset*50)
+        self.scene.addItem(nodeItem)
+        for childName in node.getPossibleChildrenList() :
+            self.drawTIMNode(childName, level+1, offset+1)
+            offset += 1
+        return offset
 
     def updateTIMTree(self):
         self.ui.TIMTreeWidget.clear()

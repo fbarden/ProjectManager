@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'NewProjectDialog.ui'
 #
-# Created: Sat Jun 15 01:47:46 2013
+# Created: Sun Jun 30 15:21:25 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -92,6 +92,7 @@ class Ui_NewProjectDialog(object):
         self.verticalLayout_4.addWidget(self.label_5)
         self.graphicsView = QtGui.QGraphicsView(self.wizardPage3)
         self.graphicsView.setEnabled(True)
+        self.graphicsView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.graphicsView.setInteractive(False)
         self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
         self.verticalLayout_4.addWidget(self.graphicsView)

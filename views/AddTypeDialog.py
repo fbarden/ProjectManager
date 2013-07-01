@@ -27,7 +27,11 @@ class AddTypeDialog(QDialog):
         elif (self.ui.newTypeButton.isChecked()):
             type = Type()
             typeName = str(self.ui.newTypeEdit.text())
+            typePrefix = str(self.ui.prefixEdit.text())
+            typeDescription = str(self.ui.descriptionEdit.text())
             type.setName(typeName)
+            type.setPrefix(typePrefix)
+            type.setDescription(typeDescription)
             self.TIM.addType(type)
         if (self.item.parent() is None) :
             self.TIM.addRoot(typeName)

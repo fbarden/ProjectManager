@@ -22,6 +22,7 @@ class ProjectViewWidget(QWidget):
         self.clausesDict  = {}
         if (project is not None) :
             self.loadProject(project)
+        self.ui.documentsListWidget.setFocus()
 
     def closeProject(self):
         self.closeProjectSignal.emit()
