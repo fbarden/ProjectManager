@@ -21,12 +21,15 @@ class NodeGraphicItem(QGraphicsItem):
         self.text = text
 
     def paint(self, painter, option, widget):
+        font = painter.font()
+        font.setBold(True)
+        painter.setFont(font)
         painter.setBrush(Qt.white)
         painter.drawRect(0, 0, self.width, self.height)
         if (self.text is not None):
-            painter.drawText(0, 0, self.width, self.height, Qt.AlignCenter|Qt.TextWordWrap, self.text)
+            painter.drawText(-self.width, 0, self.width*3, self.height, Qt.AlignCenter|Qt.TextWordWrap, self.text)
         if (self.title is not None):
-            painter.drawText(-self.width*0.5, -self.height/2, self.width*2, self.height/2, Qt.AlignCenter|Qt.TextWordWrap, self.title)
+            painter.drawText(-self.width, -self.height/2, self.width*3, self.height/2, Qt.AlignCenter|Qt.TextWordWrap, self.title)
         print self.zValue()
     
     def getCenter(self):

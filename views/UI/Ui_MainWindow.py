@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow.ui'
 #
-# Created: Sun Jun 30 15:21:25 2013
+# Created: Sun Jun 30 22:27:28 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,8 +26,6 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuProject = QtGui.QMenu(self.menubar)
         self.menuProject.setObjectName(_fromUtf8("menuProject"))
-        self.menuTIM = QtGui.QMenu(self.menubar)
-        self.menuTIM.setObjectName(_fromUtf8("menuTIM"))
         self.menuDocumento = QtGui.QMenu(self.menubar)
         self.menuDocumento.setObjectName(_fromUtf8("menuDocumento"))
         self.menuCl_usula = QtGui.QMenu(self.menubar)
@@ -51,24 +49,24 @@ class Ui_MainWindow(object):
         self.actionSaveProject_as.setObjectName(_fromUtf8("actionSaveProject_as"))
         self.actionExit = QtGui.QAction(MainWindow)
         self.actionExit.setObjectName(_fromUtf8("actionExit"))
-        self.actionEditar = QtGui.QAction(MainWindow)
-        self.actionEditar.setObjectName(_fromUtf8("actionEditar"))
-        self.actionVer_diagrama = QtGui.QAction(MainWindow)
-        self.actionVer_diagrama.setObjectName(_fromUtf8("actionVer_diagrama"))
         self.actionManageFiles = QtGui.QAction(MainWindow)
         self.actionManageFiles.setObjectName(_fromUtf8("actionManageFiles"))
+        self.actionEditTIM = QtGui.QAction(MainWindow)
+        self.actionEditTIM.setObjectName(_fromUtf8("actionEditTIM"))
+        self.actionTIMDiagram = QtGui.QAction(MainWindow)
+        self.actionTIMDiagram.setObjectName(_fromUtf8("actionTIMDiagram"))
         self.menuProject.addAction(self.actionNewProject)
         self.menuProject.addAction(self.actionOpenProject)
         self.menuProject.addAction(self.actionSaveProject)
         self.menuProject.addSeparator()
+        self.menuProject.addAction(self.actionEditTIM)
+        self.menuProject.addAction(self.actionTIMDiagram)
+        self.menuProject.addSeparator()
         self.menuProject.addAction(self.actionExit)
-        self.menuTIM.addAction(self.actionEditar)
-        self.menuTIM.addAction(self.actionVer_diagrama)
         self.menuImportedFiles.addAction(self.actionManageFiles)
         self.menubar.addAction(self.menuProject.menuAction())
         self.menubar.addAction(self.menuDocumento.menuAction())
         self.menubar.addAction(self.menuCl_usula.menuAction())
-        self.menubar.addAction(self.menuTIM.menuAction())
         self.menubar.addAction(self.menuImportedFiles.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -77,7 +75,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
         self.menuProject.setTitle(QtGui.QApplication.translate("MainWindow", "Projeto", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuTIM.setTitle(QtGui.QApplication.translate("MainWindow", "TIM", None, QtGui.QApplication.UnicodeUTF8))
         self.menuDocumento.setTitle(QtGui.QApplication.translate("MainWindow", "Documento", None, QtGui.QApplication.UnicodeUTF8))
         self.menuCl_usula.setTitle(QtGui.QApplication.translate("MainWindow", "Cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.menuImportedFiles.setTitle(QtGui.QApplication.translate("MainWindow", "Arq. Importados", None, QtGui.QApplication.UnicodeUTF8))
@@ -90,7 +87,7 @@ class Ui_MainWindow(object):
         self.actionSaveProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSaveProject_as.setText(QtGui.QApplication.translate("MainWindow", "Salvar como...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionEditar.setText(QtGui.QApplication.translate("MainWindow", "Editar", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionVer_diagrama.setText(QtGui.QApplication.translate("MainWindow", "Ver diagrama", None, QtGui.QApplication.UnicodeUTF8))
         self.actionManageFiles.setText(QtGui.QApplication.translate("MainWindow", "Gerenciar arquivos", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionEditTIM.setText(QtGui.QApplication.translate("MainWindow", "Editar TIM", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionTIMDiagram.setText(QtGui.QApplication.translate("MainWindow", "Diagrama TIM", None, QtGui.QApplication.UnicodeUTF8))
 

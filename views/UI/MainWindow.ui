@@ -31,14 +31,10 @@
     <addaction name="actionOpenProject"/>
     <addaction name="actionSaveProject"/>
     <addaction name="separator"/>
+    <addaction name="actionEditTIM"/>
+    <addaction name="actionTIMDiagram"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
-   </widget>
-   <widget class="QMenu" name="menuTIM">
-    <property name="title">
-     <string>TIM</string>
-    </property>
-    <addaction name="actionEditar"/>
-    <addaction name="actionVer_diagrama"/>
    </widget>
    <widget class="QMenu" name="menuDocumento">
     <property name="title">
@@ -59,7 +55,6 @@
    <addaction name="menuProject"/>
    <addaction name="menuDocumento"/>
    <addaction name="menuCl_usula"/>
-   <addaction name="menuTIM"/>
    <addaction name="menuImportedFiles"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -108,19 +103,19 @@
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionEditar">
-   <property name="text">
-    <string>Editar</string>
-   </property>
-  </action>
-  <action name="actionVer_diagrama">
-   <property name="text">
-    <string>Ver diagrama</string>
-   </property>
-  </action>
   <action name="actionManageFiles">
    <property name="text">
     <string>Gerenciar arquivos</string>
+   </property>
+  </action>
+  <action name="actionEditTIM">
+   <property name="text">
+    <string>Editar TIM</string>
+   </property>
+  </action>
+  <action name="actionTIMDiagram">
+   <property name="text">
+    <string>Diagrama TIM</string>
    </property>
   </action>
  </widget>

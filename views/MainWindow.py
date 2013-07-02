@@ -13,6 +13,7 @@ from PyQt4.QtCore import *
 from project import Project
 from document import Document
 from clause import Clause
+from views.TIMDiagramDialog import TIMDiagramDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -24,7 +25,13 @@ class MainWindow(QMainWindow):
         self.ui.actionOpenProject.triggered.connect(self.openProject)
         self.ui.actionSaveProject.triggered.connect(self.saveProject)
         self.ui.actionManageFiles.triggered.connect(self.manageImportedFiles)
+        self.ui.actionTIMDiagram.triggered.connect(self.showTIMDiagram)
 #        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
+
+    def showTIMDiagram(self):
+        diagramDialog = TIMDiagramDialog(self, self.project.getTIM())
+        diagramDialog.show() 
+        
 
     def newProject(self):
         self.project = Project()

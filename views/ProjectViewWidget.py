@@ -4,6 +4,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
 from project import Project
+from views.DocumentsDiagramScene import DocumentsDiagramScene
 
 class ProjectViewWidget(QWidget):
 
@@ -43,6 +44,8 @@ class ProjectViewWidget(QWidget):
                 self.clausesDict[documentName + clause.getTitle()] = clause.getID()
                 widgetList += [clauseWidgetItem]
         self.ui.documentsListWidget.addTopLevelItems(widgetList)
+        documentDiagramScene = DocumentsDiagramScene(self.ui.graphicsView, project)
+        self.ui.graphicsView.setScene(documentDiagramScene)
 
     def openSelect(self, selectedItem, column):
         if (selectedItem.parent() is None) :

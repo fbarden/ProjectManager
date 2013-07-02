@@ -31,6 +31,7 @@ class DocumentViewWidget(QWidget):
         self.newClauseShortcut = QShortcut('CTRL+T', self)
         self.newClauseShortcut.activated.connect(self.newClause)
 
+
     def showLinksAction(self):
         self.loadDocument(self.document)
 

@@ -142,6 +142,8 @@
   <tabstop>newTypeButton</tabstop>
   <tabstop>existingTypeButton</tabstop>
   <tabstop>newTypeEdit</tabstop>
+  <tabstop>prefixEdit</tabstop>
+  <tabstop>descriptionEdit</tabstop>
   <tabstop>typeComboBox</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>

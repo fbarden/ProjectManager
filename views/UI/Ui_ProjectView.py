@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ProjectView.ui'
 #
-# Created: Sun Jun 30 15:21:25 2013
+# Created: Sun Jun 30 22:27:28 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,10 +20,15 @@ class Ui_projectViewWidget(object):
         projectViewWidget.resize(400, 300)
         self.verticalLayout = QtGui.QVBoxLayout(projectViewWidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.documentsListWidget = QtGui.QTreeWidget(projectViewWidget)
+        self.splitter = QtGui.QSplitter(projectViewWidget)
+        self.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter.setObjectName(_fromUtf8("splitter"))
+        self.documentsListWidget = QtGui.QTreeWidget(self.splitter)
         self.documentsListWidget.setObjectName(_fromUtf8("documentsListWidget"))
         item_0 = QtGui.QTreeWidgetItem(self.documentsListWidget)
-        self.verticalLayout.addWidget(self.documentsListWidget)
+        self.graphicsView = QtGui.QGraphicsView(self.splitter)
+        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
+        self.verticalLayout.addWidget(self.splitter)
 
         self.retranslateUi(projectViewWidget)
         QtCore.QMetaObject.connectSlotsByName(projectViewWidget)

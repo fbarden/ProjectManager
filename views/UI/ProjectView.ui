@@ -15,17 +15,23 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTreeWidget" name="documentsListWidget">
-     <column>
-      <property name="text">
-       <string>Documentos</string>
-      </property>
-     </column>
-     <item>
-      <property name="text">
-       <string>Novo documento...</string>
-      </property>
-     </item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QTreeWidget" name="documentsListWidget">
+      <column>
+       <property name="text">
+        <string>Documentos</string>
+       </property>
+      </column>
+      <item>
+       <property name="text">
+        <string>Novo documento...</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView"/>
     </widget>
    </item>
   </layout>

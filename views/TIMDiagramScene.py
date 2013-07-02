@@ -11,22 +11,38 @@ class TIMDiagramScene(QGraphicsScene):
     def __init__(self,  parent, TIM=None):
         super(TIMDiagramScene, self).__init__(parent)
         self.TIM = TIM
-       
-    def updateTIMImage(self):
-        rootsList = self.TIM.getRootsList()
-        offset = 0
-        for rootName in rootsList :
-            self.drawTIMNode(rootName, 0, offset)
-            offset += 1
+        self.updateTIMImage()
 
-    def drawTIMNode(self, nodeName, level, offset):
+    def getTIM(self):
+        return self.TIM
+
+    def setTIM(self, value):
+        self.TIM = value
+
+    def delTIM(self):
+        del self.TIM
+
+    def updateTIMImage(self):
+        print "Vai pro update!"
+        rootsList = self.TIM.getRootsList()
+        self.offset = 0
+        for rootName in rootsList :
+            self.drawTIMNode(rootName, 0)
+            self.offset += 1
+
+    def drawTIMNode(self, nodeName, level):
+        print "TIMNODE"
         node = self.TIM.getType(nodeName)
-        nodeItem = NodeGraphicItem(50, 30)
+        print nodeName + " " + str(self.offset)
+        nodeItem = NodeGraphicItem(80, 50)
         nodeItem.setText(node.getPrefix())
+        print node.getPrefix()
         nodeItem.setTitle(node.getName())
-        nodeItem.moveBy(-220+level*70, -150 + offset*50)
+        print node.getName()
+        nodeItem.moveBy(-220+level*120, -150 + self.offset*70)
         self.addItem(nodeItem)
         for childName in node.getPossibleChildrenList() :
-            self.drawTIMNode(childName, level+1, offset+1)
-            offset += 1
-        return offset
+            childItem = self.drawTIMNode(childName, level+1)
+            self.addItem(LineGraphicItem(nodeItem, childItem))
+            self.offset += 1
+        return nodeItem
