@@ -1,0 +1,9 @@
+<document name="doc2" prefix="Doc2" title="Documento 2"><clauses><clause id="1" type="Felipe">
+<supects /><title>Verificacoes</title>
+<text /><comments /><links>
+<link clause="1" document="doc4" />
+</links>
+<related_files>
+</related_files>
+</clause>
+<order>doc2:1</order></clauses></document>

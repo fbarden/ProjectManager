@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ProjectConsolidationWizard</class>
+ <widget class="QWizard" name="ProjectConsolidationWizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>603</width>
+    <height>527</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Wizard</string>
+  </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ModernStyle</enum>
+  </property>
+  <widget class="QWizardPage" name="wizardPage1">
+   <property name="title">
+    <string>Consolidação de Projeto</string>
+   </property>
+  </widget>
+  <widget class="QWizardPage" name="wizardPage2">
+   <property name="title">
+    <string>Escolha de documentos</string>
+   </property>
+   <property name="subTitle">
+    <string>Escolha os documentos que irão fazer parte da consolidação:</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTreeWidget" name="documentsTreeWidget">
+      <column>
+       <property name="text">
+        <string>Documentos</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="wizardPage3">
+   <property name="title">
+    <string>Escolha de Tipos</string>
+   </property>
+   <property name="subTitle">
+    <string>Escolha quais tipos participarão da consolidação:</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QTreeWidget" name="typesTreeWidget">
+      <column>
+       <property name="text">
+        <string>Tipos</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="wizardPage4">
+   <property name="title">
+    <string>Definições de Exibição</string>
+   </property>
+   <property name="subTitle">
+    <string>Defina como as cláusulas serão nomeadas e organizadas:</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_9">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_8">
+      <item>
+       <widget class="QLabel" name="consistencyLabel">
+        <property name="text">
+         <string>Manter consistência com consolidações passadas? Caso a consistência seja mantida, cláusulas já consolidadas manterão seus índices. Nesse caso, novas cláusulas terão seus índices mais altos que as cláusulas já consolidadas e a numeração poderá apresentar lacunas. As numerações e índices serão gerados como a consolidação anterior.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QRadioButton" name="yesConsistencyButton">
+          <property name="text">
+           <string>Sim</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="noConsistencyButton">
+          <property name="text">
+           <string>Não</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="prefixLabel">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Prefixo:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QCheckBox" name="documentPrefixCheckBox">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Prefixo de documento</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="typePrefixCheckBox">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Prefixo de tipo</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <item>
+       <widget class="QLabel" name="orderLabel">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Ordenamento:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QRadioButton" name="typeOrderButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Ordenar por tipos (tipos de ordem maior primeiro)</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="documentOrderButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Como ordenado nos documentos</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="unifyDocumentsCheckBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Juntar todos documentos selecionados em um único</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="wizardPage5">
+   <property name="title">
+    <string>Anexos</string>
+   </property>
+   <property name="subTitle">
+    <string>Escolha quais relatórios serão anexados à consolidação:</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_10">
+    <item>
+     <widget class="QCheckBox" name="TIMCheckBox">
+      <property name="text">
+       <string>Definições do Modelo de Informações de Rastreabiliade (TIM)</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="previousIndexesCheckBox">
+      <property name="text">
+       <string>Conversões de índices consolidades anteriormente</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="newClausesReportCheckBox">
+      <property name="text">
+       <string>Lista de novas cláusulas consolidadas</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="errorsReportCheckBox">
+      <property name="text">
+       <string>Relatório de erros encontrados</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>noConsistencyButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>prefixLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>76</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>71</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noConsistencyButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>documentPrefixCheckBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>57</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noConsistencyButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>typePrefixCheckBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>435</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>581</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noConsistencyButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>orderLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>175</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noConsistencyButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>typeOrderButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>234</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>256</x>
+     <y>328</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noConsistencyButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>documentOrderButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>206</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>215</x>
+     <y>356</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noConsistencyButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>unifyDocumentsCheckBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>41</x>
+     <y>209</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>87</x>
+     <y>374</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>typeOrderButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>unifyDocumentsCheckBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>289</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>374</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
