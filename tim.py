@@ -6,7 +6,8 @@ class Type():
         self.name = ""
         self.prefix = ""
         self.description = ""
-        self.possibles = []
+        self.possibleChildren = {}
+        self.possibleParents = {}
 
     def getPrefix(self):
         return self.prefix
@@ -26,31 +27,89 @@ class Type():
     def setName(self,  name):
         self.name = name
     
-    def addPossibleChild(self,  typeName):
-        if typeName not in self.possibles :
-            self.possibles += [typeName]
+    def addPossibleChild(self, typeName, minCard, maxCard, dependency):
+        if typeName not in self.possibleChildren.keys() :
+            self.possibleChildren[typeName] = (minCard, maxCard, dependency)
     
-    def removePossibleChild(self,  typeName):
-        self.possibles.remove(typeName)
+    def getChildMinCard(self, childName):
+        return self.possibleChildren[childName][0]
+
+    def getChildMaxCard(self, childName):
+        return self.possibleChildren[childName][1]
+
+    def getParentMinCard(self, parentName):
+        return self.possibleParents[parentName][0]
+
+    def getParentMaxCard(self, parentName):
+        return self.possibleParents[parentName][1]
+    
+    def removePossibleChild(self, typeName):
+        del self.possibleChildren[typeName]
     
     def getPossibleChildrenList(self):
-        return self.possibles
+        return self.possibleChildren.keys()
+    
+    def isDependantOf(self, typeName):
+        if typeName in self.getPossibleChildrenList():
+            return self.possibleChildren[typeName][2]
+        elif typeName in self.getPossibleParentsList():
+            return self.possibleParents[typeName][2]
+        else:
+            return False
+
+    def addPossibleParent(self, typeName, minCard, maxCard, dependency):
+        if typeName not in self.possibleParents.keys() :
+            self.possibleParents[typeName] = (minCard, maxCard, dependency)
+    
+    def removePossibleParent(self, typeName):
+        del self.possibleParents[typeName]
+    
+    def getPossibleParentsList(self):
+        return self.possibleParents.keys()
 
     def loadXML(self,  XML):
         self.name = XML.get('name')
+        self.prefix = XML.get('prefix')
         print "Carregando Type: " + self.name
         for child in XML.findall("child"):
-            print "         - " + child.text
-            self.addPossibleChild(child.text)
+            name = child.get('name')
+            minCard = child.get('minCard')
+            maxCard = child.get('maxCard')
+            dependency = (child.get('dependent') == 'yes')
+            print "         - " + name
+            self.addPossibleChild(name, minCard, maxCard, dependency)
+        for parent in XML.findall("parent"):
+            name = parent.get('name')
+            minCard = parent.get('minCard')
+            maxCard = parent.get('maxCard')
+            dependency = (parent.get('dependent') == 'yes')
+            print "         - " + name
+            self.addPossibleParent(name, minCard, maxCard, dependency)
 
     def save(self, typesNode, root):
         typeNode = ET.SubElement(typesNode , 'type')
         typeNode.set('name', self.getName())
+        typeNode.set('prefix', self.getPrefix())
         if root :
             typeNode.set('root', 'yes')
         for child in self.getPossibleChildrenList() :
             childNode = ET.SubElement(typeNode , 'child')
-            childNode.text = child
+            childNode.set('name', child)
+            childNode.set('minCard', self.possibleChildren[child][0])
+            childNode.set('maxCard', self.possibleChildren[child][1])
+            if (self.possibleChildren[child][1]):
+                childNode.set('dependent', 'yes')
+            else:
+                childNode.set('dependent', 'no')
+        for parent in self.getPossibleParentsList() :
+            parentNode = ET.SubElement(typeNode , 'parent')
+            parentNode.set('name', parent)
+            parentNode.set('minCard', self.possibleParents[parent][0])
+            parentNode.set('maxCard', self.possibleParents[parent][1])
+            if (self.possibleParents[parent][1]):
+                parentNode.set('dependent', 'yes')
+            else:
+                parentNode.set('dependent', 'no')
 
 class TIM():
     def __init__(self):

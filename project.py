@@ -8,25 +8,33 @@ class Project :
     def __init__(self):
         self.name = ""
         self.documents = {}
+        self.documentsOrder = []
         self.location = ""
         self.imported_files = {}
+        self.consolidationSettings = {}
         self.TIM = None
+
+    def getConsolidationSettings(self):
+        return self.consolidationSettings
+
+    def setConsolidationSettings(self, settings):
+        self.consolidationSettings = settings
     
     def loadXML(self,  filename):
         self.location = os.path.dirname(filename) + '/'
         tree = ET.parse(filename)
         XML = tree.getroot()
         self.name = XML.get("name")
+        TIMNode= XML.find('tim')
+        self.loadTIM(TIMNode)
         self.documents = {}
         self.loadDocuments(XML)
         importedFilesNode = XML.find('imported_files')
         self.loadImportedFiles(importedFilesNode)
-        TIMNode= XML.find('tim')
-        self.loadTIM(TIMNode)
         linksList = self.getAllLinks()
         for link in linksList :
             link.consolidateChild(self)
-            link.consolidateParent(self)
+            link.consolidateParent(self)            
     
     def loadDocuments(self, documentsNode):
         for document_node in documentsNode.findall("document") :
@@ -34,6 +42,15 @@ class Project :
             document_name = document_node.get("name")
             document.loadXML(self, document_name +".xml")
             self.documents[document_name] = document
+            for clauseId in document.getClausesList():
+                clause = document.getClause(clauseId)
+                clauseType = clause.getType()
+                clause.setType(self.TIM.getType(clauseType))
+        order = documentsNode.find("order").text
+        if order is not None :
+            self.documentsOrder = order.split(";")
+        else :
+            self.documentsOrder = []
 
     def loadImportedFiles(self, importedFilesNode):
         for fileNode in importedFilesNode.findall('file'):
@@ -42,19 +59,16 @@ class Project :
     def loadTIM(self, TIMNode):
         self.TIM = TIM()
         self.TIM.loadXML(TIMNode)
-#        for typeNode in TIMNode.findall('type'):
-#            type = Type()
-#            type.setName(typeNode.get('name'))
-#            for childNode in typeNode.findall('child'):
-#                type.addPossibleChild(childNode.get('name'))
-#            self.TIM.addType(type)
-#            if (typeNode.get('root', 'no') == 'yes'):
-#                self.TIM.addRoot(type.getName())
 
     def saveDocuments(self, documentsNode):
         for documentName in self.getDocumentsList():
             documentNode = ET.SubElement(documentsNode, 'document')
             documentNode.set('name', documentName)
+        orderNode = ET.SubElement(documentsNode, 'order')
+        orderText = ""
+        for document in self.documents :
+            orderText += document + ";"
+        orderNode.text = orderText.strip(";")
 
     def saveImportedFiles(self, importedFilesNode):
         for file in self.imported_files.keys() :
@@ -82,12 +96,16 @@ class Project :
     def getDocument(self, name):
         return self.documents[name]
     
-    def getDocumentsList(self):
-        return sorted(set(self.documents))
+    def getAllClauses(self):
+        list = {}
+        for documentName in self.getDocumentsList() :
+            documentObj = self.getDocument(documentName)
+            for clause in documentObj.getClausesList():
+                list[clause] = documentObj.getClause(clause)
+        return list
     
-    def addDocument(self,  document):
-        self.documents[document.getName] = document
-        document.setProject(self)
+    def getDocumentsList(self):
+        return self.documentsOrder
 
     def removeDocument(self,  document):
         del self.documents[document.getName]
@@ -116,7 +134,7 @@ class Project :
                 linksList += clauseObj.getChildLinksList()
         return linksList
 
-    def getAllDocument2Clauses(self):
+    def getDocument2ClausesDict(self):
         list = {}
         for documentName in self.getDocumentsList() :
             documentObj = self.getDocument(documentName)

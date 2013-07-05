@@ -20,12 +20,12 @@ class NewDocumentDialog(QDialog):
     
     def setDocument(self):
         title = str(self.ui.titleEdit.text())
-        initials = str(self.ui.initialsEdit.text())
+        prefix = str(self.ui.prefixEdit.text())
         name = str(self.ui.nameEdit.text())
         if (self.document is None):
             self.document = Document()
         self.document.setTitle(title)
-        self.document.setInitials(initials)
+        self.document.setPrefix(prefix)
         self.document.setName(name)
         self.project.addDocument(self.document)
         self.document.setProject(self.project)

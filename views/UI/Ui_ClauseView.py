@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ClauseView.ui'
 #
-# Created: Sun Jun 30 22:27:28 2013
+# Created: Thu Jul  4 14:09:12 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_clauseViewWidget(object):
     def setupUi(self, clauseViewWidget):
         clauseViewWidget.setObjectName(_fromUtf8("clauseViewWidget"))
-        clauseViewWidget.resize(864, 353)
+        clauseViewWidget.resize(871, 366)
         self.verticalLayout_4 = QtGui.QVBoxLayout(clauseViewWidget)
         self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -139,6 +139,9 @@ class Ui_clauseViewWidget(object):
         self.uplinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.uplinksTreeWidget.header().setVisible(False)
         self.uplinksLayout.addWidget(self.uplinksTreeWidget)
+        self.editUplinksButton = QtGui.QPushButton(self.editTab)
+        self.editUplinksButton.setObjectName(_fromUtf8("editUplinksButton"))
+        self.uplinksLayout.addWidget(self.editUplinksButton)
         self.horizontalLayout_6.addLayout(self.uplinksLayout)
         self.verticalLayout_3 = QtGui.QVBoxLayout()
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
@@ -178,6 +181,12 @@ class Ui_clauseViewWidget(object):
         self.textEdit = QtGui.QTextEdit(self.editTab)
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
         self.verticalLayout_3.addWidget(self.textEdit)
+        self.commentsLabel = QtGui.QLabel(self.editTab)
+        self.commentsLabel.setObjectName(_fromUtf8("commentsLabel"))
+        self.verticalLayout_3.addWidget(self.commentsLabel)
+        self.commentsEdit = QtGui.QTextEdit(self.editTab)
+        self.commentsEdit.setObjectName(_fromUtf8("commentsEdit"))
+        self.verticalLayout_3.addWidget(self.commentsEdit)
         self.horizontalLayout_6.addLayout(self.verticalLayout_3)
         self.downlinksLayout = QtGui.QVBoxLayout()
         self.downlinksLayout.setObjectName(_fromUtf8("downlinksLayout"))
@@ -208,6 +217,9 @@ class Ui_clauseViewWidget(object):
         self.downlinksTreeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.downlinksTreeWidget.header().setVisible(False)
         self.downlinksLayout.addWidget(self.downlinksTreeWidget)
+        self.editDownlinksButton = QtGui.QPushButton(self.editTab)
+        self.editDownlinksButton.setObjectName(_fromUtf8("editDownlinksButton"))
+        self.downlinksLayout.addWidget(self.editDownlinksButton)
         self.createChildClauseButton = QtGui.QPushButton(self.editTab)
         self.createChildClauseButton.setObjectName(_fromUtf8("createChildClauseButton"))
         self.downlinksLayout.addWidget(self.createChildClauseButton)
@@ -257,13 +269,16 @@ class Ui_clauseViewWidget(object):
         self.deleteButton.setText(QtGui.QApplication.translate("clauseViewWidget", "X", None, QtGui.QApplication.UnicodeUTF8))
         self.nextButton.setText(QtGui.QApplication.translate("clauseViewWidget", "-->", None, QtGui.QApplication.UnicodeUTF8))
         self.uplinksLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Uplinks", None, QtGui.QApplication.UnicodeUTF8))
+        self.editUplinksButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.boldButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Negrito", None, QtGui.QApplication.UnicodeUTF8))
         self.italicButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Itálico", None, QtGui.QApplication.UnicodeUTF8))
         self.underlineButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Sublinhado", None, QtGui.QApplication.UnicodeUTF8))
         self.imageButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Imagem", None, QtGui.QApplication.UnicodeUTF8))
         self.titleEdit.setText(QtGui.QApplication.translate("clauseViewWidget", "Título da Cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.titleCheckBox.setText(QtGui.QApplication.translate("clauseViewWidget", "Alt. Título", None, QtGui.QApplication.UnicodeUTF8))
+        self.commentsLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Comentários:", None, QtGui.QApplication.UnicodeUTF8))
         self.downlinksLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Downlinks", None, QtGui.QApplication.UnicodeUTF8))
+        self.editDownlinksButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.createChildClauseButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Criar cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.editTab), QtGui.QApplication.translate("clauseViewWidget", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("clauseViewWidget", "Histórico", None, QtGui.QApplication.UnicodeUTF8))

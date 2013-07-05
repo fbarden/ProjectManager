@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'NewDocumentDialog.ui'
 #
-# Created: Sun Jun 30 22:27:28 2013
+# Created: Thu Jul  4 14:09:12 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,12 +32,12 @@ class Ui_NewDocumentDialog(object):
         self.titleEdit = QtGui.QLineEdit(NewDocumentDialog)
         self.titleEdit.setObjectName(_fromUtf8("titleEdit"))
         self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.titleEdit)
-        self.initialsLabel = QtGui.QLabel(NewDocumentDialog)
-        self.initialsLabel.setObjectName(_fromUtf8("initialsLabel"))
-        self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.initialsLabel)
-        self.initialsEdit = QtGui.QLineEdit(NewDocumentDialog)
-        self.initialsEdit.setObjectName(_fromUtf8("initialsEdit"))
-        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.initialsEdit)
+        self.prefixLabel = QtGui.QLabel(NewDocumentDialog)
+        self.prefixLabel.setObjectName(_fromUtf8("prefixLabel"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.prefixLabel)
+        self.prefixEdit = QtGui.QLineEdit(NewDocumentDialog)
+        self.prefixEdit.setObjectName(_fromUtf8("prefixEdit"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.prefixEdit)
         self.nameLabel = QtGui.QLabel(NewDocumentDialog)
         self.nameLabel.setObjectName(_fromUtf8("nameLabel"))
         self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.nameLabel)
@@ -51,7 +51,7 @@ class Ui_NewDocumentDialog(object):
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayout.addWidget(self.buttonBox)
         self.titleLabel.setBuddy(self.titleEdit)
-        self.initialsLabel.setBuddy(self.initialsEdit)
+        self.prefixLabel.setBuddy(self.prefixEdit)
         self.nameLabel.setBuddy(self.nameEdit)
 
         self.retranslateUi(NewDocumentDialog)
@@ -63,6 +63,6 @@ class Ui_NewDocumentDialog(object):
         NewDocumentDialog.setWindowTitle(QtGui.QApplication.translate("NewDocumentDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.createDocumentLabel.setText(QtGui.QApplication.translate("NewDocumentDialog", "Criação de novo documento", None, QtGui.QApplication.UnicodeUTF8))
         self.titleLabel.setText(QtGui.QApplication.translate("NewDocumentDialog", "Título:", None, QtGui.QApplication.UnicodeUTF8))
-        self.initialsLabel.setText(QtGui.QApplication.translate("NewDocumentDialog", "Sigla:", None, QtGui.QApplication.UnicodeUTF8))
+        self.prefixLabel.setText(QtGui.QApplication.translate("NewDocumentDialog", "Sigla:", None, QtGui.QApplication.UnicodeUTF8))
         self.nameLabel.setText(QtGui.QApplication.translate("NewDocumentDialog", "Nome do arquivo:", None, QtGui.QApplication.UnicodeUTF8))
 

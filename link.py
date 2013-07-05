@@ -7,15 +7,15 @@ class Link :
         self.parent = None
         self.child = None
     
-    def addParent(self,  document,  clause):
-        self.parent_id = document + ":" + str(clause)
+    def addParent(self, clause):
+        self.parent_id = clause
 #        if (object is not None) :
 #            self.parent = object
 #            self.parent.addChildLink(self)
 #            print "Adicionado link PAI com " + self.parent_id
     
-    def addChild(self,  document,  clause):
-        self.child_id = document + ":" + str(clause)
+    def addChild(self,  clause):
+        self.child_id = clause
 #        if (object is not None) :
 #            self.child = object
 #            self.child.addParentLink(self)
@@ -36,17 +36,15 @@ class Link :
         document,  clause = self.parent_id.split(":")
         return document
 
-    def getParentClauseID(self):
-        document,  clause = self.parent_id.split(":")
-        return clause
+    def getParentClauseID(self): 
+        return self.parent_id
     
     def getChildDocumentID(self):
-        document,  clause = self.child_id.split(":")
+        document, clause = self.child_id.split(":")
         return document
     
-    def getChildClauseID(self):
-        document,  clause = self.child_id.split(":")
-        return clause
+    def getChildClauseID(self): 
+        return self.child_id
 
     def remove(self):
         self.parent.removeChildLink(self)
@@ -55,11 +53,11 @@ class Link :
     def consolidateParent(self,  project):
         if self.parent is None:
             parent_document,  parent = self.parent_id.split(":")
-            self.parent = project.getDocument(parent_document).getClause(parent)
+            self.parent = project.getDocument(parent_document).getClause(self.parent_id)
             self.parent.addChildLink(self)
 
     def consolidateChild(self,  project):
         if self.child is None:
             child_document, child = self.child_id.split(":")
-            self.child = project.getDocument(child_document).getClause(child)
+            self.child = project.getDocument(child_document).getClause(self.child_id)
             self.child.addParentLink(self)

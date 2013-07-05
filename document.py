@@ -7,8 +7,9 @@ class Document :
         self.project = None
         self.title = ""
         self.clauses = {}
+        self.clausesOrder = []
         self.name = ""
-        self.initials = ""
+        self.prefix = ""
 
     def loadXML(self, project, filename):
         self.project = project
@@ -17,7 +18,7 @@ class Document :
         tree = ET.parse(self.project.getLocation() + filename)
         XML = tree.getroot()
         self.title = XML.get("title")
-        self.initials = XML.get("initials")
+        self.prefix = XML.get("prefix")
         clauses_node = XML.find("clauses")
         self.loadClauses(clauses_node)
 
@@ -25,23 +26,35 @@ class Document :
         documentNode = ET.Element('document')
         documentNode.set('title',  self.title)
         documentNode.set('name',  self.name)
-        documentNode.set('initials',  self.initials)
+        documentNode.set('prefix',  self.prefix)
         clausesNode = ET.SubElement(documentNode, 'clauses')
         self.saveClauses(clausesNode)
         documentNode.tail = "\n"
         tree = ET.ElementTree(element=documentNode)
         tree.write(self.project.getLocation()+ self.getName() + ".xml")
 
-    def loadClauses(self, clauses_node):
-        for item in clauses_node.findall("clause") :
+    def loadClauses(self, clausesNode):
+        for item in clausesNode.findall("clause") :
             clause = Clause(self)
             id = item.get("id")
             clause.loadXML(item)
             self.clauses[id] = clause
+        order = clausesNode.find('order').text
+        clausesOrder = []
+        if (order is not None) :
+            clausesOrder = order.split(';')
+        for clauseID in clausesOrder :
+            self.clausesOrder.append(self.getName() + ":" + clauseID)
+
 
     def saveClauses(self, clausesNode):
         for clause in self.getClausesList():
             self.getClause(clause).save(clausesNode)
+        orderNode = ET.SubElement(clausesNode, 'order')
+        orderText = ""
+        for id in self.clauses:
+            orderText+= id + ";"
+        orderNode.text = orderText.strip(";")
 
     def saveClause(self,  id):
         document_tree= ET.parse(self.project + "/" + self.name + ".xml")
@@ -55,24 +68,22 @@ class Document :
         document_tree.write(self.name + ".xml")
     
     def getClausesList(self):
-        return sorted(set(self.clauses))
+        return self.clausesOrder
 
-    def getClause(self,  id):
-        return self.clauses[id]
+    def getClause(self, id):
+        print "BAH " + str(id)
+        return self.clauses[id.split(':')[1]]
     
     def addClause(self,  clause):
-        list = self.getClausesList()
+        list = self.clauses
         if (list == []) :
             newID = '1'
         else :
             newID = str(int(max(list))+1)
         clause.setID(newID)
         clause.setDocument(self)
-        self.clauses[clause.getID()] = clause
-
-    def removeClause(self, clause):
-        self.clauses.pop(clause.getID())
-        clause.destroy()
+        self.clausesOrder.append(clause.getID())
+        self.clauses[newID] = clause
 
     def destroy(self):
         for clauseID in self.clauses:
@@ -99,11 +110,11 @@ class Document :
     def getTitle(self):
         return self.title
 
-    def setTitle(self, newTitle):
-        self.title = newTitle
+    def setTitle(self, title):
+        self.title = title
 
-    def getInitials(self):
-        return self.initials
+    def getPrefix(self):
+        return self.prefix
 
-    def setInitials(self, initials):
-        self.initials = initials
+    def setPrefix(self, prefix):
+        self.prefix = prefix

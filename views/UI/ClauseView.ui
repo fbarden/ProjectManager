@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>864</width>
-    <height>353</height>
+    <width>871</width>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -233,6 +233,13 @@
            </column>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="editUplinksButton">
+           <property name="text">
+            <string>Editar</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -306,6 +313,16 @@
          <item>
           <widget class="QTextEdit" name="textEdit"/>
          </item>
+         <item>
+          <widget class="QLabel" name="commentsLabel">
+           <property name="text">
+            <string>Comentários:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="commentsEdit"/>
+         </item>
         </layout>
        </item>
        <item>
@@ -356,6 +373,13 @@
              <string notr="true">1</string>
             </property>
            </column>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="editDownlinksButton">
+           <property name="text">
+            <string>Editar</string>
+           </property>
           </widget>
          </item>
          <item>

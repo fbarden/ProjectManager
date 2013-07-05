@@ -2,6 +2,7 @@ import sys
 from UI import Ui_ProjectView
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
+import re
 
 from project import Project
 from views.DocumentsDiagramScene import DocumentsDiagramScene
@@ -21,6 +22,7 @@ class ProjectViewWidget(QWidget):
         self.closeProjectShortcut = QShortcut('CTRL+W', self)
         self.closeProjectShortcut.activated.connect(self.closeProject)
         self.clausesDict  = {}
+        self.docsDict = {}
         if (project is not None) :
             self.loadProject(project)
         self.ui.documentsListWidget.setFocus()
@@ -32,15 +34,20 @@ class ProjectViewWidget(QWidget):
         documentsList = project.getDocumentsList()
         widgetList = []
         for documentName in documentsList :
+            document = project.getDocument(documentName)
             documentWidgetItem = QTreeWidgetItem()
-            documentWidgetItem.setText(0,  documentName)
+            documentWidgetItem.setText(0,  document.getTitle() + " (" + documentName + ")")
+            self.docsDict[document.getTitle()] = documentName
             widgetList += [documentWidgetItem]
             document = project.getDocument(documentName)
             clausesList = document.getClausesList()
             for clauseId in clausesList :
                 clauseWidgetItem = QTreeWidgetItem(documentWidgetItem)
                 clause = document.getClause(clauseId)
-                clauseWidgetItem.setText(0,  clause.getTitle())
+                exibitionName = clause.getTitle()
+                if clause.isSuspect() :
+                    exibitionName += "    *suspect*"
+                clauseWidgetItem.setText(0, exibitionName)
                 self.clausesDict[documentName + clause.getTitle()] = clause.getID()
                 widgetList += [clauseWidgetItem]
         self.ui.documentsListWidget.addTopLevelItems(widgetList)
@@ -52,9 +59,13 @@ class ProjectViewWidget(QWidget):
             if (self.ui.documentsListWidget.indexOfTopLevelItem(selectedItem) == 0):
                 self.newDocument();
             else :
-                self.openDocumentSignal.emit(str(selectedItem.text(0)))
+                #documentName = self.docsDict[str(selectedItem.text(0))]
+                documentParse = re.search(".*\((?P<documentName>.*)\)", str(selectedItem.text(0)))
+                self.openDocumentSignal.emit(documentParse.group('documentName'))
         else :
-            self.openClauseSignal.emit(selectedItem.parent().text(0),  self.clausesDict[str(selectedItem.parent().text(0) + selectedItem.text(0))])
+            #documentName = self.docsDict[str(selectedItem.parent().text(0))]
+            documentParse = re.search(".*\((?P<documentName>.*)\)", str(selectedItem.parent().text(0)))
+            self.openClauseSignal.emit(documentParse.group('documentName'),  self.clausesDict[documentParse.group('documentName') + str(selectedItem.text(0))])
 
     def newDocument(self):
         self.newDocumentSignal.emit()

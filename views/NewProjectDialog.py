@@ -32,8 +32,7 @@ class NewProjectDialog(QWizard):
         self.currentIdChanged.connect(self.updatePages)
         self.ui.TIMTreeWidget.itemActivated.connect(self.typeTreeAction)
         self.ui.searchButton.clicked.connect(self.openSearchFolder)
-        self.scene = TIMDiagramScene(self.ui.graphicsView, self.TIM)
-        self.scene.setBackgroundBrush(Qt.lightGray)
+        self.scene = TIMDiagramScene(self.ui.graphicsView, self.TIM)    
         self.ui.graphicsView.setScene(self.scene)
 
     def openSearchFolder(self):
@@ -63,25 +62,6 @@ class NewProjectDialog(QWizard):
     def updatePages(self, page):
         if (page == 2):
             self.scene.updateTIMImage()
-
-    def updateTIMImage(self):
-        rootsList = self.TIM.getRootsList()
-        offset = 0
-        for rootName in rootsList :
-            self.drawTIMNode(rootName, 0, offset)
-            offset += 1
-    
-    def drawTIMNode(self, nodeName, level, offset):
-        node = self.TIM.getType(nodeName)
-        nodeItem = NodeGraphicItem(50, 30)
-        nodeItem.setText(node.getPrefix())
-        nodeItem.setTitle(node.getName())
-        nodeItem.moveBy(-220+level*70, -150 + offset*50)
-        self.scene.addItem(nodeItem)
-        for childName in node.getPossibleChildrenList() :
-            self.drawTIMNode(childName, level+1, offset+1)
-            offset += 1
-        return offset
 
     def updateTIMTree(self):
         self.ui.TIMTreeWidget.clear()

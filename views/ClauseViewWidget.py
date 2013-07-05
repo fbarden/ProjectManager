@@ -16,6 +16,7 @@ class ClauseViewWidget(QWidget):
         super(ClauseViewWidget, self).__init__()
         self.project = project
         self.clause = None
+        self.links = {}
         self.ui = Ui_ClauseView.Ui_clauseViewWidget()
         self.ui.setupUi(self)
         if (clause is not None) :
@@ -26,8 +27,8 @@ class ClauseViewWidget(QWidget):
         self.ui.nextClauseShortcut = QShortcut('ALT+Right', self)
         self.ui.nextClauseShortcut.activated.connect(self.nextClause)
         self.ui.nextButton.clicked.connect(self.nextClause)
-        self.ui.uplinksTreeWidget.itemActivated.connect(self.loadUplink)
-        self.ui.downlinksTreeWidget.itemActivated.connect(self.loadDownlink)
+        self.ui.uplinksTreeWidget.itemActivated.connect(self.loadLink)
+        self.ui.downlinksTreeWidget.itemActivated.connect(self.loadLink)
 #        self.ui.returnButton.triggered.connect(self.returnClause)
         self.closeClauseShortcut = QShortcut('CTRL+W', self)
         self.closeClauseShortcut.activated.connect(self.upToDocument)
@@ -70,14 +71,11 @@ class ClauseViewWidget(QWidget):
         self.ui.downlinksTreeWidget.clear()
 #        self.ui.relatedFilesTreeWidget.clear()
 
-    def loadUplink(self, selectedItem, column):
+    def loadLink(self, selectedItem, column):
         if (selectedItem.parent() is not None) :
-            newClause = self.clause.getParentLinkClause(str(selectedItem.parent().text(0)),  str(selectedItem.text(0)))
-            self.loadClause(newClause)
-
-    def loadDownlink(self, selectedItem, column):
-        if (selectedItem.parent() is not None) :
-            newClause = self.clause.getChildLinkClause(str(selectedItem.parent().text(0)),  str(selectedItem.text(0)))
+            documentName = str(selectedItem.parent().text(0))
+            clauseName = str(selectedItem.text(0))
+            newClause = self.links[documentName+clauseName]
             self.loadClause(newClause)
 
     def changeClause(self,  step):
@@ -115,28 +113,35 @@ class ClauseViewWidget(QWidget):
     
     def loadUplinks(self):
         linksDict = self.clause.getParentLinksDoc2Clause()
+        print linksDict
         widgetList = []
-        for document in linksDict :
+        for documentName in linksDict :
             documentWidgetItem = QTreeWidgetItem()
-            documentWidgetItem.setText(0,  document)
+            documentWidgetItem.setText(0,  documentName)
             widgetList += [documentWidgetItem]
-            for clause in linksDict[document] :
+            document = self.project.getDocument(documentName) 
+            for clauseId in linksDict[documentName] :
+                clause = document.getClause(clauseId)
                 clauseWidgetItem = QTreeWidgetItem(documentWidgetItem)
-                clauseWidgetItem.setText(0,  clause)
+                clauseWidgetItem.setText(0,  clause.getTitle())
                 widgetList += [clauseWidgetItem]
+                self.links[documentName+clause.getTitle()] = clause
         self.ui.uplinksTreeWidget.addTopLevelItems(widgetList)
 
     def loadDownlinks(self):
         linksDict = self.clause.getChildLinksDoc2Clause()
         widgetList = []
-        for document in linksDict :
+        for documentName in linksDict :
             documentWidgetItem = QTreeWidgetItem()
-            documentWidgetItem.setText(0,  document)
+            documentWidgetItem.setText(0,  documentName)
             widgetList += [documentWidgetItem]
-            for clause in linksDict[document] :
+            document = self.project.getDocument(documentName) 
+            for clauseId in linksDict[documentName] :
+                clause = document.getClause(clauseId)
                 clauseWidgetItem = QTreeWidgetItem(documentWidgetItem)
-                clauseWidgetItem.setText(0,  clause)
+                clauseWidgetItem.setText(0,  clause.getTitle())
                 widgetList += [clauseWidgetItem]
+                self.links[documentName+clause.getTitle()] = clause
         self.ui.downlinksTreeWidget.addTopLevelItems(widgetList)
 
     def loadHistory(self):
@@ -167,11 +172,13 @@ class ClauseViewWidget(QWidget):
             elif (answer == QMessageBox.Yes) :
                 self.saveClause()
         return True
-        
 
 
     def saveClause(self):
         self.clause.setTitle(str(self.ui.titleEdit.text()))
         self.clause.setText(str(self.ui.textEdit.toHtml()))
+        self.clause.setComments(str(self.ui.commentsEdit.toHtml()))
+        self.clause.emitChange()
+            
         self.ui.saveButton.setEnabled(False)
         

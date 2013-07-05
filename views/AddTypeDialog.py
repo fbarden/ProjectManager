@@ -19,6 +19,13 @@ class AddTypeDialog(QDialog):
         self.accepted.connect(self.addType)
         self.ui.existingTypeButton.toggled.connect(self.ui.typeComboBox.setEnabled)
         self.ui.newTypeButton.toggled.connect(self.ui.newTypeEdit.setEnabled)
+        isRoot = (self.item.parent() is not None)
+        self.ui.minCardChildEdit.setEnabled(isRoot)
+        self.ui.maxCardChildEdit.setEnabled(isRoot)
+        self.ui.childDependencyCheckBox.setEnabled(isRoot)
+        self.ui.minCardParentEdit.setEnabled(isRoot)
+        self.ui.maxCardParentEdit.setEnabled(isRoot)
+        self.ui.parentDependencyCheckBox.setEnabled(isRoot)
 
     def addType(self):
         if (self.ui.existingTypeButton.isChecked()):
@@ -36,9 +43,16 @@ class AddTypeDialog(QDialog):
         if (self.item.parent() is None) :
             self.TIM.addRoot(typeName)
         else :
+            minCardChild = str(self.ui.minCardChildEdit.text())
+            maxCardChild = str(self.ui.maxCardChildEdit.text())
+            childDependency = self.ui.childDependencyCheckBox.isChecked()
+            minCardParent = str(self.ui.minCardParentEdit.text())
+            maxCardParent = str(self.ui.maxCardParentEdit.text())
+            parentDependency = self.ui.parentDependencyCheckBox.isChecked()
             parentName = str(self.item.parent().text(0))
             parentType = self.TIM.getType(parentName)
-            parentType.addPossibleChild(typeName)
+            parentType.addPossibleChild(typeName, minCardChild, maxCardChild, childDependency)
+            type.addPossibleParent(parentName, minCardParent, maxCardParent, parentDependency)
         self.addTypeSignal.emit(type.getName(),  self.item)
 
     def loadTypes(self):

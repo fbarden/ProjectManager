@@ -5,26 +5,45 @@ class Clause:
     def __init__(self,  document=None):
         self.document = document
         self.id = "-1"
+        self.consolidatedID = "Nenhum"
+        self.IDHistory = []
         self.title = ""
         self.text = ""
+        self.comments = ""
         self.child_links = {}
         self.parent_links= {}
         self.related_files = {}
         self.XML = None
         self.type = None
+        self.suspects = []
         self.tags = []
 
+    def getComments(self):
+        return self.comments
+
+    def setComments(self, comments):
+        self.comments = comments
+
+    def getConsolidatedID(self):
+        return self.consolidatedID
+
+    def setConsolidatedID(self, consolidatedID):
+        if (self.consolidatedID is None):
+            self.IDHistory += self.consolidatedID + "->" + consolidatedID
+        self.consolidatedID = consolidatedID
+            
+
     def destroy(self):
-        for link in parent_links:
+        for link in self.parent_links:
             self.removeParentLink(link)
-        for child in child_links:
+        for child in self.child_links:
             self.removeChildLink(link)
 
     def removeParentLink(self, link):
-        del parent_links[link]
+        del self.parent_links[link]
 
     def removeChildLink(self, link):
-        del child_links[link]
+        del self.child_links[link]
 
     def loadXML(self,  clauseXML):
         self.child_links = {}
@@ -32,21 +51,30 @@ class Clause:
         self.related_files = {}
         self.XML = clauseXML
         self.id = self.XML .get("id")
+        #self.consolidatedID = self.XML.get("consolidated")
         self.type = self.XML .get("type")
+        suspectsXML = self.XML.find("suspects")
         titleXML = self.XML.find("title")
         textXML = self.XML.find("text")
+        commentsXML = self.XML.find("comments")
         linksXML = self.XML.find("links")
         related_filesXML = self.XML.find("related_files")
+        if suspectsXML is not None :
+            for suspect in suspectsXML.findall('suspect'):
+                if suspect.text not in self.suspects:
+                    self.suspects.append(suspect)
         if (titleXML.text is not None) :
             self.title = titleXML.text
         if (textXML.text is not None):
             self.text = textXML.text
+        if (commentsXML.text is not None):
+            self.comments = commentsXML.text
         for child_link in linksXML.findall("link") :
             document  = child_link.get("document")
             clause = child_link.get("clause")
             newLink = link.Link()
-            newLink.addParent(self.document.getName(),  self.id)
-            newLink.addChild(document,  clause)
+            newLink.addParent(self.getID())
+            newLink.addChild(document + ":" + clause)
             self.child_links[newLink.getChildID()] = newLink
         for related_file in related_filesXML.findall("file") :
             self.related_files[related_file.get("filename")] = related_file.text
@@ -54,13 +82,20 @@ class Clause:
     def save(self, clausesNode):
         clauseNode = ET.SubElement(clausesNode , 'clause')
         clauseNode.set("id",  self.id)
-        clauseNode.set("type",  self.type)
+        #clauseNode.set("consolidated",  self.consolidatedID)
+        clauseNode.set("type",  self.type.getName())
         clauseNode.text = "\n"
+        suspectsNode = ET.SubElement(clauseNode,  "supects")
+        for suspect in self.suspects :
+            suspectNode = ET.SubElement(suspectsNode,  "supect")
+            suspectNode.text = suspect
         titleNode = ET.SubElement(clauseNode,  "title")
         titleNode.text = self.title
         titleNode.tail = "\n"
         textNode = ET.SubElement(clauseNode,  "text")
         textNode.text = self.text
+        commentsNode = ET.SubElement(clauseNode,  "comments")
+        commentsNode.text = self.comments
         linksNode = ET.SubElement(clauseNode,  "links")
         linksNode.text = "\n"
         for childLink in self.getChildLinksList() :
@@ -89,11 +124,31 @@ class Clause:
                 clauses_node.remove(clause)
         for link in self.child_links :
             link.remove()
+
+    def evaluateSuspect(self, clause):
+        print "------ AVALIANDO SUSPEITA EM : " + self.getID() + " ----------"
+        otherType = clause.getType()
+        if self.type.isDependantOf(otherType.getName()) :
+            if clause.getID() not in self.suspects:
+                self.suspects.append(clause.getID())
+                print "*-*-*- EH SUPEITO!!!!! ***********************"
     
+    def emitChange(self):
+        print "------ ENVIANDO MUDANCAS POR : " + self.getID() + " ----------"
+        for childClauseID in self.getChildClausesList():
+            childClause = self.getChildLinkClause(childClauseID)
+            childClause.evaluateSuspect(self)
+        for parentClauseID in self.getParentClausesList():
+            parentClause = self.getParentLinkClause(parentClauseID)
+            parentClause.evaluateSuspect(self)
+
+    def isSuspect(self):
+        return (len(self.suspects) > 0)
+
     def getID(self):
-        return self.id
-    
-    def setID(self,  id):
+        return self.getDocument().getName() + ":" + self.id
+
+    def setID(self, id):
         self.id = id
     
     def getTitle(self): 
@@ -150,7 +205,7 @@ class Clause:
         for link in self.getParentLinksList() :
             documentsList[link.getParentDocumentID()] = []
         for link in self.getParentLinksList() :
-            documentsList[link.getParentDocumentID()] += link.getParentClauseID()
+            documentsList[link.getParentDocumentID()].append(link.getParentClauseID())
         return documentsList
     
     def getChildLinksDoc2Clause(self):
@@ -158,19 +213,33 @@ class Clause:
         for link in self.getChildLinksList() :
             documentsList[link.getChildDocumentID()] = []
         for link in self.getChildLinksList() :
-            documentsList[link.getChildDocumentID()] += link.getChildClauseID()
+            documentsList[link.getChildDocumentID()].append(link.getChildClauseID())
         return documentsList
 
-    def getParentLinkClause(self,  document,  clause):
-        ID = document + ":" + clause
-        return self.parent_links[ID].getParent()
+    def getParentLinkClause(self, clause):
+        return self.parent_links[clause].getParent()
+    
+    def getParentClausesList(self):
+        return self.parent_links.keys()
+    
+    def getChildClausesList(self):
+        return self.child_links.keys()
         
-    def getChildLinkClause(self,  document,  clause):
-        ID = document + ":" + clause
-        return self.child_links[ID].getChild()
+    def getChildLinkClause(self,  clause):
+        return self.child_links[clause].getChild()
 
     def getType(self):
         return self.type
     
-    def setType(self,  type):
+    def setType(self, type):
         self.type = type
+
+    def getCode(self, docPrefix=False, typePrefix=False):
+        code = ""
+        if docPrefix :
+            code += self.getDocument().getPrefix() + ":"
+        if typePrefix :
+            code += self.getType().getPrefix()
+        code += self.id
+        return code
+            

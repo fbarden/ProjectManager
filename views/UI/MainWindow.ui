@@ -34,28 +34,45 @@
     <addaction name="actionEditTIM"/>
     <addaction name="actionTIMDiagram"/>
     <addaction name="separator"/>
+    <addaction name="actionManageFiles"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuDocumento">
+   <widget class="QMenu" name="menuDocuments">
     <property name="title">
      <string>Documento</string>
     </property>
+    <addaction name="actionNewDocument"/>
    </widget>
-   <widget class="QMenu" name="menuCl_usula">
+   <widget class="QMenu" name="menuClauses">
     <property name="title">
      <string>Cláusula</string>
     </property>
+    <addaction name="actionNewClause"/>
+    <addaction name="actionPathDiagram"/>
+    <addaction name="actionTotalDiagram"/>
    </widget>
-   <widget class="QMenu" name="menuImportedFiles">
+   <widget class="QMenu" name="menuConsolidation">
     <property name="title">
-     <string>Arq. Importados</string>
+     <string>Consolidação</string>
     </property>
-    <addaction name="actionManageFiles"/>
+    <addaction name="actionProjectConsolidation"/>
+    <addaction name="actionIndexHistory"/>
+   </widget>
+   <widget class="QMenu" name="menuVerifications">
+    <property name="title">
+     <string>Verificações</string>
+    </property>
+    <addaction name="actionCheckSpaces"/>
+    <addaction name="actionCheckGranularity"/>
+    <addaction name="actionSuspectClauses"/>
+    <addaction name="actionRedundantPaths"/>
    </widget>
    <addaction name="menuProject"/>
-   <addaction name="menuDocumento"/>
-   <addaction name="menuCl_usula"/>
-   <addaction name="menuImportedFiles"/>
+   <addaction name="menuDocuments"/>
+   <addaction name="menuClauses"/>
+   <addaction name="menuConsolidation"/>
+   <addaction name="menuVerifications"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -74,7 +91,7 @@
     <string>Novo</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+N</string>
+    <string>Ctrl+P</string>
    </property>
   </action>
   <action name="actionOpenProject">
@@ -100,12 +117,12 @@
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>Sair</string>
    </property>
   </action>
   <action name="actionManageFiles">
    <property name="text">
-    <string>Gerenciar arquivos</string>
+    <string>Arquivos importados</string>
    </property>
   </action>
   <action name="actionEditTIM">
@@ -116,6 +133,65 @@
   <action name="actionTIMDiagram">
    <property name="text">
     <string>Diagrama TIM</string>
+   </property>
+  </action>
+  <action name="actionNewDocument">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Novo Documento</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionNewClause">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Nova Cláusula</string>
+   </property>
+  </action>
+  <action name="actionCheckSpaces">
+   <property name="text">
+    <string>Lacunas</string>
+   </property>
+  </action>
+  <action name="actionCheckGranularity">
+   <property name="text">
+    <string>Granularidade</string>
+   </property>
+  </action>
+  <action name="actionSuspectClauses">
+   <property name="text">
+    <string>Cláusulas suspeitas</string>
+   </property>
+  </action>
+  <action name="actionRedundantPaths">
+   <property name="text">
+    <string>Caminhos redundantes</string>
+   </property>
+  </action>
+  <action name="actionPathDiagram">
+   <property name="text">
+    <string>Diagrama de caminho</string>
+   </property>
+  </action>
+  <action name="actionTotalDiagram">
+   <property name="text">
+    <string>Diagrama total</string>
+   </property>
+  </action>
+  <action name="actionProjectConsolidation">
+   <property name="text">
+    <string>Consolidar Projeto</string>
+   </property>
+  </action>
+  <action name="actionIndexHistory">
+   <property name="text">
+    <string>HIstórico de Índices</string>
    </property>
   </action>
  </widget>

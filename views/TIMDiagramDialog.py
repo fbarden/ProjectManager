@@ -1,7 +1,5 @@
 
-from UI import Ui_TIMDiagramDialog
-
-
+from UI import Ui_DiagramDialog
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -11,7 +9,7 @@ class TIMDiagramDialog(QDialog):
 
     def __init__(self, parent = None, TIM= None):
         super(TIMDiagramDialog, self).__init__(parent)
-        self.ui = Ui_TIMDiagramDialog.Ui_TIMDiagramDialog()
+        self.ui = Ui_DiagramDialog.Ui_DiagramDialog()
         self.ui.setupUi(self)
         diagramScene = TIMDiagramScene(self.ui.graphicsView, TIM)
         self.ui.graphicsView.setScene(diagramScene)

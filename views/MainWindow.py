@@ -14,6 +14,10 @@ from project import Project
 from document import Document
 from clause import Clause
 from views.TIMDiagramDialog import TIMDiagramDialog
+from verification import Verification
+from views.ClausePathDiagramDialog import ClausePathDiagramDialog
+from views.ProjectConsolidationWizard import ProjectConsolidationWizard
+from Consolidator import Consolidator
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -26,26 +30,62 @@ class MainWindow(QMainWindow):
         self.ui.actionSaveProject.triggered.connect(self.saveProject)
         self.ui.actionManageFiles.triggered.connect(self.manageImportedFiles)
         self.ui.actionTIMDiagram.triggered.connect(self.showTIMDiagram)
+        self.ui.actionPathDiagram.triggered.connect(self.showClausePathDiagram)
+        self.ui.actionNewDocument.triggered.connect(self.newDocument)
+        self.ui.actionNewClause.triggered.connect(lambda : self.newClause())
+        self.ui.actionCheckSpaces.triggered.connect(self.checkSpaces)
+        self.ui.actionProjectConsolidation.triggered.connect(self.projectConsolidation)
 #        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
+
+    def projectConsolidation(self):
+        projectConsolidationWizard = ProjectConsolidationWizard(self, self.project)
+        projectConsolidationWizard.show()
+        projectConsolidationWizard.consolidateProjectSignal.connect(self.consolidateProject)
+    
+    def consolidateProject(self, settings):
+        consolidator = Consolidator(self.project, settings)
+        consolidator.toPDF()
+
+    def showClausePathDiagram(self):
+        clauseList = []
+        title2ClauseDict = {}
+        doc2Clause = self.project.getDocument2ClausesDict()
+        for docName in doc2Clause.keys():
+            doc = self.project.getDocument(docName)
+            for clauseID in doc2Clause[docName]:
+                clause = doc.getClause(clauseID)
+                exibitionName = doc.getPrefix() + " - " + clause.getTitle()
+                clauseList.append(exibitionName)
+                title2ClauseDict[exibitionName] = clause
+        choiceID, returnOK = QInputDialog.getItem(None,
+                             self.trUtf8("Diagrama de Caminho"),
+                             self.trUtf8("Escolha a clausula base:"),
+                             clauseList,
+                             0, False)
+        diagramDialog = ClausePathDiagramDialog(self, title2ClauseDict[str(choiceID)])
+        diagramDialog.show()
 
     def showTIMDiagram(self):
         diagramDialog = TIMDiagramDialog(self, self.project.getTIM())
         diagramDialog.show() 
         
-
     def newProject(self):
         self.project = Project()
         newProjectDialog = NewProjectDialog(self,  self.project)
-        newProjectDialog .show()
+        newProjectDialog.show()
         newProjectDialog.openProjectSignal.connect(self.openProjectWidget)
 
     def newDocument(self):
         newDocumentDialog = NewDocumentDialog(self,  self.project)
-        newDocumentDialog .show()
+        newDocumentDialog.show()
         newDocumentDialog.openDocumentSignal.connect(self.openDocumentWidget)
 #        self.project.addDocument(document)
-    
-    def newClause(self, paramDict):
+
+    def checkSpaces(self):
+        verification = Verification()
+        verification.checkSpaces(self.project)
+
+    def newClause(self, paramDict = {}):
         document = None
         parentClause = None
         type = None
@@ -84,11 +124,15 @@ class MainWindow(QMainWindow):
         self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
         self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
         self.ui.centralwidget.closeProjectSignal.connect(self.closeProject)
+        self.ui.actionNewDocument.setEnabled(True)
+        self.ui.actionNewClause.setEnabled(len(self.project.getDocumentsList()) > 0)
 
     def closeProject(self):
         self.project = None
         self.centralwidget = None
         self.setCentralWidget(self.centralwidget)
+        self.ui.actionNewDocument.setEnabled(False)
+        self.ui.actionNewClause.setEnabled(False)
 
     def openDocumentWidget(self, document):
         if (document == None) :
@@ -102,8 +146,12 @@ class MainWindow(QMainWindow):
         self.ui.centralwidget.newClauseSignal.connect(self.newClause)
         self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
         self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
+        self.ui.actionNewClause.setEnabled(len(self.project.getDocumentsList()) > 0)
 
-    def openClauseWidget(self, document,  clause):
+    def openClauseWidget(self, document, clause):
+        print "CHEGOU NO OPENCLAUSE"
+        print document
+        print clause
         clauseObj = self.project.getDocument(str(document)).getClause(str(clause))
         clauseViewWidget = ClauseViewWidget(self.project, clauseObj)
         self.setCentralWidget(clauseViewWidget)

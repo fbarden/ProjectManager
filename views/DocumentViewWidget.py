@@ -65,7 +65,6 @@ class DocumentViewWidget(QWidget):
             cursor.insertBlock()
             self.loadClause(clause)
 
-
     def addLinkDoc(self, cursor, linkDoc):
         linkCharFormat = QTextCharFormat()
         linkCharFormat.setFontPointSize(10)
@@ -114,10 +113,16 @@ class DocumentViewWidget(QWidget):
             table.mergeCells(1, 0, 1, 3)
     
     def linkSelected(self,  url):
-        link = url.toString()
-        type,  ID = link.split(":")
+        link = str(url.toString())
+        print link
+        type, ID = link.split(":", 1)
+        print "TYPE!"
+        print type
+        print "ID!!"
+        print ID
         if (type == "clause") :
-            self.openClauseSignal.emit(self.document.getName(), ID)
+            document, clause = ID.split(":")
+            self.openClauseSignal.emit(document, ID)
         elif (type == "document") :
             self.openDocumentSignal.emit(ID)
         elif (type == "newClause") :
