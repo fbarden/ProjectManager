@@ -71,11 +71,10 @@ class Document :
         return self.clausesOrder
 
     def getClause(self, id):
-        print "BAH " + str(id)
         return self.clauses[id.split(':')[1]]
     
-    def addClause(self,  clause):
-        list = self.clauses
+    def addClause(self, clause):
+        list = self.clauses.keys()
         if (list == []) :
             newID = '1'
         else :

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ProjectConsolidationWizard.ui'
 #
-# Created: Thu Jul  4 14:09:11 2013
+# Created: Tue Jul  9 11:33:06 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -134,6 +134,18 @@ class Ui_ProjectConsolidationWizard(object):
         QtCore.QObject.connect(self.noConsistencyButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.unifyDocumentsCheckBox.setEnabled)
         QtCore.QObject.connect(self.typeOrderButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.unifyDocumentsCheckBox.setEnabled)
         QtCore.QMetaObject.connectSlotsByName(ProjectConsolidationWizard)
+        ProjectConsolidationWizard.setTabOrder(self.documentsTreeWidget, self.typesTreeWidget)
+        ProjectConsolidationWizard.setTabOrder(self.typesTreeWidget, self.yesConsistencyButton)
+        ProjectConsolidationWizard.setTabOrder(self.yesConsistencyButton, self.noConsistencyButton)
+        ProjectConsolidationWizard.setTabOrder(self.noConsistencyButton, self.documentPrefixCheckBox)
+        ProjectConsolidationWizard.setTabOrder(self.documentPrefixCheckBox, self.typePrefixCheckBox)
+        ProjectConsolidationWizard.setTabOrder(self.typePrefixCheckBox, self.typeOrderButton)
+        ProjectConsolidationWizard.setTabOrder(self.typeOrderButton, self.documentOrderButton)
+        ProjectConsolidationWizard.setTabOrder(self.documentOrderButton, self.unifyDocumentsCheckBox)
+        ProjectConsolidationWizard.setTabOrder(self.unifyDocumentsCheckBox, self.TIMCheckBox)
+        ProjectConsolidationWizard.setTabOrder(self.TIMCheckBox, self.previousIndexesCheckBox)
+        ProjectConsolidationWizard.setTabOrder(self.previousIndexesCheckBox, self.newClausesReportCheckBox)
+        ProjectConsolidationWizard.setTabOrder(self.newClausesReportCheckBox, self.errorsReportCheckBox)
 
     def retranslateUi(self, ProjectConsolidationWizard):
         ProjectConsolidationWizard.setWindowTitle(QtGui.QApplication.translate("ProjectConsolidationWizard", "Wizard", None, QtGui.QApplication.UnicodeUTF8))

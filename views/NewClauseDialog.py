@@ -68,7 +68,6 @@ class NewClauseDialog(QDialog):
         self.document = self.project.getDocument(str(self.ui.documentBox.currentText()))
         self.document.addClause(self.clause)
         if (parent != "Sem Clausula Pai") :
-            print self.clausesList
             parentClause = self.clausesList[str(self.ui.parentBox.currentText())]
             link = Link()
             link.addChild(self.clause.getID())

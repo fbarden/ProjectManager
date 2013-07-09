@@ -61,10 +61,13 @@ class ClauseViewWidget(QWidget):
         self.enableSave()
 
     def changeTitle(self, text):
-        self.ui.titleLabel.setText(self.clause.getDocument().getName() + ": " + text)
+        if (self.clause.getConsolidatedID() != ""):
+            text += " (" + self.clause.getConsolidatedID() + ")"
+        self.ui.titleLabel.setText(text)
 
     def upToDocument(self):
-        self.openDocumentSignal.emit(self.clause.getDocument().getName())
+        if (self.askSave()):
+            self.openDocumentSignal.emit(self.clause.getDocument().getName())
 
     def clearWidget(self):
         self.ui.uplinksTreeWidget.clear()
@@ -72,11 +75,12 @@ class ClauseViewWidget(QWidget):
 #        self.ui.relatedFilesTreeWidget.clear()
 
     def loadLink(self, selectedItem, column):
-        if (selectedItem.parent() is not None) :
-            documentName = str(selectedItem.parent().text(0))
-            clauseName = str(selectedItem.text(0))
-            newClause = self.links[documentName+clauseName]
-            self.loadClause(newClause)
+        if (self.askSave()):
+            if (selectedItem.parent() is not None) :
+                documentName = str(selectedItem.parent().text(0))
+                clauseName = str(selectedItem.text(0))
+                newClause = self.links[documentName+clauseName]
+                self.loadClause(newClause)
 
     def changeClause(self,  step):
         print "Passou pelo changeclause"
@@ -106,9 +110,15 @@ class ClauseViewWidget(QWidget):
 
     def loadText(self):
         self.ui.textEdit.setText(self.clause.getText())
+        self.ui.commentsEdit.setText(self.clause.getComments())
 
     def loadTitle(self):
-        self.ui.titleLabel.setText(self.clause.getDocument().getName() + ": " + self.clause.getTitle())
+        title = self.clause.getTitle()
+        if (self.clause.getConsolidatedID() != ""):
+            title += " (" + self.clause.getConsolidatedID() + ")"
+        self.ui.titleLabel.setText(title)
+        self.ui.documentLabel.setText("Documento: " + self.clause.getDocument().getTitle())
+        self.ui.typeLabel.setText("Tipo: " + self.clause.getType().getName())
         self.ui.titleEdit.setText(self.clause.getTitle())
     
     def loadUplinks(self):
@@ -157,7 +167,6 @@ class ClauseViewWidget(QWidget):
             item.setText(2, self.clause.getRelatedFileObservation(file))
 
     def askSave(self):
-        print self.ui.saveButton.isEnabled()
         if (self.ui.saveButton.isEnabled()):
             answer = QMessageBox.question(None,
                 self.trUtf8("Salvar Alteracoes"),

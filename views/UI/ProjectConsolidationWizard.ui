@@ -242,6 +242,21 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>documentsTreeWidget</tabstop>
+  <tabstop>typesTreeWidget</tabstop>
+  <tabstop>yesConsistencyButton</tabstop>
+  <tabstop>noConsistencyButton</tabstop>
+  <tabstop>documentPrefixCheckBox</tabstop>
+  <tabstop>typePrefixCheckBox</tabstop>
+  <tabstop>typeOrderButton</tabstop>
+  <tabstop>documentOrderButton</tabstop>
+  <tabstop>unifyDocumentsCheckBox</tabstop>
+  <tabstop>TIMCheckBox</tabstop>
+  <tabstop>previousIndexesCheckBox</tabstop>
+  <tabstop>newClausesReportCheckBox</tabstop>
+  <tabstop>errorsReportCheckBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

@@ -46,7 +46,7 @@ class ProjectViewWidget(QWidget):
                 clause = document.getClause(clauseId)
                 exibitionName = clause.getTitle()
                 if clause.isSuspect() :
-                    exibitionName += "    *suspect*"
+                    exibitionName += "    (supeita!)"
                 clauseWidgetItem.setText(0, exibitionName)
                 self.clausesDict[documentName + clause.getTitle()] = clause.getID()
                 widgetList += [clauseWidgetItem]

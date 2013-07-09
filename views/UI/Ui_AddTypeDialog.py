@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'AddTypeDialog.ui'
 #
-# Created: Thu Jul  4 14:09:11 2013
+# Created: Tue Jul  9 11:33:05 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -18,7 +18,7 @@ class Ui_AddTypeDialog(object):
     def setupUi(self, AddTypeDialog):
         AddTypeDialog.setObjectName(_fromUtf8("AddTypeDialog"))
         AddTypeDialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        AddTypeDialog.resize(536, 475)
+        AddTypeDialog.resize(536, 503)
         AddTypeDialog.setModal(True)
         self.verticalLayout_11 = QtGui.QVBoxLayout(AddTypeDialog)
         self.verticalLayout_11.setObjectName(_fromUtf8("verticalLayout_11"))
@@ -67,6 +67,9 @@ class Ui_AddTypeDialog(object):
         self.verticalLayout_11.addLayout(self.horizontalLayout)
         self.verticalLayout_4 = QtGui.QVBoxLayout()
         self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
+        self.checkBox = QtGui.QCheckBox(AddTypeDialog)
+        self.checkBox.setObjectName(_fromUtf8("checkBox"))
+        self.verticalLayout_4.addWidget(self.checkBox)
         self.descriptionLabel = QtGui.QLabel(AddTypeDialog)
         self.descriptionLabel.setObjectName(_fromUtf8("descriptionLabel"))
         self.verticalLayout_4.addWidget(self.descriptionLabel)
@@ -162,6 +165,11 @@ class Ui_AddTypeDialog(object):
         self.retranslateUi(AddTypeDialog)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), AddTypeDialog.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), AddTypeDialog.reject)
+        QtCore.QObject.connect(self.newTypeButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.newTypeEdit.setEnabled)
+        QtCore.QObject.connect(self.newTypeButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.prefixEdit.setEnabled)
+        QtCore.QObject.connect(self.newTypeButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.descriptionEdit.setEnabled)
+        QtCore.QObject.connect(self.existingTypeButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.typeComboBox.setEnabled)
+        QtCore.QObject.connect(self.newTypeButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.checkBox.setEnabled)
         QtCore.QMetaObject.connectSlotsByName(AddTypeDialog)
         AddTypeDialog.setTabOrder(self.newTypeButton, self.existingTypeButton)
         AddTypeDialog.setTabOrder(self.existingTypeButton, self.newTypeEdit)
@@ -182,6 +190,7 @@ class Ui_AddTypeDialog(object):
         self.existingTypeButton.setText(QtGui.QApplication.translate("AddTypeDialog", "Selecionar tipo existente", None, QtGui.QApplication.UnicodeUTF8))
         self.newTypeLabel.setText(QtGui.QApplication.translate("AddTypeDialog", "Nome do tipo:", None, QtGui.QApplication.UnicodeUTF8))
         self.prefixLabel.setText(QtGui.QApplication.translate("AddTypeDialog", "Prefixo:", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkBox.setText(QtGui.QApplication.translate("AddTypeDialog", "Recursivo?", None, QtGui.QApplication.UnicodeUTF8))
         self.descriptionLabel.setText(QtGui.QApplication.translate("AddTypeDialog", "Descrição:", None, QtGui.QApplication.UnicodeUTF8))
         self.existingTypeLabel.setText(QtGui.QApplication.translate("AddTypeDialog", "Selecione tipo existente:", None, QtGui.QApplication.UnicodeUTF8))
         self.parentChildLabel.setText(QtGui.QApplication.translate("AddTypeDialog", "Pai -> Filho", None, QtGui.QApplication.UnicodeUTF8))

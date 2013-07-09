@@ -44,12 +44,17 @@ class TIMDiagramScene(QGraphicsScene):
             self.typeNodes[nodeName] = nodeItem
             for childName in node.getPossibleChildrenList() :
                 child = self.TIM.getType(childName)
-                childParams = {}
                 childItem = self.drawTIMNode(childName, level+1)
+                childParams = {}
                 childParams['node'] = childItem
-                if node.isDependantOf(childName):
+                if node.isDependentOf(childName):
                     nodeParams['arrow'] = True
-                if child.isDependantOf(nodeName):
+                print "----------------- DESENHANDO --------------"
+                print "Chefao: " + nodeName
+                print "filho : " + childName
+                nodeParams['cardinality'] = node.getChildMinCard(childName) + ".." + node.getChildMaxCard(childName)
+                childParams['cardinality'] = child.getParentMinCard(nodeName) + ".." + child.getParentMaxCard(nodeName)
+                if child.isDependentOf(nodeName):
                     childParams['arrow'] = True
                 self.addItem(LineGraphicItem(nodeParams, childParams))
                 self.offset += 1

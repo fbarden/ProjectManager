@@ -5,7 +5,7 @@ class Clause:
     def __init__(self,  document=None):
         self.document = document
         self.id = "-1"
-        self.consolidatedID = "Nenhum"
+        self.consolidatedID = ""
         self.IDHistory = []
         self.title = ""
         self.text = ""
@@ -128,10 +128,13 @@ class Clause:
     def evaluateSuspect(self, clause):
         print "------ AVALIANDO SUSPEITA EM : " + self.getID() + " ----------"
         otherType = clause.getType()
-        if self.type.isDependantOf(otherType.getName()) :
+        if self.type.isDependentOf(otherType.getName()) :
             if clause.getID() not in self.suspects:
                 self.suspects.append(clause.getID())
                 print "*-*-*- EH SUPEITO!!!!! ***********************"
+    
+    def isDependentOf(self, clause):
+        return self.getType().isDependentOf(clause.getType().getName())
     
     def emitChange(self):
         print "------ ENVIANDO MUDANCAS POR : " + self.getID() + " ----------"

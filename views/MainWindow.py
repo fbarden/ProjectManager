@@ -90,7 +90,6 @@ class MainWindow(QMainWindow):
         parentClause = None
         type = None
         for param in paramDict:
-            print param
             if (param is 'document'):
                 documentName = paramDict['document']
                 document = self.project.getDocument(documentName)
@@ -149,9 +148,6 @@ class MainWindow(QMainWindow):
         self.ui.actionNewClause.setEnabled(len(self.project.getDocumentsList()) > 0)
 
     def openClauseWidget(self, document, clause):
-        print "CHEGOU NO OPENCLAUSE"
-        print document
-        print clause
         clauseObj = self.project.getDocument(str(document)).getClause(str(clause))
         clauseViewWidget = ClauseViewWidget(self.project, clauseObj)
         self.setCentralWidget(clauseViewWidget)

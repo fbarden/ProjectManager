@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>536</width>
-    <height>475</height>
+    <height>503</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -96,6 +96,13 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QCheckBox" name="checkBox">
+       <property name="text">
+        <string>Recursivo?</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QLabel" name="descriptionLabel">
        <property name="text">
@@ -291,8 +298,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>229</x>
-     <y>276</y>
+     <x>247</x>
+     <y>493</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -307,12 +314,92 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>297</x>
-     <y>282</y>
+     <x>315</x>
+     <y>493</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newTypeButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>newTypeEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>129</x>
+     <y>124</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newTypeButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>prefixEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>447</x>
+     <y>110</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newTypeButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>descriptionEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>214</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>existingTypeButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>typeComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>100</x>
+     <y>280</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newTypeButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>55</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>64</x>
+     <y>151</y>
     </hint>
    </hints>
   </connection>

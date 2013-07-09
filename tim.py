@@ -6,6 +6,7 @@ class Type():
         self.name = ""
         self.prefix = ""
         self.description = ""
+        self.acceptsRecursion = False
         self.possibleChildren = {}
         self.possibleParents = {}
 
@@ -30,11 +31,17 @@ class Type():
     def addPossibleChild(self, typeName, minCard, maxCard, dependency):
         if typeName not in self.possibleChildren.keys() :
             self.possibleChildren[typeName] = (minCard, maxCard, dependency)
-    
+
     def getChildMinCard(self, childName):
+        print "Pegando Min"
+        print self.getName()
+        print childName
         return self.possibleChildren[childName][0]
 
     def getChildMaxCard(self, childName):
+        print "Pegando Max"
+        print self.getName()
+        print childName        
         return self.possibleChildren[childName][1]
 
     def getParentMinCard(self, parentName):
@@ -49,7 +56,7 @@ class Type():
     def getPossibleChildrenList(self):
         return self.possibleChildren.keys()
     
-    def isDependantOf(self, typeName):
+    def isDependentOf(self, typeName):
         if typeName in self.getPossibleChildrenList():
             return self.possibleChildren[typeName][2]
         elif typeName in self.getPossibleParentsList():

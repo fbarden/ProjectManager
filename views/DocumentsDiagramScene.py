@@ -15,29 +15,45 @@ class DocumentsDiagramScene(QGraphicsScene):
         self.updateDocsImage()
 
     def updateDocsImage(self):
-        print "Vai pro update!"
-        rootsList = self.project.getDocumentsList()
-        print rootsList
-        
-        if (len(rootsList) == 0):
-            print "Retornou sem nada"
+        docsList = self.project.getDocument2ClausesDict()
+        docLinks = {}
+        doc2NodeDict = {}
+        if (len(docsList) == 0):
             return 
         self.radius = 180
         offset = 0
-        step = 360/len(rootsList)
-        for rootName in rootsList :
-            self.drawDocNode(rootName, 180 - offset*step)
-            print "Criou nodo"
+        step = 360/len(docsList)
+        for docName in docsList.keys() :
+            doc2NodeDict[docName] = self.drawDocNode(docName, 180 - offset*step)
             offset += 1
+        for docName in docsList.keys():
+            document = self.project.getDocument(docName)
+            for clauseName in docsList[docName]:
+                clause = document.getClause(clauseName)
+                linksDoc2Clause = clause.getChildLinksDoc2Clause()
+                if docName in docLinks.keys() :
+                    docLinks[docName] += linksDoc2Clause.keys()
+                else :
+                    docLinks[docName] = linksDoc2Clause.keys()
+        for docName in docLinks.keys():
+            docParam = {}
+            docNode = doc2NodeDict[docName]
+            docParam['node'] = docNode
+            for linkName in docLinks[docName]:
+                if linkName != docName :
+                    linkParam = {}
+                    linkNode = doc2NodeDict[linkName]
+                    linkParam['node'] = linkNode
+                    linkParam['arrow'] = True
+                    line = LineGraphicItem(docParam, linkParam)
+                    self.addItem(line)
+                
 
     def drawDocNode(self, nodeName, degree):
-        print "DOCNODE"
         node = self.project.getDocument(nodeName)
         nodeItem = NodeGraphicItem(50, 75)
         nodeItem.setText("")
-        #print node.getPrefix()
-        nodeItem.setTitle(node.getName())
-        print node.getName()
+        nodeItem.setTitle(node.getTitle())
         nodeItem.rotate(degree)
         nodeItem.translate(self.radius, 0)
         nodeItem.rotate(-degree)

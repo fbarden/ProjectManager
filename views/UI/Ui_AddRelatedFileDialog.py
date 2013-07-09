@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'AddRelatedFileDialog.ui'
 #
-# Created: Thu Jul  4 14:09:12 2013
+# Created: Tue Jul  9 11:33:07 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -49,7 +49,7 @@ class Ui_AddRelatedFileDialog(object):
 
     def retranslateUi(self, AddRelatedFileDialog):
         AddRelatedFileDialog.setWindowTitle(QtGui.QApplication.translate("AddRelatedFileDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
-        self.titleLabel.setText(QtGui.QApplication.translate("AddRelatedFileDialog", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
+        self.titleLabel.setText(QtGui.QApplication.translate("AddRelatedFileDialog", "Adicionar arquivo relacionado:", None, QtGui.QApplication.UnicodeUTF8))
         self.filesTreeWidget.headerItem().setText(0, QtGui.QApplication.translate("AddRelatedFileDialog", "Arquivo", None, QtGui.QApplication.UnicodeUTF8))
         self.filesTreeWidget.headerItem().setText(1, QtGui.QApplication.translate("AddRelatedFileDialog", "Descrição", None, QtGui.QApplication.UnicodeUTF8))
         self.observationLabel.setText(QtGui.QApplication.translate("AddRelatedFileDialog", "Observação:", None, QtGui.QApplication.UnicodeUTF8))

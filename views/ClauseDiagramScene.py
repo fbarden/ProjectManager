@@ -10,6 +10,7 @@ class ClauseDiagramScene(QGraphicsScene):
 
     def __init__(self,  parent, clause = None):
         super(ClauseDiagramScene, self).__init__(parent)
+        self.setBackgroundBrush(Qt.lightGray)
         self.updateClausesImage(clause)
 
     def updateClausesImage(self, clause):
@@ -27,6 +28,7 @@ class ClauseDiagramScene(QGraphicsScene):
             parent = clause.getParentLinkClause(parentID)
             if parentID not in self.nodeList.keys():
                 self.nodeList[parentID] = self.drawNode(parent, level, self.offset[level])
+                self.drawLine(clause, parent)
                 self.drawParentsPath(parent, level-1)
                 self.offset[level] += 1
     
@@ -46,7 +48,7 @@ class ClauseDiagramScene(QGraphicsScene):
         nodeItem = NodeGraphicItem(75, 75)
         nodeItem.setText(clause.getType().getPrefix())
         nodeItem.setTitle(clause.getCode(docPrefix=True))
-        nodeItem.translate(170*level, 110*offset)
+        nodeItem.translate(170*level, 125*offset)
         self.addItem(nodeItem)
         return nodeItem
 
@@ -55,5 +57,9 @@ class ClauseDiagramScene(QGraphicsScene):
         endNode = {}
         startNode['node'] = self.nodeList[start.getID()]
         endNode['node'] = self.nodeList[end.getID()]
+        if start.isDependentOf(end) :
+            startNode['arrow'] = True
+        if end.isDependentOf(start) :
+            endNode['arrow'] = True
         lineItem = LineGraphicItem(startNode, endNode)
         self.addItem(lineItem)

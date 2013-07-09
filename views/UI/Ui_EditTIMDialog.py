@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'EditTIMDialog.ui'
 #
-# Created: Thu Jul  4 14:09:12 2013
+# Created: Tue Jul  9 11:33:07 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!

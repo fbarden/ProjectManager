@@ -56,8 +56,9 @@ class LineGraphicItem(QGraphicsItem):
             painter.fillPath(path, QBrush(Qt.black))
             #painter.drawText(intersectionLength+5, -10, "<---")
         if ('cardinality' in self.end.keys()):
-            painter.drawText(lineLength- intersectionLength-20, -7, self.end['cardinality'])
+            painter.drawText(lineLength- intersectionLength-20, -15, self.end['cardinality'])
         if ('arrow' in self.end.keys()):
+            path = QPainterPath()
             p1 = QPointF(lineLength - intersectionLength, 0)
             p2 = QPointF(lineLength - intersectionLength - 12, 10)
             p3 = QPointF(lineLength - intersectionLength - 12, -10)
