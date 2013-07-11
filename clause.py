@@ -126,18 +126,15 @@ class Clause:
             link.remove()
 
     def evaluateSuspect(self, clause):
-        print "------ AVALIANDO SUSPEITA EM : " + self.getID() + " ----------"
         otherType = clause.getType()
         if self.type.isDependentOf(otherType.getName()) :
             if clause.getID() not in self.suspects:
                 self.suspects.append(clause.getID())
-                print "*-*-*- EH SUPEITO!!!!! ***********************"
     
     def isDependentOf(self, clause):
         return self.getType().isDependentOf(clause.getType().getName())
     
     def emitChange(self):
-        print "------ ENVIANDO MUDANCAS POR : " + self.getID() + " ----------"
         for childClauseID in self.getChildClausesList():
             childClause = self.getChildLinkClause(childClauseID)
             childClause.evaluateSuspect(self)

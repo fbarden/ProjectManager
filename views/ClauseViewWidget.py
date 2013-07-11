@@ -10,7 +10,9 @@ from project import Project
 class ClauseViewWidget(QWidget):
 
     openDocumentSignal = pyqtSignal(str);
+    openClauseSignal = pyqtSignal(str);
     newClauseSignal = pyqtSignal(dict);
+    backHistorySignal = pyqtSignal();
     
     def __init__(self, project, clause=None):
         super(ClauseViewWidget, self).__init__()
@@ -21,6 +23,8 @@ class ClauseViewWidget(QWidget):
         self.ui.setupUi(self)
         if (clause is not None) :
             self.loadClause(clause)
+        self.backHistoryShortcut = QShortcut('ALT+Backspace', self)
+        self.backHistoryShortcut.activated.connect(self.backHistory)
         self.ui.previousClauseShortcut = QShortcut('ALT+Left', self)
         self.ui.previousButton.clicked.connect(self.previousClause)
         self.ui.previousClauseShortcut.activated.connect(self.previousClause)
@@ -40,11 +44,15 @@ class ClauseViewWidget(QWidget):
         self.ui.titleEdit.textChanged.connect(self.enableSave)
         self.ui.saveButton.clicked.connect(self.saveClause)
         self.ui.createChildClauseButton.clicked.connect(self.createClause)
+        self.ui.downlinksTreeWidget.expandAll()
+        self.ui.uplinksTreeWidget.expandAll()
+
+    def backHistory(self):
+        self.backHistorySignal.emit()
 
     def createClause(self):
         param = {}
         param['parentClause'] = self.clause
-        print "Enviando Sinal"
         self.newClauseSignal.emit(param)
 
     def enableSave(self):
@@ -67,7 +75,8 @@ class ClauseViewWidget(QWidget):
 
     def upToDocument(self):
         if (self.askSave()):
-            self.openDocumentSignal.emit(self.clause.getDocument().getName())
+            documentName = self.clause.getDocument().getName()
+            self.openDocumentSignal.emit(documentName)
 
     def clearWidget(self):
         self.ui.uplinksTreeWidget.clear()
@@ -80,16 +89,16 @@ class ClauseViewWidget(QWidget):
                 documentName = str(selectedItem.parent().text(0))
                 clauseName = str(selectedItem.text(0))
                 newClause = self.links[documentName+clauseName]
-                self.loadClause(newClause)
+                self.openClauseSignal.emit(newClause.getID())
 
     def changeClause(self,  step):
-        print "Passou pelo changeclause"
         if (self.askSave()) :
             document = self.clause.getDocument()
             clausesList = document.getClausesList()
             index = clausesList.index(self.clause.getID()) + step
             if (index > (-1)) and (index < len(clausesList)):
-                self.loadClause(document.getClause(clausesList[index]))
+                self.openClauseSignal.emit(clausesList[index])
+                #------- self.loadClause(document.getClause(clausesList[index]))
 
     def nextClause(self):
         self.changeClause(+1)
@@ -123,7 +132,6 @@ class ClauseViewWidget(QWidget):
     
     def loadUplinks(self):
         linksDict = self.clause.getParentLinksDoc2Clause()
-        print linksDict
         widgetList = []
         for documentName in linksDict :
             documentWidgetItem = QTreeWidgetItem()

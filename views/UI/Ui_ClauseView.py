@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ClauseView.ui'
 #
-# Created: Tue Jul  9 11:33:07 2013
+# Created: Tue Jul  9 15:58:34 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,6 +31,9 @@ class Ui_clauseViewWidget(object):
         sizePolicy.setHeightForWidth(self.previousButton.sizePolicy().hasHeightForWidth())
         self.previousButton.setSizePolicy(sizePolicy)
         self.previousButton.setMaximumSize(QtCore.QSize(50, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.previousButton.setFont(font)
         self.previousButton.setObjectName(_fromUtf8("previousButton"))
         self.horizontalLayout_8.addWidget(self.previousButton)
         self.line_2 = QtGui.QFrame(clauseViewWidget)
@@ -280,13 +283,13 @@ class Ui_clauseViewWidget(object):
 
     def retranslateUi(self, clauseViewWidget):
         clauseViewWidget.setWindowTitle(QtGui.QApplication.translate("clauseViewWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.previousButton.setText(QtGui.QApplication.translate("clauseViewWidget", "<--", None, QtGui.QApplication.UnicodeUTF8))
-        self.returnButton.setText(QtGui.QApplication.translate("clauseViewWidget", "<]", None, QtGui.QApplication.UnicodeUTF8))
+        self.previousButton.setText(QtGui.QApplication.translate("clauseViewWidget", "←", None, QtGui.QApplication.UnicodeUTF8))
+        self.returnButton.setText(QtGui.QApplication.translate("clauseViewWidget", "◄", None, QtGui.QApplication.UnicodeUTF8))
         self.titleLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Título da Cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.saveButton.setText(QtGui.QApplication.translate("clauseViewWidget", "Salvar", None, QtGui.QApplication.UnicodeUTF8))
-        self.upButton.setText(QtGui.QApplication.translate("clauseViewWidget", "î", None, QtGui.QApplication.UnicodeUTF8))
+        self.upButton.setText(QtGui.QApplication.translate("clauseViewWidget", "↑", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("clauseViewWidget", "X", None, QtGui.QApplication.UnicodeUTF8))
-        self.nextButton.setText(QtGui.QApplication.translate("clauseViewWidget", "-->", None, QtGui.QApplication.UnicodeUTF8))
+        self.nextButton.setText(QtGui.QApplication.translate("clauseViewWidget", "→", None, QtGui.QApplication.UnicodeUTF8))
         self.documentLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Documento: Documento", None, QtGui.QApplication.UnicodeUTF8))
         self.typeLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Tipo: Tipo", None, QtGui.QApplication.UnicodeUTF8))
         self.uplinksLabel.setText(QtGui.QApplication.translate("clauseViewWidget", "Uplinks", None, QtGui.QApplication.UnicodeUTF8))

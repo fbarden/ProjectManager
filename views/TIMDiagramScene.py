@@ -49,9 +49,6 @@ class TIMDiagramScene(QGraphicsScene):
                 childParams['node'] = childItem
                 if node.isDependentOf(childName):
                     nodeParams['arrow'] = True
-                print "----------------- DESENHANDO --------------"
-                print "Chefao: " + nodeName
-                print "filho : " + childName
                 nodeParams['cardinality'] = node.getChildMinCard(childName) + ".." + node.getChildMaxCard(childName)
                 childParams['cardinality'] = child.getParentMinCard(nodeName) + ".." + child.getParentMaxCard(nodeName)
                 if child.isDependentOf(nodeName):

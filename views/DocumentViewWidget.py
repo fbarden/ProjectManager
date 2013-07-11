@@ -10,8 +10,9 @@ class DocumentViewWidget(QWidget):
 
     openProjectSignal = pyqtSignal()
     openDocumentSignal = pyqtSignal(str);
-    openClauseSignal = pyqtSignal(str, str);
+    openClauseSignal = pyqtSignal(str);
     newClauseSignal = pyqtSignal(dict);
+    backHistorySignal = pyqtSignal();
 
     def __init__(self, document = None):
         super(DocumentViewWidget, self).__init__()
@@ -24,6 +25,8 @@ class DocumentViewWidget(QWidget):
         self.ui.titleButton.clicked.connect(self.changeTitle)
         self.closeDocumentShortcut = QShortcut('CTRL+W', self)
         self.closeDocumentShortcut.activated.connect(self.upToProject)
+        self.backHistoryShortcut = QShortcut('ALT+Backspace', self)
+        self.backHistoryShortcut.activated.connect(self.backHistory)
         self.ui.upButton.clicked.connect(self.upToProject)
         self.showLinksShortcut = QShortcut('CTRL+L', self)
         self.showLinksShortcut.activated.connect(self.ui.showLinksButton.click)
@@ -31,6 +34,8 @@ class DocumentViewWidget(QWidget):
         self.newClauseShortcut = QShortcut('CTRL+T', self)
         self.newClauseShortcut.activated.connect(self.newClause)
 
+    def backHistory(self):
+        self.backHistorySignal.emit()
 
     def showLinksAction(self):
         self.loadDocument(self.document)
@@ -114,15 +119,9 @@ class DocumentViewWidget(QWidget):
     
     def linkSelected(self,  url):
         link = str(url.toString())
-        print link
         type, ID = link.split(":", 1)
-        print "TYPE!"
-        print type
-        print "ID!!"
-        print ID
         if (type == "clause") :
-            document, clause = ID.split(":")
-            self.openClauseSignal.emit(document, ID)
+            self.openClauseSignal.emit(ID)
         elif (type == "document") :
             self.openDocumentSignal.emit(ID)
         elif (type == "newClause") :

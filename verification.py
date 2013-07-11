@@ -46,5 +46,4 @@ class Verification(object):
                 for need in parentsNeeded.keys():
                     if parentsNeeded[need] > 0 :
                         windows.append(clauseId, need)
-        print (windows, orphans)
         return (windows, orphans)

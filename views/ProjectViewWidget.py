@@ -11,8 +11,9 @@ class ProjectViewWidget(QWidget):
 
     newDocumentSignal = pyqtSignal();
     openDocumentSignal = pyqtSignal(str);
-    openClauseSignal = pyqtSignal(str, str);
+    openClauseSignal = pyqtSignal(str);
     closeProjectSignal = pyqtSignal();
+    backHistorySignal = pyqtSignal();
 
     def __init__(self, project = None):
         super(ProjectViewWidget, self).__init__()
@@ -21,11 +22,18 @@ class ProjectViewWidget(QWidget):
         self.ui.documentsListWidget.itemActivated.connect(self.openSelect)
         self.closeProjectShortcut = QShortcut('CTRL+W', self)
         self.closeProjectShortcut.activated.connect(self.closeProject)
+        self.backHistoryShortcut = QShortcut('ALT+Backspace', self)
+        self.backHistoryShortcut.activated.connect(self.backHistory)
         self.clausesDict  = {}
         self.docsDict = {}
         if (project is not None) :
             self.loadProject(project)
+        self.ui.documentsListWidget.expandAll()
         self.ui.documentsListWidget.setFocus()
+        
+
+    def backHistory(self):
+        self.backHistorySignal.emit()
 
     def closeProject(self):
         self.closeProjectSignal.emit()
@@ -65,7 +73,7 @@ class ProjectViewWidget(QWidget):
         else :
             #documentName = self.docsDict[str(selectedItem.parent().text(0))]
             documentParse = re.search(".*\((?P<documentName>.*)\)", str(selectedItem.parent().text(0)))
-            self.openClauseSignal.emit(documentParse.group('documentName'),  self.clausesDict[documentParse.group('documentName') + str(selectedItem.text(0))])
+            self.openClauseSignal.emit(self.clausesDict[documentParse.group('documentName') + str(selectedItem.text(0))])
 
     def newDocument(self):
         self.newDocumentSignal.emit()

@@ -43,8 +43,6 @@ class Consolidator(object):
                 doc2Clauses['unified'] = clausesList
             TIM = project.getTIM()
             orderedTypesList = self.orderTypes(TIM)
-            print 'TIPOS ORDENADOS!'
-            print orderedTypesList
             for type in orderedTypesList :
                 for doc in doc2Clauses.keys():
                     for clause in doc2Clauses[doc]:
@@ -88,7 +86,6 @@ class Consolidator(object):
                     prefixIDDict[prefix] = 1
                 prefix += str(prefixIDDict[prefix])
                 clause.setConsolidatedID(prefix)
-                print prefix
 
     def toPDF(self, file='./teste1.pdf'):
         printer = QPrinter()

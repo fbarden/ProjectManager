@@ -12,7 +12,6 @@ class Link :
 #        if (object is not None) :
 #            self.parent = object
 #            self.parent.addChildLink(self)
-#            print "Adicionado link PAI com " + self.parent_id
     
     def addChild(self,  clause):
         self.child_id = clause

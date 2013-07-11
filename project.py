@@ -28,7 +28,6 @@ class Project :
         TIMNode= XML.find('tim')
         self.loadTIM(TIMNode)
         self.documents = {}
-        print "vai carregar documentos"
         self.loadDocuments(XML)
         importedFilesNode = XML.find('imported_files')
         self.loadImportedFiles(importedFilesNode)
@@ -42,7 +41,6 @@ class Project :
             document = Document()
             document_name = document_node.get("name")
             document.loadXML(self, document_name +".xml")
-            print "------------ Carregando documento XML " + document_name + " ---------------"
             self.documents[document_name] = document
             for clauseId in document.getClausesList():
                 clause = document.getClause(clauseId)
@@ -63,9 +61,7 @@ class Project :
         self.TIM.loadXML(TIMNode)
 
     def saveDocuments(self, documentsNode):
-        print "saving docs"
         for documentName in self.getDocumentsList():
-            print "saving doc " + documentName
             documentNode = ET.SubElement(documentsNode, 'document')
             documentNode.set('name', documentName)
         orderNode = ET.SubElement(documentsNode, 'order')

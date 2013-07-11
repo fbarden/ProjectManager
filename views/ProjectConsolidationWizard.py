@@ -11,9 +11,6 @@ class ProjectConsolidationWizard(QWizard):
         super(ProjectConsolidationWizard, self).__init__(parent)
         self.ui = Ui_ProjectConsolidationWizard()
         self.ui.setupUi(self)
-        self.ui.consistencyButtonGroup = QButtonGroup(self)
-        self.ui.consistencyButtonGroup.addButton(self.ui.yesConsistencyButton)
-        self.ui.consistencyButtonGroup.addButton(self.ui.noConsistencyButton)
         self.ui.orderButtonGroup = QButtonGroup(self)
         self.ui.orderButtonGroup.addButton(self.ui.documentOrderButton)
         self.ui.orderButtonGroup.addButton(self.ui.typeOrderButton)
@@ -37,11 +34,6 @@ class ProjectConsolidationWizard(QWizard):
             typeItem.setCheckState(0, Qt.Unchecked)
             self.typesDict[type] = typeItem
         self.ui.buttonGroup = QButtonGroup()
-        if settings.keys() == [] :
-            self.ui.noConsistencyButton.setChecked(True)
-            self.ui.yesConsistencyButton.setEnabled(False)
-        else:
-            pass
             #settings['documents'] = 
         self.accepted.connect(self.saveSettingsAndConsolidate)
     
@@ -57,17 +49,13 @@ class ProjectConsolidationWizard(QWizard):
                 selectedTypes.append(type)
         settings['documents'] = selectedDocs
         settings['types'] = selectedTypes
-        if (self.ui.yesConsistencyButton.isChecked()) :
-            settings['keepConsistency'] = True
-            return
-        else :
-            settings['keepConsistency'] = False
-            settings['docPrefix'] =  self.ui.documentPrefixCheckBox.isChecked()
-            settings['typePrefix'] =  self.ui.typePrefixCheckBox.isChecked()
-            if self.ui.documentOrderButton.isChecked():
-                settings['order'] = 'document'
-            if self.ui.typeOrderButton.isChecked():
-                settings['order'] = 'type'
-            settings['unifyDocuments'] = self.ui.unifyDocumentsCheckBox.isChecked()
+        settings['keepConsistency'] = False
+        settings['docPrefix'] =  self.ui.documentPrefixCheckBox.isChecked()
+        settings['typePrefix'] =  self.ui.typePrefixCheckBox.isChecked()
+        if self.ui.documentOrderButton.isChecked():
+            settings['order'] = 'document'
+        if self.ui.typeOrderButton.isChecked():
+            settings['order'] = 'type'
+        settings['unifyDocuments'] = self.ui.unifyDocumentsCheckBox.isChecked()
         self.project.setConsolidationSettings(settings)
         self.consolidateProjectSignal.emit(settings)

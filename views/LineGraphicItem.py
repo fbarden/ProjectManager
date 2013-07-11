@@ -23,23 +23,6 @@ class LineGraphicItem(QGraphicsItem):
         lineLength = lineFormat.length()
         painter.translate(startPoint)
         lineFormat.translate(-startPoint)
-#         testVerticalLine = QLineF(nodeWidth/2, -nodeHeight/2, nodeWidth/2, nodeHeight/2)
-#         testHorizontalLine = QLineF(-nodeWidth/2, nodeHeight/2, nodeWidth/2, nodeHeight/2)
-#         intersectionPoint = QPointF()
-#         print "TRIO"
-#         print lineFormat
-#         print testHorizontalLine
-#         print testVerticalLine
-#         if (lineFormat.intersect(testHorizontalLine, intersectionPoint) == QLineF.BoundedIntersection) :
-#             print "EH HORIZONTAL!"
-#             pass
-#         elif (lineFormat.intersect(testVerticalLine, intersectionPoint) == QLineF.BoundedIntersection) :
-#             print "EH VERTICAL!"
-#             pass
-#         else :
-#             print "NAO FOI NADA!"
-#         intersectionLength = QLineF(startPoint, intersectionPoint).length()
-#         print intersectionLength
         intersectionLength = math.sqrt(nodeHeight**2 + nodeWidth**2)/2
         painter.rotate(-lineAngle)
         newLine = QLineF(0, 0, lineLength, 0)

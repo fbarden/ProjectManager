@@ -33,15 +33,9 @@ class Type():
             self.possibleChildren[typeName] = (minCard, maxCard, dependency)
 
     def getChildMinCard(self, childName):
-        print "Pegando Min"
-        print self.getName()
-        print childName
         return self.possibleChildren[childName][0]
 
-    def getChildMaxCard(self, childName):
-        print "Pegando Max"
-        print self.getName()
-        print childName        
+    def getChildMaxCard(self, childName):    
         return self.possibleChildren[childName][1]
 
     def getParentMinCard(self, parentName):
@@ -77,20 +71,17 @@ class Type():
     def loadXML(self,  XML):
         self.name = XML.get('name')
         self.prefix = XML.get('prefix')
-        print "Carregando Type: " + self.name
         for child in XML.findall("child"):
             name = child.get('name')
             minCard = child.get('minCard')
             maxCard = child.get('maxCard')
             dependency = (child.get('dependent') == 'yes')
-            print "         - " + name
             self.addPossibleChild(name, minCard, maxCard, dependency)
         for parent in XML.findall("parent"):
             name = parent.get('name')
             minCard = parent.get('minCard')
             maxCard = parent.get('maxCard')
             dependency = (parent.get('dependent') == 'yes')
-            print "         - " + name
             self.addPossibleParent(name, minCard, maxCard, dependency)
 
     def save(self, typesNode, root):
@@ -124,7 +115,6 @@ class TIM():
         self.roots = []
     
     def loadXML(self,  XML):
-        print "Carregando TIM"
         for typeXML in XML.findall("type") :
             type = Type()
             type.loadXML(typeXML)
@@ -165,13 +155,7 @@ class TIM():
 
     def getPossibleParentsList(self, type):
         parentsList = []
-        print "*** getPossibleParentsList ***" + type.getName()
         for candidateType in self.getTypesList() :
-            print "+ Candidato: " + candidateType
-            print "Possible Children"
-            print self.getType(candidateType).getPossibleChildrenList()
             if type.getName() in self.getType(candidateType).getPossibleChildrenList():
                 parentsList += [candidateType]
-        print "ParentList:"
-        print parentsList
         return parentsList
