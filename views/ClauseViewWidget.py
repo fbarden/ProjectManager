@@ -9,8 +9,7 @@ from project import Project
 
 class ClauseViewWidget(QWidget):
 
-    openDocumentSignal = pyqtSignal(str);
-    openClauseSignal = pyqtSignal(str);
+    openElementSignal = pyqtSignal(str);
     newClauseSignal = pyqtSignal(dict);
     backHistorySignal = pyqtSignal();
     
@@ -33,7 +32,7 @@ class ClauseViewWidget(QWidget):
         self.ui.nextButton.clicked.connect(self.nextClause)
         self.ui.uplinksTreeWidget.itemActivated.connect(self.loadLink)
         self.ui.downlinksTreeWidget.itemActivated.connect(self.loadLink)
-#        self.ui.returnButton.triggered.connect(self.returnClause)
+        self.ui.returnButton.triggered.connect(self.backHistory)
         self.closeClauseShortcut = QShortcut('CTRL+W', self)
         self.closeClauseShortcut.activated.connect(self.upToDocument)
         self.ui.upButton.clicked.connect(self.upToDocument)
@@ -76,7 +75,7 @@ class ClauseViewWidget(QWidget):
     def upToDocument(self):
         if (self.askSave()):
             documentName = self.clause.getDocument().getName()
-            self.openDocumentSignal.emit(documentName)
+            self.openElementSignal.emit("document" + documentName)
 
     def clearWidget(self):
         self.ui.uplinksTreeWidget.clear()
@@ -89,7 +88,7 @@ class ClauseViewWidget(QWidget):
                 documentName = str(selectedItem.parent().text(0))
                 clauseName = str(selectedItem.text(0))
                 newClause = self.links[documentName+clauseName]
-                self.openClauseSignal.emit(newClause.getID())
+                self.openElementSignal.emit("clause:" + newClause.getID())
 
     def changeClause(self,  step):
         if (self.askSave()) :
@@ -97,7 +96,7 @@ class ClauseViewWidget(QWidget):
             clausesList = document.getClausesList()
             index = clausesList.index(self.clause.getID()) + step
             if (index > (-1)) and (index < len(clausesList)):
-                self.openClauseSignal.emit(clausesList[index])
+                self.openElementSignal.emit("clause:" + clausesList[index])
                 #------- self.loadClause(document.getClause(clausesList[index]))
 
     def nextClause(self):

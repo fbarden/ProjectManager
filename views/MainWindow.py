@@ -72,14 +72,13 @@ class MainWindow(QMainWindow):
         self.project = Project()
         newProjectDialog = NewProjectDialog(self,  self.project)
         newProjectDialog.show()
-        newProjectDialog.openProjectSignal.connect(self.openProjectWidget)
+        newProjectDialog.openElementSignal.connect(self.openElement)
         self.history = []
-        self.history.insert(0, 'project:root')
 
     def newDocument(self):
         newDocumentDialog = NewDocumentDialog(self,  self.project)
         newDocumentDialog.show()
-        newDocumentDialog.openDocumentSignal.connect(self.openDocumentWidget)
+        newDocumentDialog.openElementSignal.connect(self.openElement)
 #        self.project.addDocument(document)
 
     def checkSpaces(self):
@@ -98,7 +97,7 @@ class MainWindow(QMainWindow):
                 parentClause = paramDict['parentClause']
         newClauseDialog = NewClauseDialog(self, self.project, document, parentClause)
         newClauseDialog.show()
-        newClauseDialog.openClauseSignal.connect(self.openClauseWidget)
+        newClauseDialog.openElementSignal.connect(self.openElement)
 
     def openProject(self):
         projectPath = str(QFileDialog.getOpenFileName(\
@@ -111,7 +110,7 @@ class MainWindow(QMainWindow):
             self.project = Project()
             self.project.loadXML(str(projectPath))
             self.history = []
-            self.openProjectWidget()
+            self.openElement('project:root')
     
     def saveProject(self):
         self.project.saveAll()
@@ -122,13 +121,11 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(projectViewWidget)
         self.ui.centralwidget = projectViewWidget
         self.ui.centralwidget.newDocumentSignal.connect(self.newDocument)
-        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
-        self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
+        self.ui.centralwidget.openElementSignal.connect(self.openElement)
         self.ui.centralwidget.closeProjectSignal.connect(self.closeProject)
         self.ui.centralwidget.backHistorySignal.connect(self.backHistory)
         self.ui.actionNewDocument.setEnabled(True)
         self.ui.actionNewClause.setEnabled(len(self.project.getDocumentsList()) > 0)
-        self.history.insert(0, 'project:project')
 
     def closeProject(self):
         self.project = None
@@ -145,13 +142,10 @@ class MainWindow(QMainWindow):
         documentViewWidget = DocumentViewWidget(documentObj)
         self.setCentralWidget(documentViewWidget)
         self.ui.centralwidget = documentViewWidget
-        self.ui.centralwidget.openProjectSignal.connect(self.openProjectWidget)
+        self.ui.centralwidget.openElementSignal.connect(self.openElement)
         self.ui.centralwidget.newClauseSignal.connect(self.newClause)
-        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
-        self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
         self.ui.centralwidget.backHistorySignal.connect(self.backHistory)
         self.ui.actionNewClause.setEnabled(len(self.project.getDocumentsList()) > 0)
-        self.history.insert(0, 'document:' + str(document))
 
     def openClauseWidget(self, clauseID):
         documentName = clauseID.split(":")[0]
@@ -159,18 +153,12 @@ class MainWindow(QMainWindow):
         clauseViewWidget = ClauseViewWidget(self.project, clauseObj)
         self.setCentralWidget(clauseViewWidget)
         self.ui.centralwidget = clauseViewWidget
-        self.ui.centralwidget.openDocumentSignal.connect(self.openDocumentWidget)
-        self.ui.centralwidget.openClauseSignal.connect(self.openClauseWidget)
+        self.ui.centralwidget.openElementSignal.connect(self.openElement)
         self.ui.centralwidget.newClauseSignal.connect(self.newClause)
         self.ui.centralwidget.backHistorySignal.connect(self.backHistory)
-        self.history.insert(0, 'clause:' + str(clauseID))
 
-    def backHistory(self):
-        if len(self.history) == 1:
-            return
-        del self.history[0]
-        print '-----------------'
-        print self.history[0]
+    def openElement(self, element):
+        self.history.insert(0, str(element))
         type, id = self.history[0].split(":", 1)
         if (type == "clause"):
             print "Carregando clausula " + id
@@ -181,6 +169,12 @@ class MainWindow(QMainWindow):
         elif (type == "project"):
             print 'Carregando projeto'
             self.openProjectWidget()
+
+    def backHistory(self):
+        if len(self.history) == 1:
+            return
+        del self.history[0]
+        self.openElement(self.history.pop(0))
 
     def manageImportedFiles(self):
         if (self.project is not None):

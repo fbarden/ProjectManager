@@ -10,8 +10,7 @@ from views.DocumentsDiagramScene import DocumentsDiagramScene
 class ProjectViewWidget(QWidget):
 
     newDocumentSignal = pyqtSignal();
-    openDocumentSignal = pyqtSignal(str);
-    openClauseSignal = pyqtSignal(str);
+    openElementSignal = pyqtSignal(str);
     closeProjectSignal = pyqtSignal();
     backHistorySignal = pyqtSignal();
 
@@ -69,11 +68,11 @@ class ProjectViewWidget(QWidget):
             else :
                 #documentName = self.docsDict[str(selectedItem.text(0))]
                 documentParse = re.search(".*\((?P<documentName>.*)\)", str(selectedItem.text(0)))
-                self.openDocumentSignal.emit(documentParse.group('documentName'))
+                self.openElementSignal.emit("document:" + documentParse.group('documentName'))
         else :
             #documentName = self.docsDict[str(selectedItem.parent().text(0))]
             documentParse = re.search(".*\((?P<documentName>.*)\)", str(selectedItem.parent().text(0)))
-            self.openClauseSignal.emit(self.clausesDict[documentParse.group('documentName') + str(selectedItem.text(0))])
+            self.openElementSignal.emit("clause:" + self.clausesDict[documentParse.group('documentName') + str(selectedItem.text(0))])
 
     def newDocument(self):
         self.newDocumentSignal.emit()

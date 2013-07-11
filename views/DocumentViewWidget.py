@@ -8,9 +8,7 @@ from clause import Clause
 
 class DocumentViewWidget(QWidget):
 
-    openProjectSignal = pyqtSignal()
-    openDocumentSignal = pyqtSignal(str);
-    openClauseSignal = pyqtSignal(str);
+    openElementSignal = pyqtSignal(str);
     newClauseSignal = pyqtSignal(dict);
     backHistorySignal = pyqtSignal();
 
@@ -121,9 +119,9 @@ class DocumentViewWidget(QWidget):
         link = str(url.toString())
         type, ID = link.split(":", 1)
         if (type == "clause") :
-            self.openClauseSignal.emit(ID)
+            self.openElementSignal.emit("clause:" + ID)
         elif (type == "document") :
-            self.openDocumentSignal.emit(ID)
+            self.openElementSignal.emit("document:" + ID)
         elif (type == "newClause") :
             self.newClause()
 
@@ -141,4 +139,4 @@ class DocumentViewWidget(QWidget):
         cursor.insertHtml(link)
 
     def upToProject(self):
-        self.openProjectSignal.emit()
+        self.openElementSignal.emit("project:project")
