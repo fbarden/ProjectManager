@@ -5,6 +5,7 @@ from PyQt4.QtCore import *
 
 from document import Document
 from clause import Clause
+from views.OrderClauseDialog import OrderClauseDialog
 
 class DocumentViewWidget(QWidget):
 
@@ -31,9 +32,15 @@ class DocumentViewWidget(QWidget):
         self.ui.showLinksButton.clicked.connect(self.showLinksAction)
         self.newClauseShortcut = QShortcut('CTRL+T', self)
         self.newClauseShortcut.activated.connect(self.newClause)
+        self.ui.orderButton.clicked.connect(self.orderClauses)
 
     def backHistory(self):
         self.backHistorySignal.emit()
+
+    def orderClauses(self):
+        orderDialog = OrderClauseDialog(self, self.document)
+        orderDialog.show()
+        orderDialog.accepted.connect(lambda : self.loadDocument(self.document))
 
     def showLinksAction(self):
         self.loadDocument(self.document)
@@ -45,7 +52,7 @@ class DocumentViewWidget(QWidget):
             self.trUtf8("Alterar Titulo:"),
             QLineEdit.Normal)
         if returnOK :
-            self.document.setTitle(str(newTitle))
+            self.document.setTitle(newTitle)
             self.ui.titleLabel.setText(newTitle)
 
     def loadDocument(self,  document):
@@ -116,7 +123,7 @@ class DocumentViewWidget(QWidget):
             table.mergeCells(1, 0, 1, 3)
     
     def linkSelected(self,  url):
-        link = str(url.toString())
+        link = unicode(url.toString())
         type, ID = link.split(":", 1)
         if (type == "clause") :
             self.openElementSignal.emit("clause:" + ID)

@@ -73,7 +73,7 @@ class Consolidator(object):
         prefixIDDict = {}
         for doc in self.doc2ClauseList:
             for clause in self.doc2ClauseList[doc]:
-                prefix = ""
+                prefix = unicode()
                 if hasDocPrefix :
                     prefix += clause.getDocument().getPrefix()
                     if hasTypePrefix:
@@ -84,7 +84,7 @@ class Consolidator(object):
                     prefixIDDict[prefix] += 1
                 else :
                     prefixIDDict[prefix] = 1
-                prefix += str(prefixIDDict[prefix])
+                prefix += prefixIDDict[prefix]
                 clause.setConsolidatedID(prefix)
 
     def toPDF(self, file='./teste1.pdf'):

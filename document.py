@@ -11,6 +11,12 @@ class Document :
         self.name = ""
         self.prefix = ""
 
+    def moveClause(self, clause, step):
+        index = self.clausesOrder.index(clause)
+        newIndex = index+step
+        if ((newIndex >= 0) and (newIndex<len(self.clausesOrder))) :
+            self.clausesOrder.insert(newIndex, self.clausesOrder.pop(index))
+
     def loadXML(self, project, filename):
         self.project = project
         self.clauses = {}
@@ -46,7 +52,6 @@ class Document :
         for clauseID in clausesOrder :
             self.clausesOrder.append(self.getName() + ":" + clauseID)
 
-
     def saveClauses(self, clausesNode):
         for clause in self.getClausesList():
             self.getClause(clause).save(clausesNode)
@@ -56,17 +61,6 @@ class Document :
             orderText+= id + ";"
         orderNode.text = orderText.strip(";")
 
-    def saveClause(self,  id):
-        document_tree= ET.parse(self.project + "/" + self.name + ".xml")
-        document_node = document_tree.getroot()
-        clauses_node= document_node.find("clauses")
-        for clause in clauses_node :
-            if (clause.get('id') == str(id)) :
-                clauses_node.remove(clause)
-        clause_node = self.getUpdatedNode()
-        document_node.append(clause_node)
-        document_tree.write(self.name + ".xml")
-    
     def getClausesList(self):
         return self.clausesOrder
 
@@ -78,7 +72,7 @@ class Document :
         if (list == []) :
             newID = '1'
         else :
-            newID = str(int(max(list))+1)
+            newID = unicode(int(max(list))+1)
         clause.setID(newID)
         clause.setDocument(self)
         self.clausesOrder.append(clause.getID())
@@ -86,13 +80,16 @@ class Document :
 
     def destroy(self):
         for clauseID in self.clauses:
-            clause = self.clauses.pop(clauseID)
+            clause = self.clauses[clauseID]
             clause.destroy()
         os.remove(self.project.getLocation() + self.name + ".xml")
     
-    def removeClause(self, clause):
-        del self.clauses[clause.getID()]
-        clause.remove()
+    def removeClause(self, clauseID):
+        id = clauseID.split(":")[1]
+        clause = self.clauses[id]
+        clause.destroy()
+        self.clausesOrder.remove(clauseID)
+        del self.clauses[id]
 
     def getProject(self):
         return self.project
@@ -104,16 +101,19 @@ class Document :
         return self.name
     
     def setName(self, name):
-        self.name = name
+        self.name = unicode(name)
 
     def getTitle(self):
         return self.title
 
     def setTitle(self, title):
-        self.title = title
+        self.title = unicode(title)
 
     def getPrefix(self):
         return self.prefix
 
     def setPrefix(self, prefix):
-        self.prefix = prefix
+        self.prefix = unicode(prefix)
+
+    def setOrder(self, list):
+        self.clausesOrder = list

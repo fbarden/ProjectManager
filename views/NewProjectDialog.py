@@ -53,8 +53,8 @@ class NewProjectDialog(QWizard):
     def setProject(self):
         if (self.project is None) :
             self.project = None
-        self.project.setName(str(self.ui.projectNameEdit.text()))
-        self.project.setLocation(os.path.normpath(str(self.ui.folderEdit.text())) + '/')
+        self.project.setName(unicode(self.ui.projectNameEdit.text()))
+        self.project.setLocation(os.path.normpath(unicode(self.ui.folderEdit.text())) + '/')
         self.project.TIM = self.TIM
         self.parent.project = self.project
         self.openProjectSignal.emit()

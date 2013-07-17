@@ -26,7 +26,7 @@ class AddRelatedFileDialog(QDialog):
             item.setText(1, self.project.getImportedFileDescription(file))
 
     def setClause(self):
-        file = str(self.ui.filesTreeWidget.currentItem().text(0))
-        observation = str(self.ui.observationEdit.text())
+        file = unicode(self.ui.filesTreeWidget.currentItem().text(0))
+        observation = unicode(self.ui.observationEdit.text())
         self.clause.addRelatedFile(file, observation)
         self.updateFileTreeSignal.emit()

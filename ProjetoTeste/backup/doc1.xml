@@ -1,0 +1,18 @@
+<document name="doc1" prefix="DOC1" title="Documento 1"><clauses><clause id="1" type="Tipo 1">
+<supects /><title>Clausula 1.1</title>
+<text>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;"&gt;
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Aqui fica o texto da clausula 1, que sera incluido na geracao do relatorio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</text><comments>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;"&gt;
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;Aqui ficam os comentarios e notas referentes a clausula 1. Eles nao serao adicionados ao relatorio final, tendo funcao apenas de consulta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</comments><links>
+<link clause="1" document="doc2" />
+</links>
+<related_files>
+<file filename="especificacao.docx">Alguma observacao especifica para a clausula referente ao arquivo</file>
+</related_files>
+</clause>
+<order>1</order></clauses></document>

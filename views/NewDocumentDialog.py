@@ -19,9 +19,9 @@ class NewDocumentDialog(QDialog):
         self.accepted.connect(self.setDocument)
     
     def setDocument(self):
-        title = str(self.ui.titleEdit.text())
-        prefix = str(self.ui.prefixEdit.text())
-        name = str(self.ui.nameEdit.text())
+        title = unicode(self.ui.titleEdit.text())
+        prefix = unicode(self.ui.prefixEdit.text())
+        name = unicode(self.ui.nameEdit.text())
         if (self.document is None):
             self.document = Document()
         self.document.setTitle(title)

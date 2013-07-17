@@ -22,7 +22,7 @@ class Clause:
         return self.comments
 
     def setComments(self, comments):
-        self.comments = comments
+        self.comments = unicode(comments)
 
     def getConsolidatedID(self):
         return self.consolidatedID
@@ -30,20 +30,28 @@ class Clause:
     def setConsolidatedID(self, consolidatedID):
         if (self.consolidatedID is None):
             self.IDHistory += self.consolidatedID + "->" + consolidatedID
-        self.consolidatedID = consolidatedID
-            
+        self.consolidatedID = consolidatedID.encode('utf-8')
 
     def destroy(self):
-        for link in self.parent_links:
-            self.removeParentLink(link)
-        for child in self.child_links:
-            self.removeChildLink(link)
+        print 'removendo clausula' + self.getID() 
+        for link in self.child_links.values() :
+            print 'removendo filho'
+            link.remove()
+        for link in self.parent_links.values() :
+            print 'removendo pai'
+            link.remove() 
+        print self.parent_links
+        print self.child_links
 
     def removeParentLink(self, link):
-        del self.parent_links[link]
+        print 'removendo link pai'
+        print link
+        #del self.parent_links[link]
 
     def removeChildLink(self, link):
-        del self.child_links[link]
+        print 'removendo link filho'
+        print link
+        #del self.child_links[link]
 
     def loadXML(self,  clauseXML):
         self.child_links = {}
@@ -115,16 +123,6 @@ class Clause:
         relatedFilesNode.tail = "\n"
         clauseNode.tail = "\n"
 
-    def remove(self):
-        document_tree = ET.parse(self.document + ".xml")
-        document_node = document_tree.getroot()
-        clauses_node = document_node.find("clauses")
-        for clause in clauses_node :
-            if (clause.get('id') == self.id) :
-                clauses_node.remove(clause)
-        for link in self.child_links :
-            link.remove()
-
     def evaluateSuspect(self, clause):
         otherType = clause.getType()
         if self.type.isDependentOf(otherType.getName()) :
@@ -146,22 +144,22 @@ class Clause:
         return (len(self.suspects) > 0)
 
     def getID(self):
-        return self.getDocument().getName() + ":" + self.id
+        return unicode((self.getDocument().getName() + ":" + self.id))
 
     def setID(self, id):
-        self.id = id
+        self.id = unicode(id)
     
     def getTitle(self): 
         return self.title
     
     def setTitle(self, title):
-        self.title = title
+        self.title = unicode(title)
 
     def getText(self): 
         return self.text
     
     def setText(self, text):
-        self.text = text
+        self.text = unicode(text)
     
     def getDocument(self):
         return self.document

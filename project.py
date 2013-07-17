@@ -60,6 +60,12 @@ class Project :
         self.TIM = TIM()
         self.TIM.loadXML(TIMNode)
 
+    def moveDocument(self, document, step):
+        index = self.documentsOrder.index(document)
+        newIndex = index+step 
+        if ((newIndex >= 0) and (newIndex<len(self.documentsOrder))) :
+            self.documentsOrder.insert(newIndex, self.documentsOrder.pop(index))
+
     def saveDocuments(self, documentsNode):
         for documentName in self.getDocumentsList():
             documentNode = ET.SubElement(documentsNode, 'document')
@@ -107,8 +113,11 @@ class Project :
     def getDocumentsList(self):
         return self.documentsOrder
 
-    def removeDocument(self,  document):
-        del self.documents[document.getName]
+    def removeDocument(self, documentName):
+        document = self.documents[documentName]
+        document.destroy()
+        del self.documents[documentName]
+        self.documentsOrder.remove(documentName)
     
     def getName(self):
         return self.name
@@ -161,4 +170,4 @@ class Project :
             return ""
 
     def setImportedFileDescription(self, file, description):
-        self.imported_files[str(file)] = description
+        self.imported_files[unicode(file)] = description

@@ -75,7 +75,7 @@ class ClauseViewWidget(QWidget):
     def upToDocument(self):
         if (self.askSave()):
             documentName = self.clause.getDocument().getName()
-            self.openElementSignal.emit("document" + documentName)
+            self.openElementSignal.emit("document:" + documentName)
 
     def clearWidget(self):
         self.ui.uplinksTreeWidget.clear()
@@ -85,8 +85,8 @@ class ClauseViewWidget(QWidget):
     def loadLink(self, selectedItem, column):
         if (self.askSave()):
             if (selectedItem.parent() is not None) :
-                documentName = str(selectedItem.parent().text(0))
-                clauseName = str(selectedItem.text(0))
+                documentName = unicode(selectedItem.parent().text(0))
+                clauseName = unicode(selectedItem.text(0))
                 newClause = self.links[documentName+clauseName]
                 self.openElementSignal.emit("clause:" + newClause.getID())
 
@@ -97,7 +97,6 @@ class ClauseViewWidget(QWidget):
             index = clausesList.index(self.clause.getID()) + step
             if (index > (-1)) and (index < len(clausesList)):
                 self.openElementSignal.emit("clause:" + clausesList[index])
-                #------- self.loadClause(document.getClause(clausesList[index]))
 
     def nextClause(self):
         self.changeClause(+1)
@@ -191,9 +190,9 @@ class ClauseViewWidget(QWidget):
 
 
     def saveClause(self):
-        self.clause.setTitle(str(self.ui.titleEdit.text()))
-        self.clause.setText(str(self.ui.textEdit.toHtml()))
-        self.clause.setComments(str(self.ui.commentsEdit.toHtml()))
+        self.clause.setTitle(self.ui.titleEdit.text())
+        self.clause.setText(self.ui.textEdit.toHtml())
+        self.clause.setComments(self.ui.commentsEdit.toHtml())
         self.clause.emitChange()
             
         self.ui.saveButton.setEnabled(False)

@@ -61,7 +61,7 @@ class MainWindow(QMainWindow):
                              self.trUtf8("Escolha a clausula base:"),
                              clauseList,
                              0, False)
-        diagramDialog = ClausePathDiagramDialog(self, title2ClauseDict[str(choiceID)])
+        diagramDialog = ClausePathDiagramDialog(self, title2ClauseDict[unicode(choiceID)])
         diagramDialog.show()
 
     def showTIMDiagram(self):
@@ -100,7 +100,7 @@ class MainWindow(QMainWindow):
         newClauseDialog.openElementSignal.connect(self.openElement)
 
     def openProject(self):
-        projectPath = str(QFileDialog.getOpenFileName(\
+        projectPath = unicode(QFileDialog.getOpenFileName(\
             None,
             self.trUtf8("Abrir arquivo..."),
             self.trUtf8("."),
@@ -108,7 +108,7 @@ class MainWindow(QMainWindow):
             None))
         if (projectPath != ""):
             self.project = Project()
-            self.project.loadXML(str(projectPath))
+            self.project.loadXML(projectPath)
             self.history = []
             self.openElement('project:root')
     
@@ -138,7 +138,7 @@ class MainWindow(QMainWindow):
         if (document == None) :
             documentObj = Document()
         else :
-            documentObj = self.project.getDocument(str(document))
+            documentObj = self.project.getDocument(unicode(document))
         documentViewWidget = DocumentViewWidget(documentObj)
         self.setCentralWidget(documentViewWidget)
         self.ui.centralwidget = documentViewWidget
@@ -149,7 +149,7 @@ class MainWindow(QMainWindow):
 
     def openClauseWidget(self, clauseID):
         documentName = clauseID.split(":")[0]
-        clauseObj = self.project.getDocument(str(documentName)).getClause(str(clauseID))
+        clauseObj = self.project.getDocument(unicode(documentName)).getClause(unicode(clauseID))
         clauseViewWidget = ClauseViewWidget(self.project, clauseObj)
         self.setCentralWidget(clauseViewWidget)
         self.ui.centralwidget = clauseViewWidget
@@ -158,7 +158,7 @@ class MainWindow(QMainWindow):
         self.ui.centralwidget.backHistorySignal.connect(self.backHistory)
 
     def openElement(self, element):
-        self.history.insert(0, str(element))
+        self.history.insert(0, unicode(element))
         type, id = self.history[0].split(":", 1)
         if (type == "clause"):
             print "Carregando clausula " + id

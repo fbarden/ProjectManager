@@ -7,8 +7,6 @@ from tim import *
 
 class AddTypeDialog(QDialog):
 
-    addTypeSignal = pyqtSignal(str,  QTreeWidgetItem);
-
     def __init__(self,  parent,  TIM,  item):
         super(AddTypeDialog, self).__init__(parent)
         self.TIM = TIM
@@ -27,13 +25,13 @@ class AddTypeDialog(QDialog):
 
     def addType(self):
         if (self.ui.existingTypeButton.isChecked()):
-            typeName = str(self.ui.typeComboBox.currentText())
+            typeName = unicode(self.ui.typeComboBox.currentText())
             type = self.TIM.getType(typeName)
         elif (self.ui.newTypeButton.isChecked()):
             type = Type()
-            typeName = str(self.ui.newTypeEdit.text())
-            typePrefix = str(self.ui.prefixEdit.text())
-            typeDescription = str(self.ui.descriptionEdit.text())
+            typeName = unicode(self.ui.newTypeEdit.text())
+            typePrefix = unicode(self.ui.prefixEdit.text())
+            typeDescription = unicode(self.ui.descriptionEdit.text())
             type.setName(typeName)
             type.setPrefix(typePrefix)
             type.setDescription(typeDescription)
@@ -41,13 +39,13 @@ class AddTypeDialog(QDialog):
         if (self.item.parent() is None) :
             self.TIM.addRoot(typeName)
         else :
-            minCardChild = str(self.ui.minCardChildEdit.text())
-            maxCardChild = str(self.ui.maxCardChildEdit.text())
+            minCardChild = unicode(self.ui.minCardChildEdit.text())
+            maxCardChild = unicode(self.ui.maxCardChildEdit.text())
             childDependency = self.ui.childDependencyCheckBox.isChecked()
-            minCardParent = str(self.ui.minCardParentEdit.text())
-            maxCardParent = str(self.ui.maxCardParentEdit.text())
+            minCardParent = unicode(self.ui.minCardParentEdit.text())
+            maxCardParent = unicode(self.ui.maxCardParentEdit.text())
             parentDependency = self.ui.parentDependencyCheckBox.isChecked()
-            parentName = str(self.item.parent().text(0))
+            parentName = unicode(self.item.parent().text(0))
             parentType = self.TIM.getType(parentName)
             parentType.addPossibleChild(typeName, minCardChild, maxCardChild, parentDependency)
             type.addPossibleParent(parentName, minCardParent, maxCardParent, childDependency)

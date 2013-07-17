@@ -39,7 +39,7 @@ class NewClauseDialog(QDialog):
         self.clausesList = {}
         self.ui.parentBox.clear()
         clausesDict = self.project.getAllClauses()
-        type = self.project.getTIM().getType(str(currentType))
+        type = self.project.getTIM().getType(unicode(currentType))
         parentTypeList = self.project.getTIM().getPossibleParentsList(type)
         for clauseID in clausesDict.keys():
             clause = clausesDict[clauseID]
@@ -48,7 +48,7 @@ class NewClauseDialog(QDialog):
         self.ui.parentBox.addItems(self.clausesList.keys())
         if currentType in self.project.getTIM().getRootsList() :
             self.ui.parentBox.insertItem(0, "Sem Clausula Pai" )
-        if (str(self.ui.parentBox.currentText()) is ""):
+        if (unicode(self.ui.parentBox.currentText()) is ""):
             self.ui.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
         else:
             self.ui.buttonBox.button(QDialogButtonBox.Ok).setEnabled(True)
@@ -60,15 +60,15 @@ class NewClauseDialog(QDialog):
             return False
 
     def setClause(self):
-        title = str(self.ui.titleEdit.text())
-        parent = str(self.ui.parentBox.currentText())
+        title = unicode(self.ui.titleEdit.text())
+        parent = unicode(self.ui.parentBox.currentText())
         self.clause = Clause()
         self.clause.setTitle(title)
-        self.clause.setType(self.project.getTIM().getType(str(self.ui.typeBox.currentText())))
-        self.document = self.project.getDocument(str(self.ui.documentBox.currentText()))
+        self.clause.setType(self.project.getTIM().getType(unicode(self.ui.typeBox.currentText())))
+        self.document = self.project.getDocument(unicode(self.ui.documentBox.currentText()))
         self.document.addClause(self.clause)
         if (parent != "Sem Clausula Pai") :
-            parentClause = self.clausesList[str(self.ui.parentBox.currentText())]
+            parentClause = self.clausesList[unicode(self.ui.parentBox.currentText())]
             link = Link()
             link.addChild(self.clause.getID())
             link.addParent(parentClause)

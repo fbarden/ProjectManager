@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ProjectView.ui'
 #
-# Created: Tue Jul  9 15:58:33 2013
+# Created: Tue Jul 16 12:58:58 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -52,7 +52,7 @@ class Ui_projectViewWidget(object):
         QtCore.QMetaObject.connectSlotsByName(projectViewWidget)
 
     def retranslateUi(self, projectViewWidget):
-        projectViewWidget.setWindowTitle(QtGui.QApplication.translate("projectViewWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        projectViewWidget.setWindowTitle(QtGui.QApplication.translate("projectViewWidget", "Visualização de Projeto", None, QtGui.QApplication.UnicodeUTF8))
         self.documentsListWidget.headerItem().setText(0, QtGui.QApplication.translate("projectViewWidget", "Documentos", None, QtGui.QApplication.UnicodeUTF8))
         __sortingEnabled = self.documentsListWidget.isSortingEnabled()
         self.documentsListWidget.setSortingEnabled(False)

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'DocumentView.ui'
 #
-# Created: Tue Jul  9 15:58:34 2013
+# Created: Tue Jul 16 12:58:59 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -56,9 +56,9 @@ class Ui_documentViewWidget(object):
         self.titleButton.setSizePolicy(sizePolicy)
         self.titleButton.setObjectName(_fromUtf8("titleButton"))
         self.horizontalLayout_2.addWidget(self.titleButton)
-        self.toolButton = QtGui.QToolButton(documentViewWidget)
-        self.toolButton.setObjectName(_fromUtf8("toolButton"))
-        self.horizontalLayout_2.addWidget(self.toolButton)
+        self.orderButton = QtGui.QToolButton(documentViewWidget)
+        self.orderButton.setObjectName(_fromUtf8("orderButton"))
+        self.horizontalLayout_2.addWidget(self.orderButton)
         self.showLinksButton = QtGui.QPushButton(documentViewWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -79,6 +79,6 @@ class Ui_documentViewWidget(object):
         self.titleLabel.setText(QtGui.QApplication.translate("documentViewWidget", "Document Title", None, QtGui.QApplication.UnicodeUTF8))
         self.upButton.setText(QtGui.QApplication.translate("documentViewWidget", "î", None, QtGui.QApplication.UnicodeUTF8))
         self.titleButton.setText(QtGui.QApplication.translate("documentViewWidget", "Propriedades", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton.setText(QtGui.QApplication.translate("documentViewWidget", "Ordem", None, QtGui.QApplication.UnicodeUTF8))
+        self.orderButton.setText(QtGui.QApplication.translate("documentViewWidget", "Ordem", None, QtGui.QApplication.UnicodeUTF8))
         self.showLinksButton.setText(QtGui.QApplication.translate("documentViewWidget", "Links", None, QtGui.QApplication.UnicodeUTF8))
 

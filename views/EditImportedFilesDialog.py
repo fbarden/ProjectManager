@@ -48,7 +48,7 @@ class EditImportedFilesDialog(QDialog):
     def setImportedFiles(self):
         for index in self.changedIndexes :
             item = self.ui.filesTree.topLevelItem(index)
-            self.project.setImportedFileDescription(str(item.text(0)), str(item.text(1)))
+            self.project.setImportedFileDescription(unicode(item.text(0)), unicode(item.text(1)))
 
     def importFile(self):
         importFileDialog = ImportFileDialog(self, self.project)
@@ -58,4 +58,4 @@ class EditImportedFilesDialog(QDialog):
     def addImportedFile(self, fileName):
         item = QTreeWidgetItem(self.ui.filesTree)
         item.setText(0, fileName)
-        item.setText(1, self.project.getImportedFileDescription(str(fileName)))
+        item.setText(1, self.project.getImportedFileDescription(unicode(fileName)))

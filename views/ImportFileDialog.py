@@ -28,8 +28,8 @@ class ImportFileDialog(QDialog):
             self.ui.fileEdit.setText(filepath)
 
     def completeImport(self):
-        description = str(self.ui.descriptionEdit.text())
-        filepath = str(self.ui.fileEdit.text())
+        description = unicode(self.ui.descriptionEdit.text())
+        filepath = unicode(self.ui.fileEdit.text())
         self.project.addImportedFile(os.path.basename(filepath), description)
         shutil.copy(filepath, self.project.getLocation() + 'imported/')
         self.fileImportedSignal.emit(os.path.basename(filepath))

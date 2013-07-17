@@ -78,7 +78,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="toolButton">
+      <widget class="QToolButton" name="orderButton">
        <property name="text">
         <string>Ordem</string>
        </property>

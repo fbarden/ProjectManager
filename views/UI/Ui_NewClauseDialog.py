@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'NewClauseDialog.ui'
 #
-# Created: Tue Jul  9 15:58:34 2013
+# Created: Tue Jul 16 12:58:58 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
