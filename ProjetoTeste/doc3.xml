@@ -1,5 +1,5 @@
 <document name="doc3" prefix="DOC3" title="Documento 3"><clauses><clause id="1" type="Tipo 3">
-<supects><supect>doc2:1</supect></supects><title>Clausula 3.1</title>
+<supects /><title>Clausula 3.1</title>
 <text>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name="qrichtext" content="1" /&gt;&lt;style type="text/css"&gt;
 p, li { white-space: pre-wrap; }

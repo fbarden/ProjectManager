@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>orgTIMDialog</class>
- <widget class="QDialog" name="orgTIMDialog">
+ <class>EditTIMDialog</class>
+ <widget class="QDialog" name="EditTIMDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,13 +14,6 @@
    <string>Editar TIM</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="orgTIMLabel">
-     <property name="text">
-      <string>Crie o TIM:</string>
-     </property>
-    </widget>
-   </item>
    <item>
     <widget class="QTreeWidget" name="TIMTreeWidget">
      <column>
@@ -52,7 +45,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>orgTIMDialog</receiver>
+   <receiver>EditTIMDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -68,7 +61,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>orgTIMDialog</receiver>
+   <receiver>EditTIMDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

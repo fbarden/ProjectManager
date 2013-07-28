@@ -69,9 +69,10 @@ class NewProjectDialog(QWizard):
         addItem.setText(0, "<adicionar tipo>")
         rootsList = self.TIM.getRootsList()
         for root in rootsList :
-            self.printType(root, self.ui.TIMTreeWidget)
+            self.prepareType(root, self.ui.TIMTreeWidget)
+        self.ui.TIMTreeWidget.expandAll()
 
-    def printType(self, typeName, parentItem):
+    def prepareType(self, typeName, parentItem):
         typeItem = QTreeWidgetItem(parentItem)
         typeItem.setText(0, typeName)
         type = self.TIM.getType(typeName)
@@ -79,4 +80,4 @@ class NewProjectDialog(QWizard):
         addItem.setText(0, "<adicionar tipo>")
         childTypeList = type.getPossibleChildrenList()
         for child in childTypeList:
-            self.printType(child, typeItem)
+            self.prepareType(child, typeItem)

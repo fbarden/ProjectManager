@@ -30,6 +30,8 @@ class ProjectViewWidget(QWidget):
         self.ui.moveUpButton.clicked.connect(self.moveUpElement)
         self.ui.moveDownButton.clicked.connect(self.moveDownElement)
         self.ui.deleteButton.clicked.connect(self.deleteElement)
+        self.deleteShortcut = QShortcut('Delete', self)
+        self.deleteShortcut.activated.connect(self.deleteElement)
         self.clausesDict  = {}
         self.docsDict = {}
         if (project is not None) :

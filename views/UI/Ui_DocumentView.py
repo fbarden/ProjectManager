@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'DocumentView.ui'
 #
-# Created: Tue Jul 16 12:58:59 2013
+# Created: Wed Jul 24 03:11:25 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!

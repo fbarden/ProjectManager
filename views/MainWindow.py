@@ -18,6 +18,7 @@ from verification import Verification
 from views.ClausePathDiagramDialog import ClausePathDiagramDialog
 from views.ProjectConsolidationWizard import ProjectConsolidationWizard
 from Consolidator import Consolidator
+from views.EditTIMDialog import EditTIMDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -29,6 +30,7 @@ class MainWindow(QMainWindow):
         self.ui.actionOpenProject.triggered.connect(self.openProject)
         self.ui.actionSaveProject.triggered.connect(self.saveProject)
         self.ui.actionManageFiles.triggered.connect(self.manageImportedFiles)
+        self.ui.actionEditTIM.triggered.connect(self.editTIM)
         self.ui.actionTIMDiagram.triggered.connect(self.showTIMDiagram)
         self.ui.actionPathDiagram.triggered.connect(self.showClausePathDiagram)
         self.ui.actionNewDocument.triggered.connect(self.newDocument)
@@ -63,6 +65,11 @@ class MainWindow(QMainWindow):
                              0, False)
         diagramDialog = ClausePathDiagramDialog(self, title2ClauseDict[unicode(choiceID)])
         diagramDialog.show()
+
+    def editTIM(self):
+        editTIMDialog = EditTIMDialog(self, self.project)
+        editTIMDialog.show()
+        
 
     def showTIMDiagram(self):
         diagramDialog = TIMDiagramDialog(self, self.project.getTIM())

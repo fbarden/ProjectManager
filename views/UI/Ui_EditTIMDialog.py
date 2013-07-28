@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'EditTIMDialog.ui'
 #
-# Created: Tue Jul 16 12:58:59 2013
+# Created: Wed Jul 24 03:11:25 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,36 +14,32 @@ try:
 except AttributeError:
     _fromUtf8 = lambda s: s
 
-class Ui_orgTIMDialog(object):
-    def setupUi(self, orgTIMDialog):
-        orgTIMDialog.setObjectName(_fromUtf8("orgTIMDialog"))
-        orgTIMDialog.resize(555, 563)
-        self.verticalLayout = QtGui.QVBoxLayout(orgTIMDialog)
+class Ui_EditTIMDialog(object):
+    def setupUi(self, EditTIMDialog):
+        EditTIMDialog.setObjectName(_fromUtf8("EditTIMDialog"))
+        EditTIMDialog.resize(555, 563)
+        self.verticalLayout = QtGui.QVBoxLayout(EditTIMDialog)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.orgTIMLabel = QtGui.QLabel(orgTIMDialog)
-        self.orgTIMLabel.setObjectName(_fromUtf8("orgTIMLabel"))
-        self.verticalLayout.addWidget(self.orgTIMLabel)
-        self.TIMTreeWidget = QtGui.QTreeWidget(orgTIMDialog)
+        self.TIMTreeWidget = QtGui.QTreeWidget(EditTIMDialog)
         self.TIMTreeWidget.setObjectName(_fromUtf8("TIMTreeWidget"))
         item_0 = QtGui.QTreeWidgetItem(self.TIMTreeWidget)
         self.verticalLayout.addWidget(self.TIMTreeWidget)
-        self.buttonBox = QtGui.QDialogButtonBox(orgTIMDialog)
+        self.buttonBox = QtGui.QDialogButtonBox(EditTIMDialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayout.addWidget(self.buttonBox)
 
-        self.retranslateUi(orgTIMDialog)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), orgTIMDialog.accept)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), orgTIMDialog.reject)
-        QtCore.QMetaObject.connectSlotsByName(orgTIMDialog)
+        self.retranslateUi(EditTIMDialog)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), EditTIMDialog.accept)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), EditTIMDialog.reject)
+        QtCore.QMetaObject.connectSlotsByName(EditTIMDialog)
 
-    def retranslateUi(self, orgTIMDialog):
-        orgTIMDialog.setWindowTitle(QtGui.QApplication.translate("orgTIMDialog", "Editar TIM", None, QtGui.QApplication.UnicodeUTF8))
-        self.orgTIMLabel.setText(QtGui.QApplication.translate("orgTIMDialog", "Crie o TIM:", None, QtGui.QApplication.UnicodeUTF8))
-        self.TIMTreeWidget.headerItem().setText(0, QtGui.QApplication.translate("orgTIMDialog", "TIM", None, QtGui.QApplication.UnicodeUTF8))
+    def retranslateUi(self, EditTIMDialog):
+        EditTIMDialog.setWindowTitle(QtGui.QApplication.translate("EditTIMDialog", "Editar TIM", None, QtGui.QApplication.UnicodeUTF8))
+        self.TIMTreeWidget.headerItem().setText(0, QtGui.QApplication.translate("EditTIMDialog", "TIM", None, QtGui.QApplication.UnicodeUTF8))
         __sortingEnabled = self.TIMTreeWidget.isSortingEnabled()
         self.TIMTreeWidget.setSortingEnabled(False)
-        self.TIMTreeWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("orgTIMDialog", "Adicionar tipo...", None, QtGui.QApplication.UnicodeUTF8))
+        self.TIMTreeWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("EditTIMDialog", "Adicionar tipo...", None, QtGui.QApplication.UnicodeUTF8))
         self.TIMTreeWidget.setSortingEnabled(__sortingEnabled)
 

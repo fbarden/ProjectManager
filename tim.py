@@ -17,16 +17,17 @@ class Type():
         return self.description
 
     def setPrefix(self, value):
-        self.prefix = value
+        self.prefix = unicode(value)
 
     def setDescription(self, value):
-        self.description = value
+        self.description = unicode(value)
     
     def getName(self):
         return self.name
 
     def setName(self,  name):
-        self.name = name
+        print "Setando nome " + name
+        self.name = unicode(name)
     
     def addPossibleChild(self, typeName, minCard, maxCard, dependency):
         if typeName not in self.possibleChildren.keys() :
@@ -143,8 +144,8 @@ class TIM():
         for type in self.getTypesList() :
             self.removeType(type)
 
-    def getType(self,  typeName):
-        return self.types[typeName]
+    def getType(self, typeName):
+        return self.types[unicode(typeName)]
 
     def addRoot(self, typeName):
         if (typeName not in self.roots) :

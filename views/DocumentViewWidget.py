@@ -6,6 +6,7 @@ from PyQt4.QtCore import *
 from document import Document
 from clause import Clause
 from views.OrderClauseDialog import OrderClauseDialog
+from views.EditDocumentDialog import EditDocumentDialog
 
 class DocumentViewWidget(QWidget):
 
@@ -46,14 +47,9 @@ class DocumentViewWidget(QWidget):
         self.loadDocument(self.document)
 
     def changeTitle(self):
-        newTitle, returnOK = QInputDialog.getText(\
-            None,
-            self.trUtf8("Alterar Titulo"),
-            self.trUtf8("Alterar Titulo:"),
-            QLineEdit.Normal)
-        if returnOK :
-            self.document.setTitle(newTitle)
-            self.ui.titleLabel.setText(newTitle)
+        editDocumentDialog = EditDocumentDialog(self, self.document)
+        editDocumentDialog.show()
+        editDocumentDialog.accepted.connect(lambda : self.loadDocument(self.document))
 
     def loadDocument(self,  document):
         self.document = document
