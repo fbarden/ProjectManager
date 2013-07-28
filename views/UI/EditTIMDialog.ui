@@ -15,18 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTreeWidget" name="TIMTreeWidget">
-     <column>
-      <property name="text">
-       <string>TIM</string>
-      </property>
-     </column>
-     <item>
-      <property name="text">
-       <string>Adicionar tipo...</string>
-      </property>
-     </item>
-    </widget>
+    <widget class="QTreeView" name="TIMTreeView"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">

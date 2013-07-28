@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'EditTIMDialog.ui'
 #
-# Created: Wed Jul 24 03:11:25 2013
+# Created: Sun Jul 28 02:41:53 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,10 +20,9 @@ class Ui_EditTIMDialog(object):
         EditTIMDialog.resize(555, 563)
         self.verticalLayout = QtGui.QVBoxLayout(EditTIMDialog)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.TIMTreeWidget = QtGui.QTreeWidget(EditTIMDialog)
-        self.TIMTreeWidget.setObjectName(_fromUtf8("TIMTreeWidget"))
-        item_0 = QtGui.QTreeWidgetItem(self.TIMTreeWidget)
-        self.verticalLayout.addWidget(self.TIMTreeWidget)
+        self.TIMTreeView = QtGui.QTreeView(EditTIMDialog)
+        self.TIMTreeView.setObjectName(_fromUtf8("TIMTreeView"))
+        self.verticalLayout.addWidget(self.TIMTreeView)
         self.buttonBox = QtGui.QDialogButtonBox(EditTIMDialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
@@ -37,9 +36,4 @@ class Ui_EditTIMDialog(object):
 
     def retranslateUi(self, EditTIMDialog):
         EditTIMDialog.setWindowTitle(QtGui.QApplication.translate("EditTIMDialog", "Editar TIM", None, QtGui.QApplication.UnicodeUTF8))
-        self.TIMTreeWidget.headerItem().setText(0, QtGui.QApplication.translate("EditTIMDialog", "TIM", None, QtGui.QApplication.UnicodeUTF8))
-        __sortingEnabled = self.TIMTreeWidget.isSortingEnabled()
-        self.TIMTreeWidget.setSortingEnabled(False)
-        self.TIMTreeWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("EditTIMDialog", "Adicionar tipo...", None, QtGui.QApplication.UnicodeUTF8))
-        self.TIMTreeWidget.setSortingEnabled(__sortingEnabled)
 
