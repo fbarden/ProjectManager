@@ -62,22 +62,3 @@ class NewProjectDialog(QWizard):
     def updatePages(self, page):
         if (page == 2):
             self.scene.updateTIMImage()
-
-    def updateTIMTree(self):
-        self.ui.TIMTreeWidget.clear()
-        addItem = QTreeWidgetItem(self.ui.TIMTreeWidget)
-        addItem.setText(0, "<adicionar tipo>")
-        rootsList = self.TIM.getRootsList()
-        for root in rootsList :
-            self.prepareType(root, self.ui.TIMTreeWidget)
-        self.ui.TIMTreeWidget.expandAll()
-
-    def prepareType(self, typeName, parentItem):
-        typeItem = QTreeWidgetItem(parentItem)
-        typeItem.setText(0, typeName)
-        type = self.TIM.getType(typeName)
-        addItem = QTreeWidgetItem(typeItem)
-        addItem.setText(0, "<adicionar tipo>")
-        childTypeList = type.getPossibleChildrenList()
-        for child in childTypeList:
-            self.prepareType(child, typeItem)

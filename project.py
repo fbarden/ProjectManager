@@ -33,8 +33,7 @@ class Project :
         self.loadImportedFiles(importedFilesNode)
         linksList = self.getAllLinks()
         for link in linksList :
-            link.consolidateChild(self)
-            link.consolidateParent(self)            
+            link.consolidateLink(self)            
     
     def loadDocuments(self, documentsNode):
         for document_node in documentsNode.findall("document") :

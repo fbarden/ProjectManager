@@ -29,6 +29,42 @@ class Type():
         print "Setando nome " + name
         self.name = unicode(name)
     
+    def checkChildCardinality(self, typeName, value):
+        if (value < self.getChildMaxCard(typeName)):
+            self.tags['minCard'].apend(typeName)
+            return -1
+        elif (value > self.getChildMaxCard(typeName)):
+            self.tags['maxCard'].append(typeName)
+            return 1
+        else :
+            return 0
+
+    def checkParentCardinality(self, typeName, value):
+        if (value < self.getParentMaxCard(typeName)):
+            return -1
+        elif (value > self.getParentMaxCard(typeName)):
+            return 1
+        else :
+            return 0
+
+    def canBeOrphan(self):
+        print "Avaliando orphan de " + self.getName()
+        ret = True
+        for type in self.possibleParents:
+            print type
+            if self.getParentMinCard(type) > 0:
+                ret = False
+        return ret
+
+    def canBeWindow(self):
+        print "Avaliando window de " + self.getName()
+        ret = True
+        for type in self.possibleChildren:
+            print type
+            if self.getChildMinCard(type) > 0:
+                ret = False
+        return ret
+
     def addPossibleChild(self, typeName, minCard, maxCard, dependency):
         if typeName not in self.possibleChildren.keys() :
             self.possibleChildren[typeName] = (minCard, maxCard, dependency)

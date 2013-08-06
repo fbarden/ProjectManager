@@ -14,34 +14,15 @@ class EditTIMDialog(QDialog):
         self.TIM = project.getTIM()
         model = TIMModel(self.TIM)
         self.ui.TIMTreeView.setModel(model)
-        #self.loadTIM(self.TIM)
-        self.ui.buttonBox.accepted.connect(self.saveChanges)
-        self.ui.TIMTreeView.activated.connect(self.openType)
-
-    def loadTIM(self, TIM):
-        self.ui.TIMTreeView.clear()
-        addItem = QTreeWidgetItem(self.ui.TIMTreeView)
-        addItem.setText(0, "<adicionar tipo>")
-        rootsList = TIM.getRootsList()
-        for root in rootsList :
-            self.prepareType(root, self.ui.TIMTreeView)
-
-    def prepareType(self, typeName, parentItem):
-        typeItem = QTreeWidgetItem(parentItem)
-        typeItem.setText(0, typeName)
-        type = self.TIM.getType(typeName)
-        addItem = QTreeWidgetItem(typeItem)
-        addItem.setText(0, "<adicionar tipo>")
-        childTypeList = type.getPossibleChildrenList()
-        for child in childTypeList:
-            self.prepareType(child, typeItem)
+        self.ui.TIMTreeView.setExpandsOnDoubleClick(False)
         self.ui.TIMTreeView.expandAll()
+        self.ui.TIMTreeView.activated.connect(self.openType)
+        self.ui.buttonBox.accepted.connect(self.saveChanges)
 
-    def openType(self):
-        selectedItem = self.ui.TIMTreeView.selectedItems()[0]
-        type = self.TIM.getType(selectedItem.text(0))
-        if (selectedItem.parent() is not None) :
-            parentType = self.TIM.getType(selectedItem.parent().text(0))
+    def openType(self, index):
+        type = index.data(Qt.UserRole).toPyObject()
+        if (index.parent().isValid()) :
+            parentType = index.parent().data(Qt.UserRole).toPyObject()
         else:
             parentType = None
         editType = EditTypeDialog(self, type, parentType)
@@ -50,6 +31,6 @@ class EditTIMDialog(QDialog):
     
     def saveChanges(self):
         pass
-    
-    
-    
+
+    def contextMenuEvent(self, event):
+        print event.pos()

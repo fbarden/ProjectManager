@@ -8,7 +8,7 @@ from link import Link
 
 class NewClauseDialog(QDialog):
     
-    openClauseSignal = pyqtSignal(str, str)
+    openElementSignal = pyqtSignal(str)
     
     def __init__(self,  parent,  project, document=None, parentClause=None):
         super(NewClauseDialog, self).__init__(parent)
@@ -72,6 +72,5 @@ class NewClauseDialog(QDialog):
             link = Link()
             link.addChild(self.clause.getID())
             link.addParent(parentClause)
-            link.consolidateParent(self.project)
-            link.consolidateChild(self.project)
-        self.openClauseSignal.emit(self.clause.getID().split(":")[0], self.clause.getID())
+            link.consolidateLink(self.project)
+        self.openElementSignal.emit("clause:" + self.clause.getID())

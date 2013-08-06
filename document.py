@@ -14,9 +14,14 @@ class Document :
     def moveClause(self, clause, step):
         index = self.clausesOrder.index(clause)
         newIndex = index+step
+        print "movendo clausula "
+        print "ANTES"
+        print self.clausesOrder
         if ((newIndex >= 0) and (newIndex<len(self.clausesOrder))) :
             self.clausesOrder.insert(newIndex, self.clausesOrder.pop(index))
-
+        print "DEPOIS"
+        print self.clausesOrder
+        
     def loadXML(self, project, filename):
         self.project = project
         self.clauses = {}
@@ -53,13 +58,15 @@ class Document :
             self.clausesOrder.append(self.getName() + ":" + clauseID)
 
     def saveClauses(self, clausesNode):
+        print self.clausesOrder
         for clause in self.getClausesList():
             self.getClause(clause).save(clausesNode)
         orderNode = ET.SubElement(clausesNode, 'order')
         orderText = ""
-        for id in self.clauses:
-            orderText+= id + ";"
+        for id in self.clausesOrder:
+            orderText+= id.split(':', 1)[1] + ";"
         orderNode.text = orderText.strip(";")
+        print orderText
 
     def getClausesList(self):
         return self.clausesOrder

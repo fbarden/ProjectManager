@@ -59,14 +59,14 @@ class Link :
         self.child.removeParentLink(parent_id)
         print 'terminando de remover link ' + self.parent.getID() + " -> " + self.child.getID()
 
-    def consolidateParent(self,  project):
+    def consolidateLink(self, project):
         if self.parent is None:
+            print "consolidando parent: " + self.getParentID() + " -> " + self.getChildID()
             parent_document,  parent = self.parent_id.split(":")
             self.parent = project.getDocument(parent_document).getClause(self.parent_id)
-            self.parent.addChildLink(self)
-
-    def consolidateChild(self,  project):
         if self.child is None:
+            print "consolidando child: " + self.getParentID() + " -> " + self.getChildID()  
             child_document, child = self.child_id.split(":")
             self.child = project.getDocument(child_document).getClause(self.child_id)
-            self.child.addParentLink(self)
+        self.parent.addChildLink(self)
+        self.child.addParentLink(self)

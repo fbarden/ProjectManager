@@ -6,6 +6,7 @@ import re
 
 from project import Project
 from views.DocumentsDiagramScene import DocumentsDiagramScene
+from models.ProjectViewModel import ProjectViewModel
 
 class ProjectViewWidget(QWidget):
 
@@ -18,73 +19,65 @@ class ProjectViewWidget(QWidget):
         super(ProjectViewWidget, self).__init__()
         self.ui = Ui_ProjectView.Ui_projectViewWidget()
         self.ui.setupUi(self)
-        self.ui.documentsListWidget.itemActivated.connect(self.openSelect)
-        self.closeProjectShortcut = QShortcut('CTRL+W', self)
-        self.closeProjectShortcut.activated.connect(self.closeProject)
-        self.backHistoryShortcut = QShortcut('ALT+Backspace', self)
-        self.backHistoryShortcut.activated.connect(self.backHistory)
-        self.moveUpShortcut = QShortcut('ALT+Up', self)
-        self.moveUpShortcut.activated.connect(self.moveUpElement)
-        self.moveDownShortcut = QShortcut('ALT+Down', self)
-        self.moveDownShortcut.activated.connect(self.moveDownElement)
+        
+        model = ProjectViewModel(project)
+        self.ui.documentsListWidget.setModel(model)
+        documentDiagramScene = DocumentsDiagramScene(self.ui.graphicsView, project)
+        self.ui.graphicsView.setScene(documentDiagramScene)
+        self.ui.documentsListWidget.expandAll()
+        self.ui.documentsListWidget.setFocus()
+        
+        self.ui.documentsListWidget.activated.connect(self.openSelect)
+        self.closeProjectAction = QAction('Fechar Projeto', self)
+        self.closeProjectAction.setShortcut('CTRL+W')
+        self.closeProjectAction.triggered.connect(self.closeProject)
+        self.addAction(self.closeProjectAction)
+        self.backHistoryAction = QAction(QString('Voltar'), self)
+        self.backHistoryAction.setShortcut('ALT+Backspace')
+        self.backHistoryAction.triggered.connect(self.backHistory)
+        self.addAction(self.backHistoryAction)
+        self.moveUpAction = QAction('Mover para cima', self)
+        self.moveUpAction.setShortcut('ALT+Up')
+        self.moveUpAction.triggered.connect(self.moveUpElement)
+        self.addAction(self.moveUpAction)
+        self.moveDownAction = QAction('Move para baixo', self)
+        self.moveDownAction.setShortcut('ALT+Down')
+        self.moveDownAction.triggered.connect(self.moveDownElement)
+        self.addAction(self.moveDownAction)
+        self.deleteAction = QAction('Excluir', self)
+        self.deleteAction.setShortcut('Delete')
+        self.deleteAction.triggered.connect(self.deleteElement)
+        self.addAction(self.deleteAction)
+        self.newDocumentAction = QAction('Criar novo documento', self)
+        self.ui.newDocumentButton.setDefaultAction(self.newDocumentAction)
+        self.newDocumentAction.triggered.connect(self.newDocument)
+        self.deleteAction.setShortcut('Delete')
+        self.deleteAction.triggered.connect(self.deleteElement)
+        self.addAction(self.deleteAction)
         self.ui.moveUpButton.clicked.connect(self.moveUpElement)
         self.ui.moveDownButton.clicked.connect(self.moveDownElement)
         self.ui.deleteButton.clicked.connect(self.deleteElement)
-        self.deleteShortcut = QShortcut('Delete', self)
-        self.deleteShortcut.activated.connect(self.deleteElement)
-        self.clausesDict  = {}
-        self.docsDict = {}
-        if (project is not None) :
-            self.project = project
-            self.loadProject(project)
-        self.ui.documentsListWidget.setFocus()
 
     def moveUpElement(self):
+        model = self.ui.documentsListWidget.model()
+        index =  self.ui.documentsListWidget.selectedIndexes()[0]
         self.moveElement(-1)
     
     def moveDownElement(self):
         self.moveElement(1)
 
     def moveElement(self, step):
-        selectedItem = self.ui.documentsListWidget.selectedItems()[0]
-        type, id = self.parseSelection(selectedItem)
-        if (type == 'document'):
-            widget = self.ui.documentsListWidget
-            index = widget.indexOfTopLevelItem(selectedItem)
-            newIndex = index + step
-            if (newIndex<1) or (newIndex>=widget.topLevelItemCount()):
-                return
-            self.project.moveDocument(id, step)
-            self.ui.documentsListWidget.takeTopLevelItem(index)
-            self.ui.documentsListWidget.insertTopLevelItem(newIndex, selectedItem)
-        elif (type == 'clause'):
-            parent = selectedItem.parent()
-            index = parent.indexOfChild(selectedItem)
-            newIndex = index + step
-            if (newIndex<0) or (newIndex >= parent.childCount()) :
-                return
-            documentName = id.split(":", 1)[0]
-            document = self.project.getDocument(documentName)
-            document.moveClause(id, step)
-            parent.takeChild(index)
-            parent.insertChild(newIndex, selectedItem)
-        selectedItem.setExpanded(True)
-        auxItem = self.ui.documentsListWidget.selectedItems()
-        if auxItem != [] :
-            auxItem[0].setSelected(False)
-        selectedItem.setSelected(True)
-            
+        model = self.ui.documentsListWidget.model()
+        index =  self.ui.documentsListWidget.selectedIndexes()[0]
+        model.moveElement(index, step)
+        self.ui.documentsListWidget.expandAll()
+        self.ui.documentsListWidget.setFocus()
 
     def deleteElement(self):
-        selectedItem = self.ui.documentsListWidget.selectedItems()[0]
-        type, id = self.parseSelection(selectedItem)
-        if (type == 'document'):
-            self.project.removeDocument(id)
-        elif (type == 'clause'):
-            documentName = id.split(":", 1)[0]
-            document = self.project.getDocument(documentName)
-            document.removeClause(id)
-        self.loadProject(self.project)
+        model = self.ui.documentsListWidget.model()
+        index =  self.ui.documentsListWidget.selectedIndexes()[0]
+        model.deleteElement(index)
+        return
 
     def backHistory(self):
         self.backHistorySignal.emit()
@@ -92,48 +85,27 @@ class ProjectViewWidget(QWidget):
     def closeProject(self):
         self.closeProjectSignal.emit()
 
-    def loadProject(self,  project):
-        self.ui.documentsListWidget.clear()
-        documentsList = project.getDocumentsList()
-        widgetList = []
-        for documentName in documentsList :
-            document = project.getDocument(documentName)
-            documentWidgetItem = QTreeWidgetItem()
-            documentWidgetItem.setText(0,  document.getTitle() + " (" + documentName + ")")
-            self.docsDict[document.getTitle()] = documentName
-            widgetList += [documentWidgetItem]
-            document = project.getDocument(documentName)
-            clausesList = document.getClausesList()
-            for clauseId in clausesList :
-                clauseWidgetItem = QTreeWidgetItem(documentWidgetItem)
-                clause = document.getClause(clauseId)
-                exibitionName = clause.getTitle()
-                if clause.isSuspect() :
-                    exibitionName += "    (supeita!)"
-                clauseWidgetItem.setText(0, exibitionName)
-                self.clausesDict[documentName + clause.getTitle()] = clause.getID()
-                widgetList += [clauseWidgetItem]
-        self.ui.documentsListWidget.addTopLevelItems(widgetList)
-        documentDiagramScene = DocumentsDiagramScene(self.ui.graphicsView, project)
-        self.ui.graphicsView.setScene(documentDiagramScene)
-        self.ui.documentsListWidget.expandAll()
-
-    def parseSelection(self, selectedItem):
-        if (selectedItem.parent() is None) :
-            if (self.ui.documentsListWidget.indexOfTopLevelItem(selectedItem) == 0):
-                return "newDocument", None
-            documentParse = re.search(".*\((?P<documentName>.*)\)", unicode(selectedItem.text(0)))
-            return 'document', documentParse.group('documentName')
-        else :
-            documentParse = re.search(".*\((?P<documentName>.*)\)", unicode(selectedItem.parent().text(0)))
-            return "clause", self.clausesDict[documentParse.group('documentName') + unicode(selectedItem.text(0))]
-
-    def openSelect(self, selectedItem, column):
-        type, id = self.parseSelection(selectedItem)
+    def openSelect(self, index):
+        type = index.data(Qt.UserRole).toPyObject()
+        id = index.data(Qt.UserRole + 1).toPyObject()
         if (type == 'newDocument'):
             self.newDocument();
         else :
-            self.openElementSignal.emit(type + ":" + id)
+            if (type == "document") :
+                self.openElementSignal.emit(type + ":" + id.getName())
+            elif (type == "clause") :
+                self.openElementSignal.emit(type + ":" + id.getID())
 
     def newDocument(self):
         self.newDocumentSignal.emit()
+
+    def contextMenuEvent(self, event):
+        menu = QMenu(self)
+        #----- position = self.ui.documentsListWidget.mapFrom(self, event.pos())
+        #--------- if (self.ui.documentsListWidget.indexAt(position).isValid()):
+            #--------------------------------- menu.addAction(self.moveUpAction)
+            #------------------------------- menu.addAction(self.moveDownAction)
+            #--------------------------------- menu.addAction(self.deleteAction)
+        #----------------------------------------------------------------- else:
+        menu.addAction(self.newDocumentAction)
+        menu.popup(event.globalPos())

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'AddTypeDialog.ui'
 #
-# Created: Sun Jul 28 02:41:52 2013
+# Created: Mon Aug  5 09:43:43 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!

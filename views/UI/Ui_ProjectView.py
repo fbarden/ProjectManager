@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ProjectView.ui'
 #
-# Created: Sun Jul 28 02:41:52 2013
+# Created: Mon Aug  5 09:43:43 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,20 +17,19 @@ except AttributeError:
 class Ui_projectViewWidget(object):
     def setupUi(self, projectViewWidget):
         projectViewWidget.setObjectName(_fromUtf8("projectViewWidget"))
-        projectViewWidget.resize(400, 366)
+        projectViewWidget.resize(464, 366)
         self.horizontalLayout_2 = QtGui.QHBoxLayout(projectViewWidget)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.documentsListWidget = QtGui.QTreeWidget(projectViewWidget)
+        self.documentsListWidget = QtGui.QTreeView(projectViewWidget)
         self.documentsListWidget.setObjectName(_fromUtf8("documentsListWidget"))
-        item_0 = QtGui.QTreeWidgetItem(self.documentsListWidget)
         self.verticalLayout.addWidget(self.documentsListWidget)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.toolButton = QtGui.QToolButton(projectViewWidget)
-        self.toolButton.setObjectName(_fromUtf8("toolButton"))
-        self.horizontalLayout.addWidget(self.toolButton)
+        self.newDocumentButton = QtGui.QToolButton(projectViewWidget)
+        self.newDocumentButton.setObjectName(_fromUtf8("newDocumentButton"))
+        self.horizontalLayout.addWidget(self.newDocumentButton)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.moveUpButton = QtGui.QToolButton(projectViewWidget)
@@ -53,12 +52,7 @@ class Ui_projectViewWidget(object):
 
     def retranslateUi(self, projectViewWidget):
         projectViewWidget.setWindowTitle(QtGui.QApplication.translate("projectViewWidget", "Visualização de Projeto", None, QtGui.QApplication.UnicodeUTF8))
-        self.documentsListWidget.headerItem().setText(0, QtGui.QApplication.translate("projectViewWidget", "Documentos", None, QtGui.QApplication.UnicodeUTF8))
-        __sortingEnabled = self.documentsListWidget.isSortingEnabled()
-        self.documentsListWidget.setSortingEnabled(False)
-        self.documentsListWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("projectViewWidget", "Novo documento...", None, QtGui.QApplication.UnicodeUTF8))
-        self.documentsListWidget.setSortingEnabled(__sortingEnabled)
-        self.toolButton.setText(QtGui.QApplication.translate("projectViewWidget", "Voltar ao Projeto", None, QtGui.QApplication.UnicodeUTF8))
+        self.newDocumentButton.setText(QtGui.QApplication.translate("projectViewWidget", "Novo Documento", None, QtGui.QApplication.UnicodeUTF8))
         self.moveUpButton.setText(QtGui.QApplication.translate("projectViewWidget", "↑", None, QtGui.QApplication.UnicodeUTF8))
         self.moveDownButton.setText(QtGui.QApplication.translate("projectViewWidget", "↓", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("projectViewWidget", "X", None, QtGui.QApplication.UnicodeUTF8))
