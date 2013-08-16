@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'EditTIMDialog.ui'
 #
-# Created: Mon Aug  5 09:43:45 2013
+# Created: Wed Aug 14 09:50:26 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_EditTIMDialog(object):
     def setupUi(self, EditTIMDialog):
         EditTIMDialog.setObjectName(_fromUtf8("EditTIMDialog"))
-        EditTIMDialog.resize(555, 563)
+        EditTIMDialog.resize(778, 602)
         self.verticalLayout = QtGui.QVBoxLayout(EditTIMDialog)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.TIMTreeView = QtGui.QTreeView(EditTIMDialog)

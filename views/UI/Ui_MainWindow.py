@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow.ui'
 #
-# Created: Mon Aug  5 09:43:44 2013
+# Created: Wed Aug 14 09:50:26 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -79,6 +79,9 @@ class Ui_MainWindow(object):
         self.actionProjectConsolidation.setObjectName(_fromUtf8("actionProjectConsolidation"))
         self.actionIndexHistory = QtGui.QAction(MainWindow)
         self.actionIndexHistory.setObjectName(_fromUtf8("actionIndexHistory"))
+        self.actionUpdateConsolidation = QtGui.QAction(MainWindow)
+        self.actionUpdateConsolidation.setEnabled(False)
+        self.actionUpdateConsolidation.setObjectName(_fromUtf8("actionUpdateConsolidation"))
         self.menuProject.addAction(self.actionNewProject)
         self.menuProject.addAction(self.actionOpenProject)
         self.menuProject.addAction(self.actionSaveProject)
@@ -95,6 +98,7 @@ class Ui_MainWindow(object):
         self.menuClauses.addAction(self.actionTotalDiagram)
         self.menuConsolidation.addAction(self.actionProjectConsolidation)
         self.menuConsolidation.addAction(self.actionIndexHistory)
+        self.menuConsolidation.addAction(self.actionUpdateConsolidation)
         self.menuVerifications.addAction(self.actionCheckSpaces)
         self.menuVerifications.addAction(self.actionCheckGranularity)
         self.menuVerifications.addAction(self.actionSuspectClauses)
@@ -136,6 +140,7 @@ class Ui_MainWindow(object):
         self.actionRedundantPaths.setText(QtGui.QApplication.translate("MainWindow", "Caminhos redundantes", None, QtGui.QApplication.UnicodeUTF8))
         self.actionPathDiagram.setText(QtGui.QApplication.translate("MainWindow", "Diagrama de caminho", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTotalDiagram.setText(QtGui.QApplication.translate("MainWindow", "Diagrama total", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionProjectConsolidation.setText(QtGui.QApplication.translate("MainWindow", "Consolidar Projeto", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionProjectConsolidation.setText(QtGui.QApplication.translate("MainWindow", "Nova Consolidação de Projeto", None, QtGui.QApplication.UnicodeUTF8))
         self.actionIndexHistory.setText(QtGui.QApplication.translate("MainWindow", "HIstórico de Índices", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionUpdateConsolidation.setText(QtGui.QApplication.translate("MainWindow", "Atualizar consolidação anterior", None, QtGui.QApplication.UnicodeUTF8))
 

@@ -27,6 +27,9 @@ class ProjectViewWidget(QWidget):
         self.ui.documentsListWidget.expandAll()
         self.ui.documentsListWidget.setFocus()
         
+        for column in range(model.columnCount()):
+            self.ui.documentsListWidget.resizeColumnToContents(column)
+        
         self.ui.documentsListWidget.activated.connect(self.openSelect)
         self.closeProjectAction = QAction('Fechar Projeto', self)
         self.closeProjectAction.setShortcut('CTRL+W')
@@ -86,8 +89,9 @@ class ProjectViewWidget(QWidget):
         self.closeProjectSignal.emit()
 
     def openSelect(self, index):
-        type = index.data(Qt.UserRole).toPyObject()
-        id = index.data(Qt.UserRole + 1).toPyObject()
+        elementIndex = index.sibling(index.row(), 0)
+        type = elementIndex.data(Qt.UserRole).toPyObject()
+        id = elementIndex.data(Qt.UserRole + 1).toPyObject()
         if (type == 'newDocument'):
             self.newDocument();
         else :

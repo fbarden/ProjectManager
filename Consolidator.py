@@ -66,6 +66,7 @@ class Consolidator(object):
         self.printSettings(settings)
         self.doc2ClauseList = self.initializeProject(project, settings)
         self.consolidateIndexes(settings)
+        print settings['limits']
 
     def consolidateIndexes(self, settings):
         hasDocPrefix = settings['docPrefix']
@@ -73,23 +74,27 @@ class Consolidator(object):
         prefixIDDict = {}
         for doc in self.doc2ClauseList:
             for clause in self.doc2ClauseList[doc]:
-                prefix = unicode()
-                if hasDocPrefix :
-                    prefix += clause.getDocument().getPrefix()
+                if (clause.getConsolidatedID() == "") :
+                    prefix = unicode()
+                    if hasDocPrefix :
+                        prefix += clause.getDocument().getPrefix()
+                        if hasTypePrefix:
+                            prefix += ":" 
                     if hasTypePrefix:
-                        prefix += ":" 
-                if hasTypePrefix:
-                    prefix += clause.getType().getPrefix()
-                if prefix in prefixIDDict.keys():
-                    prefixIDDict[prefix] += 1
-                else :
-                    prefixIDDict[prefix] = 1
-                prefix += prefixIDDict[prefix]
-                clause.setConsolidatedID(prefix)
+                        prefix += clause.getType().getPrefix()
+                    if prefix in prefixIDDict.keys():
+                        prefixIDDict[prefix] += 1
+                    else :
+                        prefixIDDict[prefix] = 1
+                    prefix += unicode(prefixIDDict[prefix])
+                    clause.setConsolidatedID(prefix)
+        limits = settings['limits']
+        for prefix in prefixIDDict.keys() :
+            limits[prefix] = prefixIDDict[prefix]
 
     def toPDF(self, file='./teste1.pdf'):
         printer = QPrinter()
-        
+
         docTitleBlockFormat = QTextBlockFormat()
         docTitleBlockFormat.setAlignment(Qt.AlignCenter)
         docTitleCharFormat = QTextCharFormat()

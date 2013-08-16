@@ -31,9 +31,12 @@ class Project :
         self.loadDocuments(XML)
         importedFilesNode = XML.find('imported_files')
         self.loadImportedFiles(importedFilesNode)
+        consolidationNode = XML.find('consolidation')
+        if consolidationNode is not None :
+            self.loadConsolidation(consolidationNode)
         linksList = self.getAllLinks()
         for link in linksList :
-            link.consolidateLink(self)            
+            link.consolidateLink(self)
     
     def loadDocuments(self, documentsNode):
         for document_node in documentsNode.findall("document") :
@@ -54,6 +57,27 @@ class Project :
     def loadImportedFiles(self, importedFilesNode):
         for fileNode in importedFilesNode.findall('file'):
             self.imported_files[fileNode.get('name')] = fileNode.text
+    
+    def loadConsolidation(self, consolidationNode):
+        if consolidationNode.get('docPrefix') == 'yes' :
+            self.consolidationSettings['docPrefix'] = True
+        else :
+            self.consolidationSettings['docPrefix'] = False
+        if consolidationNode.get('typePrefix') == 'yes' :
+            self.consolidationSettings['typePrefix'] = True
+        else :
+            self.consolidationSettings['typePrefix'] = False
+        documents = consolidationNode.find('documents')
+        self.consolidationSettings['documents'] = documents.text.split(';')
+        documents = consolidationNode.find('types')
+        self.consolidationSettings['types'] = documents.text.split(';')
+        limitsNode = consolidationNode.find('limits')
+        if (limitsNode is not None) :
+            limits = []
+            prefixNodes = limitsNode.findall('prefix')
+            for prefixNode in prefixNodes :
+                limits[prefixNode.get('prefix')] = prefixNode.get('limit')
+            self.consolidationSettings['limits'] = limits
 
     def loadTIM(self, TIMNode):
         self.TIM = TIM()
@@ -80,6 +104,34 @@ class Project :
             fileNode= ET.SubElement(importedFilesNode , 'file')
             fileNode.set('name', file)
             fileNode.text = self.imported_files[file]
+    
+    def saveConsolidation(self, consolidationsNode):
+        docPrefix = ""
+        if (self.consolidationSettings['docPrefix']):
+            docPrefix = 'yes'
+        else :
+            docPrefix = 'no'
+        typePrefix = ""
+        if (self.consolidationSettings['typePrefix']):
+            typePrefix = 'yes'
+        else:
+            typePrefix = 'no'
+        consolidationsNode.set('docPrefix', docPrefix)
+        consolidationsNode.set('typePrefix', typePrefix)
+        documentsNode = ET.SubElement(consolidationsNode, 'documents')
+        documentsNode.text = ';'.join(self.consolidationSettings['documents'])
+        typesNode = ET.SubElement(consolidationsNode, 'types')
+        typesNode.text = ';'.join(self.consolidationSettings['types'])
+        limitsNode = ET.SubElement(consolidationsNode, 'limits')
+        if 'limits' in self.consolidationSettings.keys() :
+            limits = self.consolidationSettings['limits']
+            print limits
+            for limit in limits :
+                documentsNode = ET.SubElement(limitsNode, 'prefix')
+                print str(limit) + " " + limits[limit]
+                limitsNode.set('prefix', limit)
+                limitsNode.set('limit', limits[limit])
+
 
     def save(self):
         projectNode = ET.Element('project')
@@ -87,6 +139,9 @@ class Project :
         self.saveDocuments(projectNode)
         importedFilesNode = ET.SubElement(projectNode, 'imported_files')
         self.saveImportedFiles(importedFilesNode)
+        if (self.consolidationSettings != {}) :
+            consolidationsNode = ET.SubElement(projectNode, 'consolidation')
+            self.saveConsolidation(consolidationsNode)
         TIMNode= ET.SubElement(projectNode, 'tim')
         self.TIM.save(TIMNode)
         projectNode.tail = "\n"

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ClauseView_v2.ui'
 #
-# Created: Mon Aug  5 09:43:44 2013
+# Created: Wed Aug 14 09:50:25 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!

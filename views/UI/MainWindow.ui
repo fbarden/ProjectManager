@@ -58,6 +58,7 @@
     </property>
     <addaction name="actionProjectConsolidation"/>
     <addaction name="actionIndexHistory"/>
+    <addaction name="actionUpdateConsolidation"/>
    </widget>
    <widget class="QMenu" name="menuVerifications">
     <property name="title">
@@ -186,12 +187,20 @@
   </action>
   <action name="actionProjectConsolidation">
    <property name="text">
-    <string>Consolidar Projeto</string>
+    <string>Nova Consolidação de Projeto</string>
    </property>
   </action>
   <action name="actionIndexHistory">
    <property name="text">
     <string>HIstórico de Índices</string>
+   </property>
+  </action>
+  <action name="actionUpdateConsolidation">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Atualizar consolidação anterior</string>
    </property>
   </action>
  </widget>

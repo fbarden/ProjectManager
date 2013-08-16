@@ -39,24 +39,17 @@ class Clause:
         self.consolidatedID = consolidatedID.encode('utf-8')
 
     def destroy(self):
-        print 'removendo clausula' + self.getID() 
         for link in self.child_links.values() :
-            print 'removendo filho'
             link.remove()
         for link in self.parent_links.values() :
-            print 'removendo pai'
             link.remove() 
-        print self.parent_links
-        print self.child_links
 
     def removeParentLink(self, link):
-        print 'removendo link pai'
-        print link
+        return
         #del self.parent_links[link]
 
     def removeChildLink(self, link):
-        print 'removendo link filho'
-        print link
+        return
         #del self.child_links[link]
 
     def loadXML(self,  clauseXML):
@@ -64,7 +57,7 @@ class Clause:
         self.parent_links= {}
         self.related_files = {}
         self.XML = clauseXML
-        self.id = self.XML .get("id")
+        self.id = self.XML .get("id") 
         #self.consolidatedID = self.XML.get("consolidated")
         self.type = self.XML .get("type")
         suspectsXML = self.XML.find("suspects")
@@ -76,7 +69,7 @@ class Clause:
         if suspectsXML is not None :
             for suspect in suspectsXML.findall('suspect'):
                 if suspect.text not in self.tags['suspect']:
-                    self.tags['suspect'].append(suspect)
+                    self.tags['suspect'].append(suspect.text)
         if (titleXML.text is not None) :
             self.title = titleXML.text
         if (textXML.text is not None):
@@ -99,9 +92,9 @@ class Clause:
         #clauseNode.set("consolidated",  self.consolidatedID)
         clauseNode.set("type",  self.type.getName())
         clauseNode.text = "\n"
-        suspectsNode = ET.SubElement(clauseNode,  "supects")
+        suspectsNode = ET.SubElement(clauseNode,  "suspects")
         for suspect in self.tags['suspect'] :
-            suspectNode = ET.SubElement(suspectsNode,  "supect")
+            suspectNode = ET.SubElement(suspectsNode,  "suspect")
             suspectNode.text = suspect
         titleNode = ET.SubElement(clauseNode,  "title")
         titleNode.text = self.title
@@ -143,19 +136,15 @@ class Clause:
 
     def evaluateSuspect(self, clause):
         otherType = clause.getType()
-        print "avaliando"
         if self.type.isDependentOf(otherType.getName()) :
-            print "step 1"
             if clause.getID() not in self.tags['suspect']:
-                print "step 2"
                 self.tags['suspect'].append(clause.getID())
-                print clause.getID() + " adicionado aos suspeitos"
     
     def isDependentOf(self, clause):
         return self.getType().isDependentOf(clause.getType().getName())
     
     def emitChange(self):
-        print "Emitindo mudancas"
+        self.tags['suspect'] = []
         for childClauseID in self.getChildClausesList():
             childClause = self.getChildLinkClause(childClauseID)
             childClause.evaluateSuspect(self)
@@ -164,7 +153,6 @@ class Clause:
             parentClause.evaluateSuspect(self)
 
     def isSuspect(self):
-        print "clausula " + self.id + "eh suspeita ou nao"
         return (len(self.tags['suspect']) > 0)
 
     def getID(self):
@@ -222,9 +210,9 @@ class Clause:
     
     def evaluateParentCardinality(self, typeName):
         cardinality = self.type.checkParentCardinality(typeName, self.parent_types[typeName])
-        if (cardinality < 0) :
+        if (cardinality < 0) and (typeName not in self.tags['minCard']) :
             self.tags['minCard'].append(typeName)
-        elif (cardinality > 0) :
+        elif (cardinality > 0) and (typeName not in self.tags['maxCard']) :
             self.tags['maxCard'].append(typeName)
         else:
             if typeName in self.tags['maxCard'] :

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'OrderClausesDialog.ui'
 #
-# Created: Mon Aug  5 09:43:45 2013
+# Created: Wed Aug 14 09:50:26 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!

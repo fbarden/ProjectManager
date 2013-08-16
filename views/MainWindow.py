@@ -63,18 +63,18 @@ class MainWindow(QMainWindow):
                              self.trUtf8("Escolha a clausula base:"),
                              clauseList,
                              0, False)
-        diagramDialog = ClausePathDiagramDialog(self, title2ClauseDict[unicode(choiceID)])
-        diagramDialog.show()
+        if (returnOK == True) :
+            diagramDialog = ClausePathDiagramDialog(self, title2ClauseDict[unicode(choiceID)])
+            diagramDialog.show()
 
     def editTIM(self):
         editTIMDialog = EditTIMDialog(self, self.project)
         editTIMDialog.show()
-        
 
     def showTIMDiagram(self):
         diagramDialog = TIMDiagramDialog(self, self.project.getTIM())
         diagramDialog.show() 
-        
+
     def newProject(self):
         self.project = Project()
         newProjectDialog = NewProjectDialog(self,  self.project)
@@ -118,6 +118,7 @@ class MainWindow(QMainWindow):
             self.project.loadXML(projectPath)
             self.history = []
             self.openElement('project:root')
+        self.ui.actionUpdateConsolidation.setEnabled(self.project.consolidationSettings != {})
     
     def saveProject(self):
         self.project.saveAll()
@@ -168,13 +169,10 @@ class MainWindow(QMainWindow):
         self.history.insert(0, unicode(element))
         type, id = self.history[0].split(":", 1)
         if (type == "clause"):
-            print "Carregando clausula " + id
             self.openClauseWidget(id)
         elif (type == "document"):
-            print "Carregando documento " + id
             self.openDocumentWidget(id)
         elif (type == "project"):
-            print 'Carregando projeto'
             self.openProjectWidget()
 
     def backHistory(self):

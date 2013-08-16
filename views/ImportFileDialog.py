@@ -30,6 +30,10 @@ class ImportFileDialog(QDialog):
     def completeImport(self):
         description = unicode(self.ui.descriptionEdit.text())
         filepath = unicode(self.ui.fileEdit.text())
-        self.project.addImportedFile(os.path.basename(filepath), description)
-        shutil.copy(filepath, self.project.getLocation() + 'imported/')
-        self.fileImportedSignal.emit(os.path.basename(filepath))
+        if (filepath != '') :
+            try :
+                shutil.copy(filepath, self.project.getLocation() + 'imported/')
+                self.project.addImportedFile(os.path.basename(filepath), description)
+                self.fileImportedSignal.emit(os.path.basename(filepath))
+            except:
+                pass

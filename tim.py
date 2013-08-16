@@ -26,41 +26,40 @@ class Type():
         return self.name
 
     def setName(self,  name):
-        print "Setando nome " + name
         self.name = unicode(name)
     
     def checkChildCardinality(self, typeName, value):
-        if (value < self.getChildMaxCard(typeName)):
-            self.tags['minCard'].apend(typeName)
-            return -1
-        elif (value > self.getChildMaxCard(typeName)):
-            self.tags['maxCard'].append(typeName)
-            return 1
-        else :
-            return 0
+        minCard = self.getChildMinCard(typeName)
+        maxCard = self.getChildMaxCard(typeName)
+        if (minCard != '*'):
+            if (value < int(minCard)):
+                return -1
+        if (maxCard != '*') :
+            if (value > int(maxCard)):
+                return 1
+        return 0
 
     def checkParentCardinality(self, typeName, value):
-        if (value < self.getParentMaxCard(typeName)):
-            return -1
-        elif (value > self.getParentMaxCard(typeName)):
-            return 1
-        else :
-            return 0
+        minCard = self.getParentMinCard(typeName)
+        maxCard = self.getParentMaxCard(typeName)
+        if (minCard != '*') :
+            if (value < int(minCard)):
+                return -1
+        if (maxCard != '*'):
+            if (value > int(maxCard)):
+                return 1
+        return 0
 
     def canBeOrphan(self):
-        print "Avaliando orphan de " + self.getName()
         ret = True
         for type in self.possibleParents:
-            print type
             if self.getParentMinCard(type) > 0:
                 ret = False
         return ret
 
     def canBeWindow(self):
-        print "Avaliando window de " + self.getName()
         ret = True
         for type in self.possibleChildren:
-            print type
             if self.getChildMinCard(type) > 0:
                 ret = False
         return ret
@@ -82,7 +81,7 @@ class Type():
         return self.possibleParents[parentName][1]
     
     def removePossibleChild(self, typeName):
-        del self.possibleChildren[typeName]
+        return self.possibleChildren.pop(typeName)
     
     def getPossibleChildrenList(self):
         return self.possibleChildren.keys()
@@ -100,7 +99,7 @@ class Type():
             self.possibleParents[typeName] = (minCard, maxCard, dependency)
     
     def removePossibleParent(self, typeName):
-        del self.possibleParents[typeName]
+        return self.possibleParents.pop(typeName)
     
     def getPossibleParentsList(self):
         return self.possibleParents.keys()
@@ -132,7 +131,7 @@ class Type():
             childNode.set('name', child)
             childNode.set('minCard', self.possibleChildren[child][0])
             childNode.set('maxCard', self.possibleChildren[child][1])
-            if (self.possibleChildren[child][1]):
+            if (self.possibleChildren[child][2]):
                 childNode.set('dependent', 'yes')
             else:
                 childNode.set('dependent', 'no')
@@ -141,7 +140,7 @@ class Type():
             parentNode.set('name', parent)
             parentNode.set('minCard', self.possibleParents[parent][0])
             parentNode.set('maxCard', self.possibleParents[parent][1])
-            if (self.possibleParents[parent][1]):
+            if (self.possibleParents[parent][2]):
                 parentNode.set('dependent', 'yes')
             else:
                 parentNode.set('dependent', 'no')
@@ -196,3 +195,25 @@ class TIM():
             if type.getName() in self.getType(candidateType).getPossibleChildrenList():
                 parentsList += [candidateType]
         return parentsList
+    
+    def renameType(self, typeName, newName):
+        typeName = unicode(typeName)
+        newName = unicode(newName)
+        type = self.getType(typeName)
+        parentsList = type.getPossibleParentsList()
+        for parentName in parentsList :
+            parentType = self.getType(parentName)
+            childInfo = parentType.removePossibleChild(typeName)
+            parentType.addPossibleChild(newName, *childInfo)
+        childrenList = type.getPossibleChildrenList()
+        for childName in childrenList :
+            childType = self.getType(childName)
+            parentInfo = childType.removePossibleParent(typeName)
+            childType.addPossibleParent(newName, *parentInfo)
+        if typeName in self.roots :
+            self.roots.remove(typeName)
+            self.roots.append(newName)
+        if typeName in self.types :
+            self.removeType(typeName)
+            type.setName(newName)
+            self.addType(type)

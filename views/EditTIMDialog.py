@@ -18,19 +18,30 @@ class EditTIMDialog(QDialog):
         self.ui.TIMTreeView.expandAll()
         self.ui.TIMTreeView.activated.connect(self.openType)
         self.ui.buttonBox.accepted.connect(self.saveChanges)
+        for column in range(model.columnCount()):
+            self.ui.TIMTreeView.resizeColumnToContents(column)
 
     def openType(self, index):
-        type = index.data(Qt.UserRole).toPyObject()
-        if (index.parent().isValid()) :
-            parentType = index.parent().data(Qt.UserRole).toPyObject()
+        typeIndex = index.sibling(index.row(), 0)
+        type = typeIndex.data(Qt.UserRole).toPyObject()
+        if (typeIndex.parent().isValid()) :
+            parentType = typeIndex.parent().data(Qt.UserRole).toPyObject()
         else:
             parentType = None
-        editType = EditTypeDialog(self, type, parentType)
-        editType.show()
-        editType.accepted.connect(lambda : self.loadTIM(self.TIM))
+        editType = EditTypeDialog(self, type, parentType, self.TIM)
+        if(editType.exec_()) :
+            self.loadTIM(self.TIM)
+            self.ui.TIMTreeView.update(index)
+
+    def loadTIM(self, TIM):
+        model = TIMModel(TIM)
+        self.ui.TIMTreeView.setModel(model)
+        self.ui.TIMTreeView.expandAll()
+        for column in range(model.columnCount()):
+            self.ui.TIMTreeView.resizeColumnToContents(column)
     
     def saveChanges(self):
         pass
 
-    def contextMenuEvent(self, event):
-        print event.pos()
+#    def contextMenuEvent(self, event):
+#        print event.pos()

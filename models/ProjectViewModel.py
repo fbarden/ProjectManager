@@ -37,10 +37,11 @@ class ProjectViewModel(QStandardItemModel):
         return [documentItem, prefixItem]
         
     def prepareClause(self, clause):
-        itemsList = []
         itemLabel = clause.getTitle()
         warnings = ' | '.join(clause.getWarnings())
         warningsItem = QStandardItem(warnings)
+        warningsItem.setFlags(warningsItem.flags() & ~ Qt.ItemIsEditable)
+        
         clauseItem = QStandardItem(itemLabel)
         clauseItem.setData("clause", Qt.UserRole)
         clauseItem.setData(clause, Qt.UserRole + 1)
@@ -58,7 +59,7 @@ class ProjectViewModel(QStandardItemModel):
         movedRow = index.row()
         if (parentItem is None) :
             parentItem = self
-            
+
         newRow = movedRow + step
         if (newRow < 0):
             newRow = 0

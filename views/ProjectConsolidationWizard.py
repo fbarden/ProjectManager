@@ -34,7 +34,6 @@ class ProjectConsolidationWizard(QWizard):
             typeItem.setCheckState(0, Qt.Unchecked)
             self.typesDict[type] = typeItem
         self.ui.buttonGroup = QButtonGroup()
-            #settings['documents'] = 
         self.accepted.connect(self.saveSettingsAndConsolidate)
     
     def saveSettingsAndConsolidate(self):
@@ -49,7 +48,6 @@ class ProjectConsolidationWizard(QWizard):
                 selectedTypes.append(type)
         settings['documents'] = selectedDocs
         settings['types'] = selectedTypes
-        settings['keepConsistency'] = False
         settings['docPrefix'] =  self.ui.documentPrefixCheckBox.isChecked()
         settings['typePrefix'] =  self.ui.typePrefixCheckBox.isChecked()
         if self.ui.documentOrderButton.isChecked():
@@ -57,5 +55,6 @@ class ProjectConsolidationWizard(QWizard):
         if self.ui.typeOrderButton.isChecked():
             settings['order'] = 'type'
         settings['unifyDocuments'] = self.ui.unifyDocumentsCheckBox.isChecked()
+        settings['limits'] = {}
         self.project.setConsolidationSettings(settings)
         self.consolidateProjectSignal.emit(settings)
