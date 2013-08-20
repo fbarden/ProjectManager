@@ -57,23 +57,12 @@
      <string>Consolidação</string>
     </property>
     <addaction name="actionProjectConsolidation"/>
-    <addaction name="actionIndexHistory"/>
     <addaction name="actionUpdateConsolidation"/>
-   </widget>
-   <widget class="QMenu" name="menuVerifications">
-    <property name="title">
-     <string>Verificações</string>
-    </property>
-    <addaction name="actionCheckSpaces"/>
-    <addaction name="actionCheckGranularity"/>
-    <addaction name="actionSuspectClauses"/>
-    <addaction name="actionRedundantPaths"/>
    </widget>
    <addaction name="menuProject"/>
    <addaction name="menuDocuments"/>
    <addaction name="menuClauses"/>
    <addaction name="menuConsolidation"/>
-   <addaction name="menuVerifications"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">

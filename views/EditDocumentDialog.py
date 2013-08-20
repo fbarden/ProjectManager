@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from UI import Ui_EditDocumentDialog
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *

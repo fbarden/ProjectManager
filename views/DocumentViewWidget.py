@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 import sys
 from UI import Ui_DocumentView
 from PyQt4.QtGui import *
@@ -138,7 +140,7 @@ class DocumentViewWidget(QWidget):
         cursor.movePosition(QTextCursor.End)
         cursor.insertBlock()
         cursor.insertBlock()
-        link = '<a href="newClause:newClause">Adicionar nova clausula...</a>'
+        link = '<a href="newClause:newClause">Adicionar nova cláusula...</a>'
         cursor.insertHtml(link)
 
     def upToProject(self):

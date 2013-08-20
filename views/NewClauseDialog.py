@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
@@ -29,7 +31,7 @@ class NewClauseDialog(QDialog):
         currentType = self.ui.typeBox.currentText()
         self.updateParentClauses()
         if (parentClause is not None):
-            parentClauseName = parentClause.getID()
+            parentClauseName = parentClause.getDocument().getName() + ": " + parentClause.getTitle()
             self.ui.parentBox.setCurrentIndex(self.ui.parentBox.findText(parentClauseName))
         self.accepted.connect(self.setClause)
         self.ui.typeBox.currentIndexChanged.connect(self.updateParentClauses)

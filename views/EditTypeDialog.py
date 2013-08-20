@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from views.UI import Ui_EditTypeDialog
@@ -20,12 +22,12 @@ class EditTypeDialog(QDialog):
         self.ui.descriptionEdit.setText(type.getDescription())
         if (parentType is not None) :
             parentName = parentType.getName()
-            self.ui.minCardChildEdit.setText(type.getParentMinCard(parentName))
-            self.ui.maxCardChildEdit.setText(type.getParentMaxCard(parentName))
-            self.ui.childDependencyCheckBox.setChecked(type.isDependentOf(parentName))
             typeName = type.getName()
-            self.ui.minCardParentEdit.setText(parentType.getChildMinCard(typeName))
-            self.ui.maxCardParentEdit.setText(parentType.getChildMaxCard(typeName))
+            self.ui.minCardChildEdit.setText(parentType.getChildMinCard(typeName))
+            self.ui.maxCardChildEdit.setText(parentType.getChildMaxCard(typeName))
+            self.ui.childDependencyCheckBox.setChecked(type.isDependentOf(parentName))
+            self.ui.minCardParentEdit.setText(type.getParentMinCard(parentName))
+            self.ui.maxCardParentEdit.setText(type.getParentMaxCard(parentName))
             self.ui.parentDependencyCheckBox.setChecked(parentType.isDependentOf(typeName))
         else :
             self.ui.minCardChildEdit.setEnabled(False)

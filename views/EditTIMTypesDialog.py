@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from UI import Ui_EditTIMTypesDialog
 import sys
 from PyQt4 import QtGui

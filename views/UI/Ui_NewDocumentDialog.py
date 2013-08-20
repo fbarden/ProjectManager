@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'NewDocumentDialog.ui'
 #
-# Created: Wed Aug 14 09:50:26 2013
+# Created: Tue Aug 20 00:07:16 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!

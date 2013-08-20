@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ProjectView.ui'
 #
-# Created: Wed Aug 14 09:50:25 2013
+# Created: Tue Aug 20 00:07:15 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,6 +30,9 @@ class Ui_projectViewWidget(object):
         self.newDocumentButton = QtGui.QToolButton(projectViewWidget)
         self.newDocumentButton.setObjectName(_fromUtf8("newDocumentButton"))
         self.horizontalLayout.addWidget(self.newDocumentButton)
+        self.updateButton = QtGui.QToolButton(projectViewWidget)
+        self.updateButton.setObjectName(_fromUtf8("updateButton"))
+        self.horizontalLayout.addWidget(self.updateButton)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.moveUpButton = QtGui.QToolButton(projectViewWidget)
@@ -53,6 +56,7 @@ class Ui_projectViewWidget(object):
     def retranslateUi(self, projectViewWidget):
         projectViewWidget.setWindowTitle(QtGui.QApplication.translate("projectViewWidget", "Visualização de Projeto", None, QtGui.QApplication.UnicodeUTF8))
         self.newDocumentButton.setText(QtGui.QApplication.translate("projectViewWidget", "Novo Documento", None, QtGui.QApplication.UnicodeUTF8))
+        self.updateButton.setText(QtGui.QApplication.translate("projectViewWidget", "Atualizar", None, QtGui.QApplication.UnicodeUTF8))
         self.moveUpButton.setText(QtGui.QApplication.translate("projectViewWidget", "↑", None, QtGui.QApplication.UnicodeUTF8))
         self.moveDownButton.setText(QtGui.QApplication.translate("projectViewWidget", "↓", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("projectViewWidget", "X", None, QtGui.QApplication.UnicodeUTF8))

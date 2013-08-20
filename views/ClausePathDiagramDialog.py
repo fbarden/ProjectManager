@@ -1,4 +1,5 @@
-
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from UI import Ui_DiagramDialog
 
 from PyQt4.QtGui import *

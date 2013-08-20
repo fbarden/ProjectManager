@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import xml.etree.ElementTree as ET
 import os
 
@@ -66,7 +68,7 @@ class Type():
 
     def addPossibleChild(self, typeName, minCard, maxCard, dependency):
         if typeName not in self.possibleChildren.keys() :
-            self.possibleChildren[typeName] = (minCard, maxCard, dependency)
+            self.possibleChildren[typeName] = (unicode(minCard), unicode(maxCard), dependency)
 
     def getChildMinCard(self, childName):
         return self.possibleChildren[childName][0]
@@ -96,7 +98,7 @@ class Type():
 
     def addPossibleParent(self, typeName, minCard, maxCard, dependency):
         if typeName not in self.possibleParents.keys() :
-            self.possibleParents[typeName] = (minCard, maxCard, dependency)
+            self.possibleParents[typeName] = (unicode(minCard), unicode(maxCard), dependency)
     
     def removePossibleParent(self, typeName):
         return self.possibleParents.pop(typeName)
@@ -106,6 +108,8 @@ class Type():
 
     def loadXML(self,  XML):
         self.name = XML.get('name')
+        descriptionNode = XML.find("description")
+        self.description = descriptionNode.text
         self.prefix = XML.get('prefix')
         for child in XML.findall("child"):
             name = child.get('name')
@@ -122,6 +126,8 @@ class Type():
 
     def save(self, typesNode, root):
         typeNode = ET.SubElement(typesNode , 'type')
+        descriptionNode = ET.SubElement(typeNode , 'description')
+        descriptionNode.text = self.getDescription()
         typeNode.set('name', self.getName())
         typeNode.set('prefix', self.getPrefix())
         if root :

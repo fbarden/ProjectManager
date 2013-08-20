@@ -29,6 +29,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QToolButton" name="updateButton">
+         <property name="text">
+          <string>Atualizar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>

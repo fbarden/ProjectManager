@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import xml.etree.ElementTree as ET
 
 class Link :
@@ -7,17 +9,17 @@ class Link :
         self.parent = None
         self.child = None
     
-    def addParent(self, clause):
+    def addParent(self, clause, clauseObj = None):
         self.parent_id = clause
-#        if (object is not None) :
-#            self.parent = object
-#            self.parent.addChildLink(self)
+        if (clauseObj is not None) :
+            self.parent = clauseObj
+            self.parent.addChildLink(self)
     
-    def addChild(self,  clause):
+    def addChild(self, clause, clauseObj = None):
         self.child_id = clause
-#        if (object is not None) :
-#            self.child = object
-#            self.child.addParentLink(self)
+        if (clauseObj is not None) :
+            self.child = clauseObj
+            self.child.addParentLink(self)
     
     def getChildID(self):
         return self.child_id

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 import xml.etree.ElementTree as ET
 import os
 from link import Link
@@ -19,6 +21,16 @@ class Project :
 
     def setConsolidationSettings(self, settings):
         self.consolidationSettings = settings
+    
+    def getType2Clauses(self):
+        type2Clauses = {}
+        for type in self.TIM.getTypesList():
+            type2Clauses[type] = []
+        clausesList = self.getAllClauses().values()
+        for clause in clausesList :
+            typeName = clause.getType().getName()
+            type2Clauses[typeName].append(clause)
+        return type2Clauses
     
     def loadXML(self,  filename):
         self.location = os.path.dirname(filename) + '/'
@@ -57,7 +69,7 @@ class Project :
     def loadImportedFiles(self, importedFilesNode):
         for fileNode in importedFilesNode.findall('file'):
             self.imported_files[fileNode.get('name')] = fileNode.text
-    
+
     def loadConsolidation(self, consolidationNode):
         if consolidationNode.get('docPrefix') == 'yes' :
             self.consolidationSettings['docPrefix'] = True
@@ -67,16 +79,21 @@ class Project :
             self.consolidationSettings['typePrefix'] = True
         else :
             self.consolidationSettings['typePrefix'] = False
+        if consolidationNode.get('unifyDocuments', 'no') == 'yes' :
+            self.consolidationSettings['unifyDocuments'] = True
+        else :
+            self.consolidationSettings['unifyDocuments'] = False
+        self.consolidationSettings['order'] = consolidationNode.get('order')
         documents = consolidationNode.find('documents')
         self.consolidationSettings['documents'] = documents.text.split(';')
         documents = consolidationNode.find('types')
         self.consolidationSettings['types'] = documents.text.split(';')
         limitsNode = consolidationNode.find('limits')
         if (limitsNode is not None) :
-            limits = []
+            limits = {}
             prefixNodes = limitsNode.findall('prefix')
             for prefixNode in prefixNodes :
-                limits[prefixNode.get('prefix')] = prefixNode.get('limit')
+                limits[prefixNode.get('prefix')] = int(prefixNode.get('limit'))
             self.consolidationSettings['limits'] = limits
 
     def loadTIM(self, TIMNode):
@@ -116,8 +133,14 @@ class Project :
             typePrefix = 'yes'
         else:
             typePrefix = 'no'
+        if (self.consolidationSettings['unifyDocuments']):
+            unifyDocuments = 'yes'
+        else:
+            unifyDocuments = 'no'
+        consolidationsNode.set('order', self.consolidationSettings['order'])
         consolidationsNode.set('docPrefix', docPrefix)
         consolidationsNode.set('typePrefix', typePrefix)
+        consolidationsNode.set('unifyDocuments', unifyDocuments)
         documentsNode = ET.SubElement(consolidationsNode, 'documents')
         documentsNode.text = ';'.join(self.consolidationSettings['documents'])
         typesNode = ET.SubElement(consolidationsNode, 'types')
@@ -125,13 +148,10 @@ class Project :
         limitsNode = ET.SubElement(consolidationsNode, 'limits')
         if 'limits' in self.consolidationSettings.keys() :
             limits = self.consolidationSettings['limits']
-            print limits
             for limit in limits :
-                documentsNode = ET.SubElement(limitsNode, 'prefix')
-                print str(limit) + " " + limits[limit]
-                limitsNode.set('prefix', limit)
-                limitsNode.set('limit', limits[limit])
-
+                limitNode = ET.SubElement(limitsNode, 'prefix')
+                limitNode.set('prefix', limit)
+                limitNode.set('limit', str(limits[limit]))
 
     def save(self):
         projectNode = ET.Element('project')
@@ -183,6 +203,7 @@ class Project :
         return self.location
 
     def setLocation(self,  location):
+        os.mkdir(location + 'imported')
         self.location = location
     
     def addDocument(self, document):

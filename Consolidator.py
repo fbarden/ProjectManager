@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 from project import Project
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -47,6 +49,8 @@ class Consolidator(object):
                 for doc in doc2Clauses.keys():
                     for clause in doc2Clauses[doc]:
                         orderedDoc2Clause[doc] = sorted(doc2Clauses[doc], key=lambda clause : orderedTypesList.index(clause.getType().getName()))
+        if (order == 'document'):
+            orderedDoc2Clause = doc2Clauses
         return orderedDoc2Clause
 
     def initializeProject(self, project, settings):
@@ -56,6 +60,7 @@ class Consolidator(object):
 
     def printSettings(self, settings):
         print "Printing Settings"
+        print settings.keys()
         print settings['documents']
         print settings['types']
         print settings['order']
@@ -63,15 +68,14 @@ class Consolidator(object):
 
     def __init__(self, project, settings):
         self.project = project
-        self.printSettings(settings)
+#         self.printSettings(settings)
         self.doc2ClauseList = self.initializeProject(project, settings)
         self.consolidateIndexes(settings)
-        print settings['limits']
 
     def consolidateIndexes(self, settings):
         hasDocPrefix = settings['docPrefix']
         hasTypePrefix = settings['typePrefix']
-        prefixIDDict = {}
+        limits = settings['limits']
         for doc in self.doc2ClauseList:
             for clause in self.doc2ClauseList[doc]:
                 if (clause.getConsolidatedID() == "") :
@@ -79,20 +83,17 @@ class Consolidator(object):
                     if hasDocPrefix :
                         prefix += clause.getDocument().getPrefix()
                         if hasTypePrefix:
-                            prefix += ":" 
+                            prefix += ":"
                     if hasTypePrefix:
                         prefix += clause.getType().getPrefix()
-                    if prefix in prefixIDDict.keys():
-                        prefixIDDict[prefix] += 1
+                    if prefix in limits.keys():
+                        limits[prefix] += 1
                     else :
-                        prefixIDDict[prefix] = 1
-                    prefix += unicode(prefixIDDict[prefix])
+                        limits[prefix] = 1
+                    prefix += unicode(limits[prefix])
                     clause.setConsolidatedID(prefix)
-        limits = settings['limits']
-        for prefix in prefixIDDict.keys() :
-            limits[prefix] = prefixIDDict[prefix]
 
-    def toPDF(self, file='./teste1.pdf'):
+    def toPDF(self, file):
         printer = QPrinter()
 
         docTitleBlockFormat = QTextBlockFormat()
@@ -115,8 +116,8 @@ class Consolidator(object):
         printer.setPaperSize(QPrinter.A4)
         
         textDoc = QTextEdit()
+        
         for doc in self.doc2ClauseList:
-            
             if doc is not "unified":
                 cursor = textDoc.textCursor()
                 cursor.movePosition(QTextCursor.End)
@@ -136,5 +137,52 @@ class Consolidator(object):
                 cursor.mergeCharFormat(clauseTextCharFormat)
                 cursor.insertHtml(clause.getText())
                 cursor.insertText('\n\n')
-            textDoc.print_(printer)
-            printer.newPage()
+            cursor.insertText('\n\n')
+            
+        # Tracebility Information Model (TIM)
+        cursor.insertText('\n\n\n')
+        TIM = self.project.getTIM()
+        cursor.mergeBlockFormat(docTitleBlockFormat)
+        cursor.mergeCharFormat(docTitleCharFormat)
+        cursor.insertText('Traceability Information Model (TIM)')
+        cursor.insertText('\n\n')
+        # DESENHAR DIAGRAMA
+        cursor.mergeBlockFormat(clauseBlockFormat)
+        cursor.mergeCharFormat(clauseTextCharFormat)
+        for typeName in TIM.getTypesList() :
+            type = TIM.getType(typeName)
+            cursor.insertText(typeName + ": " + type.getDescription())
+            cursor.insertText('\n')
+
+        # Realat√≥rio de Erros
+        cursor.insertText('\n\n\n')
+        clausesList = self.project.getAllClauses()
+        cursor.mergeBlockFormat(docTitleBlockFormat)
+        cursor.mergeCharFormat(docTitleCharFormat)
+        cursor.insertText('RelatÛrio de Erros')
+        cursor.insertText('\n\n')
+        cursor.mergeBlockFormat(clauseBlockFormat)
+        cursor.mergeCharFormat(clauseTextCharFormat)
+        for clause in clausesList.values() :
+            warnings = clause.getWarnings()
+            if (warnings != []) :
+                warningsText = ' | '.join(warnings)
+                cursor.insertText(clause.getConsolidatedID() + "->" + warningsText)
+                cursor.insertText('\n')
+        
+        # Hist√≥rico de √çndices
+        cursor.insertText('\n\n\n')
+        cursor.mergeBlockFormat(docTitleBlockFormat)
+        cursor.mergeCharFormat(docTitleCharFormat)
+        cursor.insertText('MudanÁas de Õndices')
+        cursor.insertText('\n\n')
+        cursor.mergeBlockFormat(clauseBlockFormat)
+        cursor.mergeCharFormat(clauseTextCharFormat)
+        for doc in self.doc2ClauseList.keys() :
+            for clause in self.doc2ClauseList[doc]:
+                history = clause.getIDHistory()
+                if (history != None) :
+                    cursor.insertText(clause.getConsolidatedID() + "  -  " + history)
+                    cursor.insertText('\n')
+            
+        textDoc.print_(printer)

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import sys
 from UI import Ui_ProjectView
 from PyQt4.QtGui import *
@@ -19,16 +21,8 @@ class ProjectViewWidget(QWidget):
         super(ProjectViewWidget, self).__init__()
         self.ui = Ui_ProjectView.Ui_projectViewWidget()
         self.ui.setupUi(self)
-        
-        model = ProjectViewModel(project)
-        self.ui.documentsListWidget.setModel(model)
-        documentDiagramScene = DocumentsDiagramScene(self.ui.graphicsView, project)
-        self.ui.graphicsView.setScene(documentDiagramScene)
-        self.ui.documentsListWidget.expandAll()
-        self.ui.documentsListWidget.setFocus()
-        
-        for column in range(model.columnCount()):
-            self.ui.documentsListWidget.resizeColumnToContents(column)
+        self.project = project
+        self.loadWidgets()
         
         self.ui.documentsListWidget.activated.connect(self.openSelect)
         self.closeProjectAction = QAction('Fechar Projeto', self)
@@ -54,12 +48,24 @@ class ProjectViewWidget(QWidget):
         self.newDocumentAction = QAction('Criar novo documento', self)
         self.ui.newDocumentButton.setDefaultAction(self.newDocumentAction)
         self.newDocumentAction.triggered.connect(self.newDocument)
-        self.deleteAction.setShortcut('Delete')
-        self.deleteAction.triggered.connect(self.deleteElement)
-        self.addAction(self.deleteAction)
         self.ui.moveUpButton.clicked.connect(self.moveUpElement)
         self.ui.moveDownButton.clicked.connect(self.moveDownElement)
         self.ui.deleteButton.clicked.connect(self.deleteElement)
+        self.updateAction = QAction('Atualizar', self)
+        self.updateAction.setShortcut('F5')
+        self.updateAction.triggered.connect(self.loadWidgets)
+        self.ui.updateButton.setDefaultAction(self.updateAction)
+    
+    def loadWidgets(self):
+        print "Carregando!"
+        model = ProjectViewModel(self.project)
+        self.ui.documentsListWidget.setModel(model)
+        documentDiagramScene = DocumentsDiagramScene(self.ui.graphicsView, self.project)
+        self.ui.graphicsView.setScene(documentDiagramScene)
+        self.ui.documentsListWidget.expandAll()
+        self.ui.documentsListWidget.setFocus()
+        for column in range(model.columnCount()):
+            self.ui.documentsListWidget.resizeColumnToContents(column)
 
     def moveUpElement(self):
         model = self.ui.documentsListWidget.model()

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import os, shutil
 
 from PyQt4.QtGui import *
@@ -36,4 +38,8 @@ class ImportFileDialog(QDialog):
                 self.project.addImportedFile(os.path.basename(filepath), description)
                 self.fileImportedSignal.emit(os.path.basename(filepath))
             except:
-                pass
+                QMessageBox.warning(None,
+                                    self.trUtf8("Erro"),
+                                    self.trUtf8("""Erro ao importar arquivo!"""),
+                                    QMessageBox.StandardButtons(QMessageBox.Ok))
+

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from UI import Ui_OrderClausesDialog
@@ -54,7 +56,6 @@ class OrderClauseDialog(QDialog):
         self.document.moveClause(clauseID, step)
         self.ui.clausesListWidget.takeItem(index)
         self.ui.clausesListWidget.insertItem(newIndex, selectedItem)
-        print "Inserindo na posicao " + str(newIndex)
         auxItem = self.ui.clausesListWidget.selectedItems()
         if auxItem != [] :
             auxItem[0].setSelected(False)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project ProjectManager -->
-<!-- Saved: 2013-06-13, 09:04:20 -->
+<!-- Saved: 2013-08-18, 15:07:48 -->
 <!-- Copyright (C) 2013 Felipe Barden, felipebarden@gmail.com -->
 <Project version="4.6">
   <Language></Language>
@@ -50,6 +50,31 @@
     <Source>views/NewClauseDialog.py</Source>
     <Source>views/EditImportedFilesDialog.py</Source>
     <Source>views/UI/Ui_EditImportedFilesDialog.py</Source>
+    <Source>verification.py</Source>
+    <Source>Consolidator.py</Source>
+    <Source>testeManual.py</Source>
+    <Source>views/DocumentsDiagramScene.py</Source>
+    <Source>views/ClausePathDiagramDialog.py</Source>
+    <Source>views/ProjectConsolidationWizard.py</Source>
+    <Source>views/EditTypeDialog.py</Source>
+    <Source>views/TIMDiagramDialog.py</Source>
+    <Source>views/LineGraphicItem.py</Source>
+    <Source>views/ClauseDiagramScene.py</Source>
+    <Source>views/graphicsView.py</Source>
+    <Source>views/TIMDiagramScene.py</Source>
+    <Source>views/EditDocumentDialog.py</Source>
+    <Source>views/NodeGraphicItem.py</Source>
+    <Source>views/OrderClauseDialog.py</Source>
+    <Source>views/UI/Ui_orderClausesDialog.py</Source>
+    <Source>views/UI/Ui_EditDocumentDialog.py</Source>
+    <Source>views/UI/runPyuic4.py</Source>
+    <Source>views/UI/Ui_ProjectConsolidationWizard.py</Source>
+    <Source>views/UI/Ui_EditTypeDialog.py</Source>
+    <Source>views/UI/Ui_DiagramDialog.py</Source>
+    <Source>views/UI/Ui_OrderClausesDialog.py</Source>
+    <Source>models/TIM.py</Source>
+    <Source>models/__init__.py</Source>
+    <Source>models/ProjectViewModel.py</Source>
   </Sources>
   <Forms>
     <Form>views/UI/ProjectView.ui</Form>
@@ -66,6 +91,11 @@
     <Form>views/UI/NewDocumentDialog.ui</Form>
     <Form>views/UI/EditTIMDialog.ui</Form>
     <Form>views/UI/EditImportedFilesDialog.ui</Form>
+    <Form>views/UI/EditTypeDialog.ui</Form>
+    <Form>views/UI/DiagramDialog.ui</Form>
+    <Form>views/UI/EditDocumentDialog.ui</Form>
+    <Form>views/UI/ProjectConsolidationWizard.ui</Form>
+    <Form>views/UI/OrderClausesDialog.ui</Form>
   </Forms>
   <Translations>
   </Translations>
