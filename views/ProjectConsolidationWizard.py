@@ -1,4 +1,5 @@
-
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import * 
 from views.UI.Ui_ProjectConsolidationWizard import Ui_ProjectConsolidationWizard
@@ -56,5 +57,9 @@ class ProjectConsolidationWizard(QWizard):
             settings['order'] = 'type'
         settings['unifyDocuments'] = self.ui.unifyDocumentsCheckBox.isChecked()
         settings['limits'] = {}
+        clausesList = self.project.getAllClauses()
+        for clauseName in clausesList :
+            clausesList[clauseName].clearIDHistory()
+            clausesList[clauseName].setConsolidatedID("")
         self.project.setConsolidationSettings(settings)
         self.consolidateProjectSignal.emit(settings)

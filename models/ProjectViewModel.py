@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 '''
 Created on Jul 27, 2013
 
@@ -12,8 +14,8 @@ class ProjectViewModel(QStandardItemModel):
     def __init__(self, project):
         super(ProjectViewModel, self).__init__()
         self.project = project
-        self.setColumnCount(4)
-        self.setHorizontalHeaderLabels(["Documentos", "Prefixos", "Tipos", "Avisos"])
+        self.setColumnCount(5)
+        self.setHorizontalHeaderLabels(["Documentos", "Prefixos", "Tipos", "ID consolidado", "Avisos"])
         invisibleRoot = self.invisibleRootItem()
         documentsList = project.getDocumentsList()
         for documentName in documentsList :
@@ -51,7 +53,10 @@ class ProjectViewModel(QStandardItemModel):
         typeItem = QStandardItem(clause.getType().getName())
         typeItem.setFlags(typeItem.flags() & ~ Qt.ItemIsEditable)
         
-        return [clauseItem, None, typeItem, warningsItem]
+        consolidateItem = QStandardItem(clause.getConsolidatedID())
+        consolidateItem.setFlags(consolidateItem.flags() & ~ Qt.ItemIsEditable)
+        
+        return [clauseItem, None, typeItem, consolidateItem, warningsItem]
     
     def moveElement(self, index, step):
         movedItem = self.itemFromIndex(index)

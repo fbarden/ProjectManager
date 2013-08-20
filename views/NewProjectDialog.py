@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from UI import Ui_NewProjectDialog
 import sys
 from PyQt4.QtGui import *
@@ -14,6 +16,7 @@ from AddTypeDialog import AddTypeDialog
 class NewProjectDialog(QWizard):
     
     openProjectSignal = pyqtSignal()
+    openElementSignal = pyqtSignal(str);
     
     def __init__(self,  parent,  project=None):
         super(NewProjectDialog, self).__init__(parent)
@@ -57,8 +60,27 @@ class NewProjectDialog(QWizard):
         self.project.setLocation(os.path.normpath(unicode(self.ui.folderEdit.text())) + '/')
         self.project.TIM = self.TIM
         self.parent.project = self.project
-        self.openProjectSignal.emit()
+        self.openElementSignal.emit('project:project')
 
     def updatePages(self, page):
         if (page == 2):
             self.scene.updateTIMImage()
+
+    def updateTIMTree(self):
+        self.ui.TIMTreeWidget.clear()
+        addItem = QTreeWidgetItem(self.ui.TIMTreeWidget)
+        addItem.setText(0, "<adicionar tipo>")
+        rootsList = self.TIM.getRootsList()
+        for root in rootsList :
+            self.prepareType(root, self.ui.TIMTreeWidget)
+        self.ui.TIMTreeWidget.expandAll()
+
+    def prepareType(self, typeName, parentItem):
+        typeItem = QTreeWidgetItem(parentItem)
+        typeItem.setText(0, typeName)
+        type = self.TIM.getType(typeName)
+        addItem = QTreeWidgetItem(typeItem)
+        addItem.setText(0, "<adicionar tipo>")
+        childTypeList = type.getPossibleChildrenList()
+        for child in childTypeList:
+            self.prepareType(child, typeItem)

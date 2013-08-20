@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow.ui'
 #
-# Created: Wed Aug 14 09:50:26 2013
+# Created: Tue Aug 20 00:07:16 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,8 +32,6 @@ class Ui_MainWindow(object):
         self.menuClauses.setObjectName(_fromUtf8("menuClauses"))
         self.menuConsolidation = QtGui.QMenu(self.menubar)
         self.menuConsolidation.setObjectName(_fromUtf8("menuConsolidation"))
-        self.menuVerifications = QtGui.QMenu(self.menubar)
-        self.menuVerifications.setObjectName(_fromUtf8("menuVerifications"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -97,17 +95,11 @@ class Ui_MainWindow(object):
         self.menuClauses.addAction(self.actionPathDiagram)
         self.menuClauses.addAction(self.actionTotalDiagram)
         self.menuConsolidation.addAction(self.actionProjectConsolidation)
-        self.menuConsolidation.addAction(self.actionIndexHistory)
         self.menuConsolidation.addAction(self.actionUpdateConsolidation)
-        self.menuVerifications.addAction(self.actionCheckSpaces)
-        self.menuVerifications.addAction(self.actionCheckGranularity)
-        self.menuVerifications.addAction(self.actionSuspectClauses)
-        self.menuVerifications.addAction(self.actionRedundantPaths)
         self.menubar.addAction(self.menuProject.menuAction())
         self.menubar.addAction(self.menuDocuments.menuAction())
         self.menubar.addAction(self.menuClauses.menuAction())
         self.menubar.addAction(self.menuConsolidation.menuAction())
-        self.menubar.addAction(self.menuVerifications.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -118,7 +110,6 @@ class Ui_MainWindow(object):
         self.menuDocuments.setTitle(QtGui.QApplication.translate("MainWindow", "Documento", None, QtGui.QApplication.UnicodeUTF8))
         self.menuClauses.setTitle(QtGui.QApplication.translate("MainWindow", "Cláusula", None, QtGui.QApplication.UnicodeUTF8))
         self.menuConsolidation.setTitle(QtGui.QApplication.translate("MainWindow", "Consolidação", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuVerifications.setTitle(QtGui.QApplication.translate("MainWindow", "Verificações", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar.setWindowTitle(QtGui.QApplication.translate("MainWindow", "toolBar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNewProject.setText(QtGui.QApplication.translate("MainWindow", "Novo", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNewProject.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+P", None, QtGui.QApplication.UnicodeUTF8))

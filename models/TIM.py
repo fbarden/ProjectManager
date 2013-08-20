@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 '''
 Created on Jul 27, 2013
 
@@ -21,7 +23,6 @@ class TIMModel(QStandardItemModel):
             invisibleRoot.appendRow(self.prepareType(root, None))
 
     def prepareType(self, type, parent):
-        print "Preparing type " + type.getName()
         typeName = type.getName()
         typeItem = QStandardItem(typeName)
         typeItem.setData(type, Qt.UserRole)
@@ -31,13 +32,13 @@ class TIMModel(QStandardItemModel):
         childDependency = "---"
         
         if (parent != None) :
-            parentCardinality = parent.getChildMinCard(typeName) + " .. " + parent.getChildMaxCard(typeName)
+            parentName = parent.getName()
+            parentCardinality = type.getParentMinCard(parentName) + " .. " + type.getParentMaxCard(parentName)
             if (parent.isDependentOf(typeName)) :
                 parentDependency = "Sim"
             else :
                 parentDependency = "Nao"
-            parentName = parent.getName()
-            childCardinality = type.getParentMinCard(parentName) + " .. " + type.getParentMaxCard(parentName)
+            childCardinality = parent.getChildMinCard(typeName) + " .. " + parent.getChildMaxCard(typeName)
             if (type.isDependentOf(parentName)) :
                 childDependency = "Sim"
             else :

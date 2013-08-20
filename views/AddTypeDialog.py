@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from UI import Ui_AddTypeDialog
 
 from PyQt4.QtGui import *
@@ -6,6 +8,8 @@ from PyQt4.QtCore import *
 from tim import *
 
 class AddTypeDialog(QDialog):
+
+    addTypeSignal = pyqtSignal(str, object);
 
     def __init__(self,  parent,  TIM,  item):
         super(AddTypeDialog, self).__init__(parent)

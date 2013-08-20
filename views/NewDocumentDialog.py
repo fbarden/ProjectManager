@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
@@ -8,7 +10,7 @@ from document import Document
 
 class NewDocumentDialog(QDialog):
     
-    openDocumentSignal = pyqtSignal(str)
+    openElementSignal = pyqtSignal(str)
     
     def __init__(self,  parent,  project, document=None):
         super(NewDocumentDialog, self).__init__(parent)
@@ -29,4 +31,4 @@ class NewDocumentDialog(QDialog):
         self.document.setName(name)
         self.project.addDocument(self.document)
         self.document.setProject(self.project)
-        self.openDocumentSignal.emit(self.document.getName())
+        self.openElementSignal.emit("document:" + self.document.getName())

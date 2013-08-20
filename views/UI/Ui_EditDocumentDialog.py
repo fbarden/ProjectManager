@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'EditDocumentDialog.ui'
 #
-# Created: Wed Aug 14 09:50:25 2013
+# Created: Tue Aug 20 00:07:15 2013
 #      by: PyQt4 UI code generator 4.9.1
 #
 # WARNING! All changes made in this file will be lost!

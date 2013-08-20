@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 from UI import Ui_MainWindow
 from NewProjectDialog import NewProjectDialog
 from NewDocumentDialog import NewDocumentDialog
@@ -14,7 +16,6 @@ from project import Project
 from document import Document
 from clause import Clause
 from views.TIMDiagramDialog import TIMDiagramDialog
-from verification import Verification
 from views.ClausePathDiagramDialog import ClausePathDiagramDialog
 from views.ProjectConsolidationWizard import ProjectConsolidationWizard
 from Consolidator import Consolidator
@@ -33,10 +34,11 @@ class MainWindow(QMainWindow):
         self.ui.actionEditTIM.triggered.connect(self.editTIM)
         self.ui.actionTIMDiagram.triggered.connect(self.showTIMDiagram)
         self.ui.actionPathDiagram.triggered.connect(self.showClausePathDiagram)
+        self.ui.actionTotalDiagram.triggered.connect(self.showAllClausesPathDiagram)
         self.ui.actionNewDocument.triggered.connect(self.newDocument)
         self.ui.actionNewClause.triggered.connect(lambda : self.newClause())
-        self.ui.actionCheckSpaces.triggered.connect(self.checkSpaces)
         self.ui.actionProjectConsolidation.triggered.connect(self.projectConsolidation)
+        self.ui.actionUpdateConsolidation.triggered.connect(lambda : self.consolidateProject(self.project.consolidationSettings))
 
     def projectConsolidation(self):
         projectConsolidationWizard = ProjectConsolidationWizard(self, self.project)
@@ -44,8 +46,15 @@ class MainWindow(QMainWindow):
         projectConsolidationWizard.consolidateProjectSignal.connect(self.consolidateProject)
     
     def consolidateProject(self, settings):
-        consolidator = Consolidator(self.project, settings)
-        consolidator.toPDF()
+        filename = QFileDialog.getSaveFileName(\
+            None,
+            self.trUtf8("Salvar relatorio de consolidacao como..."),
+            self.trUtf8("./"),
+            self.trUtf8("*.pdf"),
+            None)
+        if (filename != "") :
+            consolidator = Consolidator(self.project, settings)
+            consolidator.toPDF(filename)
 
     def showClausePathDiagram(self):
         clauseList = []
@@ -64,8 +73,17 @@ class MainWindow(QMainWindow):
                              clauseList,
                              0, False)
         if (returnOK == True) :
-            diagramDialog = ClausePathDiagramDialog(self, title2ClauseDict[unicode(choiceID)])
+            diagramDialog = ClausePathDiagramDialog(self, [title2ClauseDict[unicode(choiceID)]])
             diagramDialog.show()
+    
+    def showAllClausesPathDiagram(self):
+        typesList = self.project.getTIM().getRootsList()
+        type2Clause = self.project.getType2Clauses()
+        clausesList = []
+        for type in typesList:
+            clausesList += type2Clause[type]
+        diagramDialog = ClausePathDiagramDialog(self, clausesList)
+        diagramDialog.show()
 
     def editTIM(self):
         editTIMDialog = EditTIMDialog(self, self.project)
@@ -86,11 +104,6 @@ class MainWindow(QMainWindow):
         newDocumentDialog = NewDocumentDialog(self,  self.project)
         newDocumentDialog.show()
         newDocumentDialog.openElementSignal.connect(self.openElement)
-#        self.project.addDocument(document)
-
-    def checkSpaces(self):
-        verification = Verification()
-        verification.checkSpaces(self.project)
 
     def newClause(self, paramDict = {}):
         document = None
@@ -113,12 +126,12 @@ class MainWindow(QMainWindow):
             self.trUtf8("."),
             self.trUtf8("*.prj"),
             None))
-        if (projectPath != ""):
+        if (projectPath.strip() != ""):
             self.project = Project()
             self.project.loadXML(projectPath)
             self.history = []
             self.openElement('project:root')
-        self.ui.actionUpdateConsolidation.setEnabled(self.project.consolidationSettings != {})
+            self.ui.actionUpdateConsolidation.setEnabled(self.project.consolidationSettings != {})
     
     def saveProject(self):
         self.project.saveAll()

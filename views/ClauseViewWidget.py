@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import sys
 from UI import Ui_ClauseView
 from AddRelatedFileDialog import AddRelatedFileDialog
@@ -6,6 +8,9 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
 from project import Project
+from views.EditLinksDialog import EditLinksDialog
+import subprocess
+import os
 
 class ClauseViewWidget(QWidget):
 
@@ -37,14 +42,24 @@ class ClauseViewWidget(QWidget):
         self.closeClauseShortcut.activated.connect(self.upToDocument)
         self.ui.upButton.clicked.connect(self.upToDocument)
         self.ui.titleEdit.textChanged.connect(self.changeTitle)
+        self.ui.relatedFilesTreeWidget.itemActivated.connect(self.openFile)
         self.ui.importFileButton.clicked.connect(self.importFile)
         self.ui.addFileButton.clicked.connect(self.addFile)
         self.ui.textEdit.textChanged.connect(self.enableSave)
         self.ui.titleEdit.textChanged.connect(self.enableSave)
         self.ui.saveButton.clicked.connect(self.saveClause)
+        self.ui.editUplinksButton.clicked.connect(lambda : self.editLinks('uplinks'))
+        self.ui.editDownlinksButton.clicked.connect(lambda : self.editLinks('downlinks'))
         self.ui.createChildClauseButton.clicked.connect(self.createClause)
         self.ui.downlinksTreeWidget.expandAll()
         self.ui.uplinksTreeWidget.expandAll()
+
+    def openFile(self, item):
+        file = self.project.getLocation() + "imported/" + str(item.text(0))
+        if sys.platform == 'linux2':
+            subprocess.call(["xdg-open", file])
+        else:
+            os.startfile(file)
 
     def backHistory(self):
         self.backHistorySignal.emit()
@@ -53,6 +68,16 @@ class ClauseViewWidget(QWidget):
         param = {}
         param['parentClause'] = self.clause
         self.newClauseSignal.emit(param)
+    
+    def editLinks(self, option):
+        editLinksDialog = EditLinksDialog(self, self.project, self.clause, option)
+        if (editLinksDialog.exec_()) :
+            self.ui.uplinksTreeWidget.clear()
+            self.ui.downlinksTreeWidget.clear()
+            self.loadUplinks()
+            self.loadDownlinks()
+            self.ui.downlinksTreeWidget.expandAll()
+            self.ui.uplinksTreeWidget.expandAll()
 
     def enableSave(self):
         self.ui.saveButton.setEnabled(True)

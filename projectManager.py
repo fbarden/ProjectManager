@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from views.MainWindow import MainWindow
 import os, sys
 from PyQt4.QtGui import QApplication
